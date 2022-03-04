@@ -21,8 +21,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
+    public function index(){
+        return view('home.index');
+       
+    }
+      public function help(){
+        return view('home.help',['apps'=>"hello"]);
+    }
+    public function account(){
+      return view('home.account',['apps'=>"hello"]);
+    }
+    public function show($id){
+        $data=[
+            'iphone' =>"iphone",
+            'samsung' =>'heashee'
+        ];
+        return view('home.index',['apps'=> $data[$id] ?? 'App ' . $id . 'does not exist' ]);
     }
 }
