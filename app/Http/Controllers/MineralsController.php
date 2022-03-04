@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMineralRequest;
 use Illuminate\Http\Request;
 use App\Models\Mineral;
 class MineralsController extends Controller
@@ -51,13 +52,14 @@ class MineralsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateMineralRequest $request)
     {
         //
         // $mineral=new Mineral;
         // $mineral->name_of_minerals=$request->input('name_of_minerals');
         // $mineral->save();
         // return redirect('/minerals');
+        $request->validated();
         $mineral= Mineral::create(['name_of_minerals'=>$request->input('name_of_minerals')]);
         return redirect('/minerals');
     }
@@ -72,7 +74,7 @@ class MineralsController extends Controller
     {
         //
         
-       $mineral= Mineral::find($id);
+       $mineral= Mineral::findOrFail($id);
       
        return view('minerals.show')->with('minerals',$mineral);
         // return view('minerals.show',['minerals'=>$mineral]);
@@ -99,10 +101,11 @@ class MineralsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateMineralRequest $request, $id)
     {
         //
-        $mineral= Mineral::where('id',$id)->update(['name_of_minerals'=>$request->input('name_of_minerals')]);
+
+        $mineral= Mineral::where('id',$id)->update($request->validated());
         return redirect('/minerals');
     }
 
