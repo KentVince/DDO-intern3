@@ -13,7 +13,7 @@
 						    <div class="row gx-5 gy-3">
 						        <div class="col-12 col-lg-9">
 							        
-							        <div>Hello, {{ Auth::user()->name; }}.&nbsp;This is where you can manage mineral record</div>
+							        <div>Hello, {{ Auth::user()->name ?? "user!" }}.&nbsp;This is where you can manage mineral record</div>
 							    </div><!--//col-->
 							    <div class="col-12 col-lg-3">
 								    <a class="btn app-btn-primary" href="{{ URL('/minerals/create') }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

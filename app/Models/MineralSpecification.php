@@ -11,8 +11,8 @@ class MineralSpecification extends Model
     protected $table='specification';
     protected $primaryKey='id';
     // A mineral specification belongs to a mineral.
-
-    public function mineral(){
-        return $this->belongsTo(Mineral::class);
-    }
+    //foreign key connection
+    // public function mineral(){
+    //     return $this->belongsTo(Mineral::class);
+    // }
 }
