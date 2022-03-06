@@ -46,4 +46,5 @@
 2. homecontroller - renamed HomeController to MerHomeController
 3. web.php - commented relations in HomeController
 4. layouts - edited routes to href nothing. Old code is commented ( navigate to navbar )
-5. 
+5. Models - changed MineralSpecification to min_specs_dummy
+6. Models - commented foreign key relationships.
