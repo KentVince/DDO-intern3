@@ -5,16 +5,8 @@
 | Domain | Method    | URI                     | Name             | Action                                                                 | Middleware                                  |
 +--------+-----------+-------------------------+------------------+------------------------------------------------------------------------+---------------------------------------------+
 |        | GET|HEAD  | /                       |                  | Closure                                                                | web                                         |
-|        | GET|HEAD  | account                 | account          | App\Http\Controllers\HomeController@account                            | web                                         |
-|        |           |                         |                  |                                                                        | App\Http\Middleware\Authenticate            |
 |        | GET|HEAD  | api/user                |                  | Closure                                                                | api                                         |
 |        |           |                         |                  |                                                                        | App\Http\Middleware\Authenticate:sanctum    |
-|        | GET|HEAD  | apps                    | apps             | App\Http\Controllers\HomeController@apps                               | web                                         |
-|        |           |                         |                  |                                                                        | App\Http\Middleware\Authenticate            |
-|        | GET|HEAD  | help                    | help             | App\Http\Controllers\HomeController@help                               | web                                         |
-|        |           |                         |                  |                                                                        | App\Http\Middleware\Authenticate            |
-|        | GET|HEAD  | home                    | home             | App\Http\Controllers\HomeController@index                              | web                                         |
-|        |           |                         |                  |                                                                        | App\Http\Middleware\Authenticate            |
 |        | GET|HEAD  | login                   | login            | App\Http\Controllers\Auth\LoginController@showLoginForm                | web                                         |
 |        |           |                         |                  |                                                                        | App\Http\Middleware\RedirectIfAuthenticated |
 |        | POST      | login                   |                  | App\Http\Controllers\Auth\LoginController@login                        | web                                         |
@@ -49,3 +41,9 @@
 |        | GET|HEAD  | sanctum/csrf-cookie     |                  | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show             | web                                         |
 +--------+-----------+-------------------------+------------------+------------------------------------------------------------------------+---------------------------------------------+
 ```
+- Commented files to delete
+1. create minerals table - specification migration
+2. homecontroller - renamed HomeController to MerHomeController
+3. web.php - commented relations in HomeController
+4. layouts - edited routes to href nothing. Old code is commented ( navigate to navbar )
+5. 

@@ -18,13 +18,13 @@ class CreateMineralsTable extends Migration
             $table->string('name_of_minerals');
             $table->timestamps();
         });
-        Schema::create('specification', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('mineral_id');
-            $table->string('specification_name');
-            $table->timestamps();
-            $table->foreign('mineral_id')->references('id')->on('minerals')->onDelete('cascade');
-        });
+        // Schema::create('specification', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->unsignedInteger('mineral_id');
+        //     $table->string('specification_name');
+        //     $table->timestamps();
+        //     $table->foreign('mineral_id')->references('id')->on('minerals')->onDelete('cascade');
+        // });
     }
 
     /**

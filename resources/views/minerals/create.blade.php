@@ -38,13 +38,7 @@
                                 </div>
                                 <button type="submit" class="btn app-btn-primary" >Create Mineral Record</button>
                             </form>
-                            @if($errors->any())
-                            <div class="w-4/8 m-auto text-center">
-                                @foreach ($errors->all() as $error)
-                                <li class="text-red-500 list-none">{{$error}}</li>
-                                @endforeach
-                            </div>
-                            @endif
+                       
                         </div><!--//app-card-body-->
                         
                     </div><!--//app-card-->
