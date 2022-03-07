@@ -96,8 +96,8 @@
                                 <table class="table app-table-hover mb-0 text-left">
                                     <thead>
                                         <tr>
-                                            <th class="cell">Mineral ID</th>
-                                            <th class="cell">Mineral Name</th>
+                                            <th class="cell">Specification ID</th>
+                                            <th class="cell">Specification Name</th>
                                             <th class="cell">Created At</th>
                                             <th class="cell">Updated At</th>
                                             <th class="cell"></th>
