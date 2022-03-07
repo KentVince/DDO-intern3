@@ -13,8 +13,8 @@ class Mineral extends Model
     public $timestamps=true;
     protected $fillable = ['name_of_minerals'];
     //mineral foreign key connection
-    public function mineralSpecifications(){
-        return $this->hasMany(MineralSpecification::class);
+    // public function mineralSpecifications(){
+    //     return $this->hasMany(MineralSpecification::class);
 
-    }
+    // }
 }

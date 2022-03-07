@@ -106,8 +106,9 @@
                                     </thead>
                         
                                     <tbody>
-                                     
-                                        @forelse($minerals->mineralSpecifications as $each_mineral)
+                                       
+                                    
+                                        {{-- @forelse($minerals->mineralSpecifications as $each_mineral)
                                 
                                         <tr>
                                             <td class="cell searchable">{{$each_mineral->id}}</td>
@@ -117,9 +118,9 @@
                                             <td class="cell"><a class="btn-sm app-btn-secondary" href="/minerals/{{$each_mineral->id}}/show">View</a></td>
                                            
                                         </tr>
-                                        @empty
+                                        @empty --}}
                                         <tr><td colspan="12">No Specification record collected.&nbsp; <a href="/minerals/caryl">Create one here.</a></td>
-                                        @endforelse
+                                        {{-- @endforelse  --}}
                                         
 
      
