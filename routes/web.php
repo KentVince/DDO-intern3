@@ -16,7 +16,7 @@ use App\Http\Controllers\MineralsController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/minerals/search/{input}/{category}','App\Http\Controllers\MineralsController@search');
 Route::resource('/minerals',MineralsController::class);
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

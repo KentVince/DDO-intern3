@@ -6,6 +6,14 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
             
 		    <div class="container-xl">
+				<p id="table_results" hidden>TABLE RESULTS</p>
+				@if(session()->has('result_msg'))
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					{{ session()->get('result_msg') }}
+					<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+				  </div>
+				@endif
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
@@ -16,7 +24,8 @@
 							        <div>Hello, {{ Auth::user()->name ?? "user!" }}.&nbsp;This is where you can manage mineral record</div>
 							    </div><!--//col-->
 							    <div class="col-12 col-lg-3">
-								    <a class="btn app-btn-primary" href="{{ URL('/minerals/create') }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								
+								    <button class="btn app-btn-primary" id="createminerals_modal_btn" data-toggle="modal" data-target="#exampleModal"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
   <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
   <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
@@ -36,33 +45,37 @@
 				    <div class="col-auto">
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+								<div class="col-auto">
+									<a class="btn app-btn-primary" data-toggle="modal" data-target="#exampleModal" href="{{ URL('/minerals/create') }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"></path>
+										<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"></path>
+										<path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"></path>
+									  </svg>Create a Mineral Record</a></div>
+									
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center">
-                                        <div class="col-auto"><a class="btn app-btn-primary" href="{{ URL('/minerals/create') }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"></path>
-                                            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"></path>
-                                            <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"></path>
-                                          </svg>Create a Mineral Record</a></div>
+								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm">
+                                        
+										 
 					                    <div class="col-auto">
-					                        <input type="text" id="search" name="search" class="form-control search-orders" placeholder="Search">
+					                        <input type="text" name="search" id="searchInput" class="form-control search-orders" placeholder="Search">
 					                    </div>
-                                       
+                                     
 					                    <div class="col-auto">
-					                        <button type="submit" class="btn app-btn-secondary">Search</button>
+					                        <a id="search_btn" class="btn app-btn-secondary">Search</a>
 					                    </div>
-					                </form>
+					               
 					                
 							    </div><!--//col-->
 							    <div class="col-auto">
 								    
-								    <select class="form-select w-auto" >
-										  <option selected value="option-1">All</option>
-										  <option value="option-2">This week</option>
-										  <option value="option-3">This month</option>
-										  <option value="option-4">Last 3 months</option>
-										  
+								    <select class="form-select w-auto" id="search_cat">
+										  <option selected value="all">All</option>
+										  <option value="rec">Recency</option>
+										  <option value="old">Oldest</option>
 									</select>
 							    </div>
+						
+							</form>
 							    <div class="col-auto">						    
 								    <a class="btn app-btn-secondary" href="#">
 									    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +104,7 @@
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
 						    <div class="app-card-body">
 							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left">
+							        <table class="table app-table-hover mb-0 text-left" id="minerals_table">
 										<thead>
 											<tr>
 												<th class="cell">Mineral ID</th>
@@ -143,17 +156,109 @@
 				</div><!--//tab-content-->
 				
 				
-			    
+				<!-- Modal -->
+
 		    </div><!--//container-fluid-->
 
 	    </div><!--//app-content-->
       
     </div>
 </body>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Create a Mineral</h5>
+		
+		</div>
+		<form class="settings-form" method="POST" action="/minerals" id="mineral_form">
+		<div class="modal-body">
+		
+				@csrf
+				<div class="mb-3">
+					<label for="setting-input-1" class="form-label">Create Mineral Form<span class="ms-2" data-container="body" data-bs-toggle="popover" data-trigger="hover" data-placement="top" data-content="This is a Bootstrap popover example. You can use popover to provide extra info."><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+<circle cx="8" cy="4.5" r="1"/>
+</svg></span></label>
+				   
+				</div>
+				<div class="mb-3">
+					<label for="name_of_minerals" class="form-label">Mineral Title</label>
+					<input type="text" class="form-control @error('name_of_minerals') is-invalid @enderror"  id="name_of_minerals" name="name_of_minerals" required>
+					@error('name_of_minerals')
+					<span class="invalid-feedback" role="alert">
+						<strong id ="name_of_minerals_err">{{ $message }}</strong>
+					</span>
+				@enderror
+				</div>
+		
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="submit" class="btn app-btn-primary">Create A Mineral</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+	 
+ 
+
 @endsection
 @section('scripts')
+<script type="text/javascript">
+$(document).ready(function(){
+	// check if error class is triggered.
 
+	if($('span.invalid-feedback strong#name_of_minerals_err').text()!=""){
+		$("#createminerals_modal_btn").trigger("click");
+
+	}else{
+		console.log($('span.invalid-feedback strong').text())
+	}
+	// clear modal error class if detected that it has been closed.
+	$('.modal').on('hidden.bs.modal', function(e)
+    { 
+		$("#name_of_minerals").removeClass('is-invalid');
+    }) ;
+
+});
+
+</script>
 <script>
+		function myFunction(item, index) {
+  text += index + ": " + item + "<br>"; 
+}
+	var doAjaxSearch = function(searchCat,searchInput) {
+		alert(searchCat+"CATEGORY")
+		alert("FULL LINK"+'/minerals/search/'+searchCat+'/'+searchInput);
+    $.ajax({
+       url: '/minerals/search/'+searchCat+'/'+searchInput, // .asp?
+       type: 'GET',
+       data: { 'searchCat': searchCat , 'searchInput':searchInput},
+       success: function( response ) {
+	 $('#table_results').text(response);
+		
+// 		for (let key in response) {
+//   alert(response[key]['name_of_minerals']);
+// }
+
+		
+       },
+	   error: function (xhr, ajaxOptions, thrownError) {
+    alert(xhr.status);
+    alert(thrownError);
+  }
+    });
+};
+	$('#search_btn').click(function() {
+    let searchCat = $('select#search_cat').val();
+	let searchInput=$('#searchInput').val();
+    alert(searchCat+searchInput);
+	doAjaxSearch(searchCat,searchInput)
+
+
+});
 $("#search").keyup(function () {
     var value = this.value.toLowerCase().trim();
 	console.log(this);
@@ -169,6 +274,7 @@ $("#search").keyup(function () {
     });
 });
 	</script>
+
 <script src="assets/plugins/popper.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
 
