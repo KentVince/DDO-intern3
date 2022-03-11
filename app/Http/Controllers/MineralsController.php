@@ -50,7 +50,8 @@ class MineralsController extends Controller
         return view('minerals.create');
     }
 
-    /**
+ /**
+    
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -65,7 +66,7 @@ class MineralsController extends Controller
         // return redirect('/minerals');
         $request->validated();
         $mineral= Mineral::create(['name_of_minerals'=>$request->input('name_of_minerals')]);
-        return redirect('/minerals');
+        return redirect('/minerals')->with('result_msg', "You have successfully added the mineral record.");
     }
 
     /**
@@ -77,10 +78,12 @@ class MineralsController extends Controller
     public function show($id)
     {
         //
-        
+        $data = (object)
        $mineral= Mineral::findOrFail($id);
+       $data->minerals=$mineral;
       
-       return view('minerals.show')->with('minerals',$mineral);
+
+       return view('minerals.show')->with('data',$data);
         // return view('minerals.show',['minerals'=>$mineral]);
     }
 
@@ -110,7 +113,8 @@ class MineralsController extends Controller
         //
 
         $mineral= Mineral::where('id',$id)->update($request->validated());
-        return redirect('/minerals');
+        
+        return redirect("/minerals/$id")->with('result_msg',"Updating Successful.");;
     }
 
     /**
@@ -124,6 +128,16 @@ class MineralsController extends Controller
         //
     
         $mineral->delete();
-        return redirect('/minerals');
+        return redirect('/minerals')->with('result_msg',"Deletion Successful.");;;
     }
+
+    public function search($searchCat, $searchInput)
+    {
+        //
+    
+        $mineral= Mineral::all()->toJson();
+    
+       return $mineral;
+    }
+
 }

@@ -17,7 +17,7 @@ use App\Http\Controllers\FormController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/minerals/search/{input}/{category}','App\Http\Controllers\MineralsController@search');
 Route::resource('/minerals',MineralsController::class);
 Route::resource('/form',FormController::class);
 Auth::routes();
