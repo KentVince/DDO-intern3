@@ -125,7 +125,7 @@
                             <li><a class="dropdown-item" href="account.html">Account</a></li>
                             <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                            <li><a class="dropdown-item" href="login">Log Out</a></li>
                         </ul>
                     </div><!--//app-user-dropdown--> 
                 </div><!--//app-utilities-->
@@ -138,7 +138,7 @@
         <div class="sidepanel-inner d-flex flex-column">
             <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
             <div class="app-branding">
-                <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="{{ URL('/assets/images/app-logo.svg') }}" alt="logo"><span class="logo-text">PORTAL</span></a>
+                <a class="app-logo" href="index"><img class="logo-icon me-2" src="{{ URL('/assets/images/app-logo.svg') }}" alt="logo"><span class="logo-text">PORTAL</span></a>
 
             </div><!--//app-branding-->  
             
