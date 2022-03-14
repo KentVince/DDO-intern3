@@ -125,7 +125,7 @@
                             <li><a class="dropdown-item" href="account.html">Account</a></li>
                             <li><a class="dropdown-item" href="settings.html">Settings</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                            <li><a class="dropdown-item" href="login">Log Out</a></li>
                         </ul>
                     </div><!--//app-user-dropdown--> 
                 </div><!--//app-utilities-->
@@ -138,7 +138,7 @@
         <div class="sidepanel-inner d-flex flex-column">
             <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
             <div class="app-branding">
-                <a class="app-logo" href="index.html"><img class="logo-icon me-2" src="{{ URL('/assets/images/app-logo.svg') }}" alt="logo"><span class="logo-text">PORTAL</span></a>
+                <a class="app-logo" href="index"><img class="logo-icon me-2" src="{{ URL('/assets/images/app-logo.svg') }}" alt="logo"><span class="logo-text">PORTAL</span></a>
 
             </div><!--//app-branding-->  
             
@@ -159,7 +159,7 @@
                     </li><!--//nav-item-->
                     <li class="nav-item">
                         <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/form">
                         {{-- <a class="nav-link {{ request()->is('account') || request()->is('account/*') ? 'active' : '' }}" href="{{route('account')}}"> --}}
                             <span class="nav-icon">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -167,7 +167,7 @@
 <path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"/>
 </svg>
                              </span>
-                             <span class="nav-link-text" >Account</span>
+                             <span class="nav-link-text" >Application Form</span>
                         </a><!--//nav-link-->
                     </li><!--//nav-item-->
                     <li class="nav-item">
