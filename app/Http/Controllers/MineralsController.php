@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateMineralRequest;
+use App\Http\Requests\UpdateMineralRequest;
 use Illuminate\Http\Request;
 use App\Models\Mineral;
+use Illuminate\Support\Facades\DB;
 class MineralsController extends Controller
 {
     public function __construct()
@@ -20,8 +22,7 @@ class MineralsController extends Controller
     public function index()
     {
         // $minerals=Mineral::all();
-        $minerals=Mineral::all()->toJson();
-        $minerals=json_decode($minerals);
+       
         // Pagination Path Query Builder
         // $minerals=DB::table('minerals')->paginate(4);
         // endpagination
@@ -64,7 +65,9 @@ class MineralsController extends Controller
         // $mineral->name_of_minerals=$request->input('name_of_minerals');
         // $mineral->save();
         // return redirect('/minerals');
+        
         $request->validated();
+       
         $mineral= Mineral::create(['name_of_minerals'=>$request->input('name_of_minerals')]);
         return redirect('/minerals')->with('result_msg', "You have successfully added the mineral record.");
     }
@@ -108,12 +111,13 @@ class MineralsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateMineralRequest $request, $id)
+    public function update(UpdateMineralRequest $request, $id)
     {
         //
-
-        $mineral= Mineral::where('id',$id)->update($request->validated());
-        
+        $result=$request->validated();
+    //    $result->name_of_minerals=$result->name_of_minerals2;
+        $result=array("name_of_minerals"=>$result['name_of_minerals2']);
+        $mineral= Mineral::where('id',$id)->update($result);
         return redirect("/minerals/$id")->with('result_msg',"Updating Successful.");;
     }
 
@@ -131,13 +135,30 @@ class MineralsController extends Controller
         return redirect('/minerals')->with('result_msg',"Deletion Successful.");;;
     }
 
-    public function search($searchCat, $searchInput)
+    public function search($searchCat, $searchInput=null)
     {
         //
     
-        $mineral= Mineral::all()->toJson();
-    
-       return $mineral;
+        // $mineral= DB::Table('minerals')->where('name_of_minerals', 'LIKE',"%{$searchInput}%")->get();
+        switch ($searchCat) {
+            case "rec":
+                $searchCat="DESC";
+            
+              break;
+            case "old":
+                $searchCat="ASC";
+             
+              break;
+            default:
+              $searchCat="DESC";
+              break;
+          }
+          $searchInput=$searchInput==null ? "%" : $searchInput;
+         
+        $mineral= Mineral::where('name_of_minerals', 'LIKE',"%{$searchInput}%")->orwhere('id', 'LIKE',"%{$searchInput}%")->orderByRaw("updated_at - created_at {$searchCat}")->paginate(10);
+        
+        
+        return view('minerals.index',['minerals'=>$mineral]);
     }
 
 }

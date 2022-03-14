@@ -3,8 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-class CreateMineralRequest extends FormRequest
+class UpdateMineralRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,19 +22,24 @@ class CreateMineralRequest extends FormRequest
      */
     public function rules()
     {
-        return ["name_of_minerals"=>"required|unique:minerals"];
+        return [
+        
+            "name_of_minerals2"=>"required|unique:minerals,name_of_minerals",
+        
+        ];
+        
     }
     protected function prepareForValidation(){
-        // $this['name_of_minerals']=!empty($this['name_of_minerals2']) ? $this['name_of_minerals2'] : $this['name_of_minerals'];
-        
         
         $this->merge([
-            'name_of_minerals'=>strip_tags($this['name_of_minerals'])
+            'name_of_minerals2'=>strip_tags($this['name_of_minerals2'])
 
         ]);
     }
     public function messages()
     {
-        return ['name_of_minerals.unique' => 'Your mineral name must be unique.'];
+        return ['name_of_minerals2.unique' => 'You must be using your old mineral name or using an existing mineral name.'];
     }
+ 
+
 }

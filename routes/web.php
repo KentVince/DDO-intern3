@@ -16,6 +16,8 @@ use App\Http\Controllers\MineralsController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('minerals/search/cat/{input}/value/{category?}','App\Http\Controllers\MineralsController@search');
 Route::get('/minerals/search/{input}/{category}','App\Http\Controllers\MineralsController@search');
 Route::resource('/minerals',MineralsController::class);
 Auth::routes();

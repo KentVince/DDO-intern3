@@ -6,7 +6,7 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
             
 		    <div class="container-xl">
-				<p id="table_results" hidden>TABLE RESULTS</p>
+				
 				@if(session()->has('result_msg'))
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
 					{{ session()->get('result_msg') }}
@@ -53,15 +53,16 @@
 									  </svg>Create a Mineral Record</a></div>
 									
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm">
-                                        
-										 
+								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm" >
+                                     
+
+										 <input type="submit" disabled style="display: none"/>
 					                    <div class="col-auto">
-					                        <input type="text" name="search" id="searchInput" class="form-control search-orders" placeholder="Search">
+					                        <input type="text" name="search" id="searchInput" class="form-control search-orders" value="{{old('search')}}" placeholder="Search">
 					                    </div>
                                      
 					                    <div class="col-auto">
-					                        <a id="search_btn" class="btn app-btn-secondary">Search</a>
+					                    <a id="search_btn_link" onclick="getSearchQuery()" class="btn app-btn-secondary">Search</a>
 					                    </div>
 					               
 					                
@@ -98,7 +99,7 @@
 				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
 				</nav> --}}
 				
-				
+				<div class="alert alert-success alert-dismissible fade show" id="searchResultAlert" hidden role="alert">Showing Results</div>
 				<div class="tab-content" id="orders-table-tab-content">
 			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
@@ -125,7 +126,7 @@
 												<td class="cell searchable"><span class="truncate">{{$each_mineral->name_of_minerals}}</span></td>
 												<td class="cell">{{$each_mineral->created_at}}</td>
 												<td class="cell"><span class="cell-data">{{$each_mineral->updated_at}}</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="/minerals/{{$each_mineral->id}}">View</a></td>
+												<td class="cell"><button class="btn-sm app-btn-secondary" id="updateminerals_modal_btn" data-toggle="modal" data-mineral-info="{{$each_mineral}}" data-target="#updateModal" >View</button></td>
 												<td class="cell">
 													<form method="POST" class="ignore-css" action="/minerals/{{ $each_mineral->id }}">
 														@csrf
@@ -147,8 +148,10 @@
 						       
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
-						<div class="d-flex justify-content-center">{{$minerals->links()}}</div>
-					
+						{{-- <div class="d-flex justify-content-center">{{$minerals->links()}}</div> --}}
+						@if($minerals->total() > $minerals->perPage())
+						<div class="d-flex justify-content-center" id="pagination_btns" hidden>{{ $minerals->links() }}</div>
+					   @endif
 						
 						
 			        </div><!--//tab-pane-->
@@ -164,6 +167,7 @@
       
     </div>
 </body>
+<!--//after body -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 	  <div class="modal-content">
@@ -185,7 +189,7 @@
 				</div>
 				<div class="mb-3">
 					<label for="name_of_minerals" class="form-label">Mineral Title</label>
-					<input type="text" class="form-control @error('name_of_minerals') is-invalid @enderror"  id="name_of_minerals" name="name_of_minerals" required>
+					<input type="text" placeholder="Input Mineral Name" class="form-control @error('name_of_minerals') is-invalid @enderror"  id="name_of_minerals" name="name_of_minerals" required>
 					@error('name_of_minerals')
 					<span class="invalid-feedback" role="alert">
 						<strong id ="name_of_minerals_err">{{ $message }}</strong>
@@ -201,80 +205,54 @@
 		</div>
 	  </div>
 	</div>
-	 
- 
+</div>
+	 {{-- Update Modal --}}
+	 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="updateModalLabel">Update Mineral</h5>
+			
+			</div>
+			<form class="settings-form" method="POST" id="updateMineralForm">
+			<div class="modal-body">
+					@csrf
+					@method('PUT')
+					<div class="mb-3">
+						<label for="setting-input-1" class="form-label">Update Mineral Form<span class="ms-2" data-container="body" data-bs-toggle="popover" data-trigger="hover" data-placement="top" data-content="This is a Bootstrap popover example. You can use popover to provide extra info."><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+	<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+	<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+	<circle cx="8" cy="4.5" r="1"/>
+	</svg></span></label>
+					   
+					</div>
+					<div class="mb-3">
+						<label for="name_of_minerals" class="form-label">Mineral Title</label>
+						<input type="text" class="form-control @error('name_of_minerals2') is-invalid @enderror"  id="name_of_minerals2" name="name_of_minerals2" required>
+						@error('name_of_minerals2')
+						<span class="invalid-feedback" role="alert">
+							<strong id ="name_of_minerals_err2">{{ $message }}</strong>
+						</span>
+					@enderror
+					</div>
+			
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			  <button type="submit" class="btn app-btn-primary">Update Mineral</button>
+			</form>
+			</div>
+		  </div>
+		</div>
+	
 
 @endsection
 @section('scripts')
-<script type="text/javascript">
-$(document).ready(function(){
-	// check if error class is triggered.
 
-	if($('span.invalid-feedback strong#name_of_minerals_err').text()!=""){
-		$("#createminerals_modal_btn").trigger("click");
-
-	}else{
-		console.log($('span.invalid-feedback strong').text())
-	}
-	// clear modal error class if detected that it has been closed.
-	$('.modal').on('hidden.bs.modal', function(e)
-    { 
-		$("#name_of_minerals").removeClass('is-invalid');
-    }) ;
-
-});
-
-</script>
-<script>
-		function myFunction(item, index) {
-  text += index + ": " + item + "<br>"; 
-}
-	var doAjaxSearch = function(searchCat,searchInput) {
-		alert(searchCat+"CATEGORY")
-		alert("FULL LINK"+'/minerals/search/'+searchCat+'/'+searchInput);
-    $.ajax({
-       url: '/minerals/search/'+searchCat+'/'+searchInput, // .asp?
-       type: 'GET',
-       data: { 'searchCat': searchCat , 'searchInput':searchInput},
-       success: function( response ) {
-	 $('#table_results').text(response);
-		
-// 		for (let key in response) {
-//   alert(response[key]['name_of_minerals']);
-// }
-
-		
-       },
-	   error: function (xhr, ajaxOptions, thrownError) {
-    alert(xhr.status);
-    alert(thrownError);
-  }
-    });
-};
-	$('#search_btn').click(function() {
-    let searchCat = $('select#search_cat').val();
-	let searchInput=$('#searchInput').val();
-    alert(searchCat+searchInput);
-	doAjaxSearch(searchCat,searchInput)
-
-
-});
-$("#search").keyup(function () {
-    var value = this.value.toLowerCase().trim();
-	console.log(this);
-    $("table tr").each(function (index) {
-        if (!index) return;
-        $(this).find("td.searchable").each(function () {
-			console.log("each"+$(this).text());
-            var id = $(this).text().toLowerCase().trim();
-            var not_found = (id.indexOf(value) == -1);
-            $(this).closest('tr').toggle(!not_found);
-            return not_found;
-        });
-    });
-});
-	</script>
-
+<script src="/assets/js/minerals.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="assets/plugins/popper.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
 
