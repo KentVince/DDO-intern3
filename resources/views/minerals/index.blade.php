@@ -11,7 +11,7 @@
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
 					{{ session()->get('result_msg') }}
 					<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+						<span aria-hidden="true"></span>
 				  </div>
 				@endif
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
@@ -42,7 +42,7 @@
 			            <h1 class="app-page-title mb-0">Minerals</h1>
                         
 				    </div>
-				    <div class="col-auto">
+				    {{-- <div class="col-auto">
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 								<div class="col-auto">
@@ -53,23 +53,23 @@
 									  </svg>Create a Mineral Record</a></div>
 									
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm" >
+								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm" action="/minerals/search">
                                      
 
-										 <input type="submit" disabled style="display: none"/>
+									
 					                    <div class="col-auto">
-					                        <input type="text" name="search" id="searchInput" class="form-control search-orders" value="{{old('search')}}" placeholder="Search">
+					                        <input type="text" name="search_query" id="search_val" class="form-control search-orders" value="{{old('search_query')}}" placeholder="Search">
 					                    </div>
                                      
 					                    <div class="col-auto">
-					                    <a id="search_btn_link" onclick="getSearchQuery()" class="btn app-btn-secondary">Search</a>
+					                    <button id="search_btn_link" type="submit" class="btn app-btn-secondary">Search</button>
 					                    </div>
 					               
 					                
 							    </div><!--//col-->
 							    <div class="col-auto">
 								    
-								    <select class="form-select w-auto" id="search_cat">
+								    <select class="form-select w-auto" id="search_cat" name="search_cat">
 										  <option selected value="all">All</option>
 										  <option value="rec">Recency</option>
 										  <option value="old">Oldest</option>
@@ -88,7 +88,7 @@
 							    </div>
 						    </div><!--//row-->
 					    </div><!--//table-utilities-->
-				    </div><!--//col-auto-->
+				    </div><!--//col-auto--> --}}
 			    </div><!--//row-->
 			   
 			    {{-- PANE TAB PANE --}}
@@ -99,10 +99,10 @@
 				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
 				</nav> --}}
 				
-				<div class="alert alert-success alert-dismissible fade show" id="searchResultAlert" hidden role="alert">Showing Results</div>
+			
 				<div class="tab-content" id="orders-table-tab-content">
 			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-					    <div class="app-card app-card-orders-table shadow-sm mb-5">
+					    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
 						    <div class="app-card-body">
 							    <div class="table-responsive">
 							        <table class="table app-table-hover mb-0 text-left" id="minerals_table">
@@ -149,9 +149,9 @@
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
 						{{-- <div class="d-flex justify-content-center">{{$minerals->links()}}</div> --}}
-						@if($minerals->total() > $minerals->perPage())
+						{{-- @if($minerals->total() > $minerals->perPage())
 						<div class="d-flex justify-content-center" id="pagination_btns" hidden>{{ $minerals->links() }}</div>
-					   @endif
+					   @endif --}}
 						
 						
 			        </div><!--//tab-pane-->
@@ -160,7 +160,7 @@
 				
 				
 				<!-- Modal -->
-
+		
 		    </div><!--//container-fluid-->
 
 	    </div><!--//app-content-->

@@ -21,13 +21,13 @@ class MineralsController extends Controller
      */
     public function index()
     {
-        // $minerals=Mineral::all();
+        $minerals=Mineral::all();
        
         // Pagination Path Query Builder
         // $minerals=DB::table('minerals')->paginate(4);
         // endpagination
         // Pagination Eloquent
-        $minerals= Mineral::paginate(10);
+        //$minerals= Mineral::paginate(10);
         
         // $minerals=Mineral::chunk(2,function($minerals){
         //     foreach($minerals as $mineral){
@@ -81,12 +81,12 @@ class MineralsController extends Controller
     public function show($id)
     {
         //
-        $data = (object)
-       $mineral= Mineral::findOrFail($id);
-       $data->minerals=$mineral;
+    //     $data = (object)
+    //    $mineral= Mineral::findOrFail($id);
+    //    $data->minerals=$mineral;
       
 
-       return view('minerals.show')->with('data',$data);
+       return redirect('/minerals');
         // return view('minerals.show',['minerals'=>$mineral]);
     }
 
@@ -118,7 +118,7 @@ class MineralsController extends Controller
     //    $result->name_of_minerals=$result->name_of_minerals2;
         $result=array("name_of_minerals"=>$result['name_of_minerals2']);
         $mineral= Mineral::where('id',$id)->update($result);
-        return redirect("/minerals/$id")->with('result_msg',"Updating Successful.");;
+        return redirect("/minerals")->with('result_msg',"Updating successful.");
     }
 
     /**
@@ -132,33 +132,31 @@ class MineralsController extends Controller
         //
     
         $mineral->delete();
-        return redirect('/minerals')->with('result_msg',"Deletion Successful.");;;
+        return redirect('/minerals')->with('result_msg',"Deletion Successful.");
     }
-
-    public function search($searchCat, $searchInput=null)
-    {
-        //
-    
-        // $mineral= DB::Table('minerals')->where('name_of_minerals', 'LIKE',"%{$searchInput}%")->get();
-        switch ($searchCat) {
-            case "rec":
-                $searchCat="DESC";
+    // public function search(Request $request){
+    //     $query = $request->query();
+    //     $searchCat = $request->query('search_cat', 'all');
+    //     $searchInput=$request->query('search_query', '%');
+    //     switch ($searchCat) {
+    //         case "rec":
+    //             $searchCat="DESC";
             
-              break;
-            case "old":
-                $searchCat="ASC";
+    //           break;
+    //         case "old":
+    //             $searchCat="ASC";
              
-              break;
-            default:
-              $searchCat="DESC";
-              break;
-          }
-          $searchInput=$searchInput==null ? "%" : $searchInput;
+    //           break;
+    //         default:
+    //           $searchCat="DESC";
+    //           break;
+    //       }
          
-        $mineral= Mineral::where('name_of_minerals', 'LIKE',"%{$searchInput}%")->orwhere('id', 'LIKE',"%{$searchInput}%")->orderByRaw("updated_at - created_at {$searchCat}")->paginate(10);
+    //     $mineral= Mineral::where('name_of_minerals', 'LIKE',"%{$searchInput}%")->orwhere('id', 'LIKE',"%{$searchInput}%")->orderByRaw("updated_at - created_at {$searchCat}")->paginate(10);
         
-        
-        return view('minerals.index',['minerals'=>$mineral]);
-    }
-
+    //     session()->flashInput($request->input());
+    //     return view('minerals.index',['minerals'=>$mineral]);
+       
+    // }
+    
 }

@@ -1,5 +1,7 @@
 
-	
+	$(document).ready( function () {
+		$('#minerals_table').DataTable();
+	} );
 	// check if error class is triggered.
 
 	if($('span.invalid-feedback strong#name_of_minerals_err').text()!=""){
@@ -33,124 +35,123 @@
 //get data-id attribute of the clicked element
 var bookId = $(e.relatedTarget).data('mineral-info');
 bookId=Object.values(bookId);
-alert(bookId[1]);
 $('form#updateMineralForm').attr('action', `/minerals/${bookId[0]}`);
 //populate the textbox
 $(e.currentTarget).find('input[name="name_of_minerals2"]').val(bookId[1]);
 });
-function getCorrectDate(unixTimestamp){
-    converted_dt=unixTimestamp.split(/[T.]/);
-return converted_dt[0]+" "+converted_dt[1];
-    }
-	var doAjaxSearch = function(searchCat,searchInput) {
-		if(searchInput==""){
-			searchInput="blank_value";
-		}
-		//alert(searchCat+"CATEGORY")
-		//("FULL LINK"+'/minerals/search/'+searchCat+'/'+searchInput);
-    $.ajax({
-       url: '/minerals/search/'+searchCat+'/'+searchInput, // .asp?
-       type: 'GET',
-       data: { 'searchCat': searchCat , 'searchInput':searchInput},
-       success: function( response ) {
-		   console.log("Response"+response);
+// function getCorrectDate(unixTimestamp){
+//     converted_dt=unixTimestamp.split(/[T.]/);
+// return converted_dt[0]+" "+converted_dt[1];
+//     }
+// 	var doAjaxSearch = function(searchCat,searchInput) {
+// 		if(searchInput==""){
+// 			searchInput="blank_value";
+// 		}
+// 		//alert(searchCat+"CATEGORY")
+// 		//("FULL LINK"+'/minerals/search/'+searchCat+'/'+searchInput);
+//     $.ajax({
+//        url: '/minerals/search/'+searchCat+'/'+searchInput, // .asp?
+//        type: 'GET',
+//        data: { 'searchCat': searchCat , 'searchInput':searchInput},
+//        success: function( response ) {
+// 		   console.log("Response"+response);
            
-		//    console.log("first value"+Object.values(response[0]));
-		   var update_table="";
-		$('#table_results').text(response);
-		response=Object.values(response);
-		console.log("hahaha"+response);
-		Object.entries(response).forEach(([key, val]) => update_table+="<tr><td>"+val['id']+"</td>"+"<td>"+val['name_of_minerals']+"</td>"+"<td>"+getCorrectDate(val['created_at'])+"</td>"+"<td>"+getCorrectDate(val['updated_at'])+"</td></tr>") ;
+// 		//    console.log("first value"+Object.values(response[0]));
+// 		   var update_table="";
+// 		$('#table_results').text(response);
+// 		response=Object.values(response);
+// 		console.log("hahaha"+response);
+// 		Object.entries(response).forEach(([key, val]) => update_table+="<tr><td>"+val['id']+"</td>"+"<td>"+val['name_of_minerals']+"</td>"+"<td>"+getCorrectDate(val['created_at'])+"</td>"+"<td>"+getCorrectDate(val['updated_at'])+"</td></tr>") ;
 		
-		if(update_table==""){
-			update_table='<tr><td colspan="12">No Mineral record available.&nbsp; <a href="/minerals/create">Create one here.</a></td></tr>';
-		}
-		//alert(update_table);
-		$('#minerals_table > tbody').html(update_table);
-		var rowCount = $('#minerals_table tr').length;
-if(rowCount<10){
-	$("#pagination_btns").hide().css("visibility", "hidden");
-}else{
-	$("#pagination_btns").show().css("visibility", "visible");
-}
-	// 	$('#minerals_table').DataTable({
-    //     "ordering": true,
-    //     "data": response,
-    //     "searching": false,
-    //     "columns": [
-    //       {'data':'id'},
-    //       {'data':'name_of_minerals'},
-    //       {'data':'created_at'},
-    //       {'data':'updated_at'}
-    //     ]
-
-    // });
-	
-		
-// 		for (let key in response) {
-//   alert(response[key]['name_of_minerals']);
+// 		if(update_table==""){
+// 			update_table='<tr><td colspan="12">No Mineral record available.&nbsp; <a href="/minerals/create">Create one here.</a></td></tr>';
+// 		}
+// 		//alert(update_table);
+// 		$('#minerals_table > tbody').html(update_table);
+// 		var rowCount = $('#minerals_table tr').length;
+// if(rowCount<10){
+// 	$("#pagination_btns").hide().css("visibility", "hidden");
+// }else{
+// 	$("#pagination_btns").show().css("visibility", "visible");
 // }
+// 	// 	$('#minerals_table').DataTable({
+//     //     "ordering": true,
+//     //     "data": response,
+//     //     "searching": false,
+//     //     "columns": [
+//     //       {'data':'id'},
+//     //       {'data':'name_of_minerals'},
+//     //       {'data':'created_at'},
+//     //       {'data':'updated_at'}
+//     //     ]
+
+//     // });
+	
+		
+// // 		for (let key in response) {
+// //   alert(response[key]['name_of_minerals']);
+// // }
 
 		
-       },
-	   error: function (xhr, ajaxOptions, thrownError) {
-    alert(xhr.status);
-    alert(thrownError);
-  }
-    });
-};
+//        },
+// 	   error: function (xhr, ajaxOptions, thrownError) {
+//     alert(xhr.status);
+//     alert(thrownError);
+//   }
+//     });
+// };
 
-// $('#hide_pagination').click(function() {
-// 	alert("hello");
+// // $('#hide_pagination').click(function() {
+// // 	alert("hello");
 
 
 
-// });
-// $('#show_pagination').click(function() {
-// 	alert("hi");
+// // });
+// // $('#show_pagination').click(function() {
+// // 	alert("hi");
 	
 
 
-// });
+// // });
 
 
-// send an href containing the search query.
+// // send an href containing the search query.
 
+// // function getSearchQuery(){
+// // 	let searchCat = $('select#search_cat').val();
+// // 	let searchInput=$('#searchInput').val();
+// // alert("Yo"+searchCat+searchInput);
+// // $("a#search_btn").attr("href", `/minerals/search/cat/${searchCat}/value/${searchInput}`)
+
+// // }
+
+// // another version of event handling searchQuery
+// // $('form#searchForm').attr('action', 'myNewActionTarget.html');
 // function getSearchQuery(){
 // 	let searchCat = $('select#search_cat').val();
 // 	let searchInput=$('#searchInput').val();
-// alert("Yo"+searchCat+searchInput);
-// $("a#search_btn").attr("href", `/minerals/search/cat/${searchCat}/value/${searchInput}`)
+// 	// $("a#search_btn_link").attr("href", `/minerals/search/cat/${searchCat}/value/${searchInput}`);
+// 	window.location.href =  `/minerals/search/cat/${searchCat}/value/${searchInput}`;
+
+	
 
 // }
-
-// another version of event handling searchQuery
-// $('form#searchForm').attr('action', 'myNewActionTarget.html');
-function getSearchQuery(){
-	let searchCat = $('select#search_cat').val();
-	let searchInput=$('#searchInput').val();
-	// $("a#search_btn_link").attr("href", `/minerals/search/cat/${searchCat}/value/${searchInput}`);
-	window.location.href =  `/minerals/search/cat/${searchCat}/value/${searchInput}`;
-
+// // $('#searchInput').on("keyup", function(e){
+// // 	//do some stuff
 	
-
-}
-$('#searchInput').on("keyup", function(e){
-	//do some stuff
-	
-	if(e.which==13){
-		getSearchQuery();
-	}
- });
+// // 	if(e.which==13){
+// // 		getSearchQuery();
+// // 	}
+// //  });
   
 
 
-// 	$('#search_btn').click(function() {
-//     let searchCat = $('select#search_cat').val();
-// 	let searchInput=$('#searchInput').val();
-//     //alert(searchCat+searchInput);
-// 	doAjaxSearch(searchCat,searchInput)
+// // 	$('#search_btn').click(function() {
+// //     let searchCat = $('select#search_cat').val();
+// // 	let searchInput=$('#searchInput').val();
+// //     //alert(searchCat+searchInput);
+// // 	doAjaxSearch(searchCat,searchInput)
 
 
-// });
+// // });
 
