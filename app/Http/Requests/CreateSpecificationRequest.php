@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreateSpecificationRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return ["specification_name"=>"required|unique:specification,specification_name",
+        "mineral_select"=>"required|exists:minerals,name_of_minerals","mineral_id"=>"required"];
+    }
+    public function messages()
+    {
+        return [
+            'specification_name.unique' => 'Specification record must be unique.',
+            'specification_name.required' => 'A Specification record is required.',
+            'mineral_select.required' => 'The mineral record must exist.',
+        ];
+    }
+    protected function prepareForValidation(){
+        // $this['name_of_minerals']=!empty($this['name_of_minerals2']) ? $this['name_of_minerals2'] : $this['name_of_minerals'];
+        
+        $mineral_string=json_decode(str_replace("'",'"',$this->mineral_select));
+        
+       
+        $this->merge([
+            'specification_name'=>strip_tags($this['specification_name']),'mineral_select'=>strip_tags($mineral_string->name),'mineral_id'=>strip_tags($mineral_string->id)
+        ]);
+    }
+   
+}

@@ -6,7 +6,15 @@
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
             
 		    <div class="container-xl">
-				
+				@if ($errors->any())
+    <div class="alert alert-danger">
+       <ul>
+          @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+          @endforeach
+      </ul>
+   </div>
+@endif
 				@if(session()->has('result_msg'))
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
 					{{ session()->get('result_msg') }}
@@ -17,19 +25,19 @@
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
-						    <h3 class="mb-3">Non-Metallic Minerals</h3>
+						    <h3 class="mb-3">Non-Metallic Specifications</h3>
 						    <div class="row gx-5 gy-3">
 						        <div class="col-12 col-lg-9">
 							        
-							        <div>Hello, {{ Auth::user()->name ?? "user!" }}.&nbsp;This is where you can manage mineral record</div>
+							        <div>Hello, {{ Auth::user()->name ?? "user!" }}.&nbsp;This is where you can manage specification record</div>
 							    </div><!--//col-->
 							    <div class="col-12 col-lg-3">
 								
-								    <button class="btn app-btn-primary" id="createminerals_modal_btn" data-toggle="modal" data-target="#exampleModal"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								    <button class="btn app-btn-primary" id="createspecification_modal_btn" data-toggle="modal" data-target="#exampleModal"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
   <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
   <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
-</svg>Create A Mineral Record</a>
+</svg>Create A Specification Record</a>
 							    </div><!--//col-->
 						    </div><!--//row-->
 						  
@@ -39,21 +47,21 @@
 			    </div><!--//app-card-->
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">Minerals</h1>
+			            <h1 class="app-page-title mb-0">Specifications</h1>
                         
 				    </div>
 				    {{-- <div class="col-auto">
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 								<div class="col-auto">
-									<a class="btn app-btn-primary" data-toggle="modal" data-target="#exampleModal" href="{{ URL('/minerals/create') }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<a class="btn app-btn-primary" data-toggle="modal" data-target="#exampleModal" href="{{ URL('/specification/create') }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 										<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"></path>
 										<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"></path>
 										<path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"></path>
-									  </svg>Create a Mineral Record</a></div>
+									  </svg>Create a Specification Record</a></div>
 									
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm" action="/minerals/search">
+								    <form class="table-search-form row gx-1 align-items-center " id="searchForm"  name="searchForm" action="/specification/search">
                                      
 
 									
@@ -105,11 +113,12 @@
 					    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
 						    <div class="app-card-body">
 							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left" id="minerals_table">
+							        <table class="table app-table-hover mb-0 text-left" id="specification_table">
 										<thead>
 											<tr>
-												<th class="cell">Mineral ID</th>
-												<th class="cell">Mineral Name</th>
+												<th class="cell">Specification ID</th>
+												<th class="cell">Specification Name</th>
+                                                <th class="cell">Mineral Connection</th>
 												<th class="cell">Created At</th>
 												<th class="cell">Updated At</th>
 												<th class="cell" data-sortable="false"></th>
@@ -119,24 +128,25 @@
 							
 										<tbody>
 										
-											@forelse($minerals as $each_mineral)
+											@forelse($specification as $each_mineral)
 									
 											<tr>
 												<td class="cell searchable">{{$each_mineral->id}}</td>
-												<td class="cell searchable"><span class="truncate">{{$each_mineral->name_of_minerals}}</span></td>
+												<td class="cell searchable"><span class="truncate">{{$each_mineral->specification_name}}</span></td>
+                                                <td class="cell searchable"><span class="truncate">{{$each_mineral->mineral->name_of_minerals}}</span></td>
 												<td class="cell">{{$each_mineral->created_at}}</td>
 												<td class="cell"><span class="cell-data">{{$each_mineral->updated_at}}</td>
-												<td class="cell"><button class="btn-sm app-btn-secondary" id="updateminerals_modal_btn" data-toggle="modal" data-mineral-info="{{$each_mineral}}" data-target="#updateModal" >View</button></td>
+												<td class="cell"><button class="btn-sm app-btn-secondary" id="updatespecification_modal_btn" data-toggle="modal" data-specs-info="{{$each_mineral}}" data-mineral-info="{{ $each_mineral->mineral->name_of_minerals }}" data-target="#updateModal" >View</button></td>
 												<td class="cell">
-													<form method="POST" class="ignore-css" action="/minerals/{{ $each_mineral->id }}">
+													<form method="POST" class="ignore-css" action="/specification/{{ $each_mineral->id }}">
 														@csrf
 														@method('delete')
-													<button class="btn-sm app-btn-danger" onclick="return confirm('Are you sure you want to delete this mineral record?');">Delete</button>
+													<button class="btn-sm app-btn-danger" onclick="return confirm('Are you sure you want to delete this specification record?');">Delete</button>
 												</form>
 											</td>
 											</tr>
 											@empty
-											<tr><td colspan="12">No Mineral record available.&nbsp; <a href="/minerals/create">Create one here.</a></td>
+											<tr><td colspan="12">No Specification record available.&nbsp; <a href="/specification/create">Create one here.</a></td>
 											@endforelse
 											
 										
@@ -148,9 +158,9 @@
 						       
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
-						{{-- <div class="d-flex justify-content-center">{{$minerals->links()}}</div> --}}
-						{{-- @if($minerals->total() > $minerals->perPage())
-						<div class="d-flex justify-content-center" id="pagination_btns" hidden>{{ $minerals->links() }}</div>
+						{{-- <div class="d-flex justify-content-center">{{$specification->links()}}</div> --}}
+						{{-- @if($specification->total() > $specification->perPage())
+						<div class="d-flex justify-content-center" id="pagination_btns" hidden>{{ $specification->links() }}</div>
 					   @endif --}}
 						
 						
@@ -169,9 +179,9 @@
 	
 </body>
 <!--//after body create modal --> 
-@include('minerals.modals.createMineral')
+@include('specification.modals.createSpecification')
 </div>
-@include('minerals.modals.updateMineral')
+@include('specification.modals.updateSpecification')
 	 {{-- Update Modal --}}
 	
 	
@@ -179,7 +189,7 @@
 @endsection
 @section('scripts')
 
-<script src="/assets/js/minerals.js"></script>
+<script src="/assets/js/specifications.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
   
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>

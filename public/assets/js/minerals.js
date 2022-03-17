@@ -1,6 +1,9 @@
 
 	$(document).ready( function () {
-		$('#minerals_table').DataTable();
+		$('#minerals_table').DataTable(
+		
+		);
+		
 	} );
 	// check if error class is triggered.
 
