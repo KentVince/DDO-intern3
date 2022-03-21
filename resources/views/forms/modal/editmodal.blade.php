@@ -1,14 +1,13 @@
-<!-- Modal -->
 <div class="modal fade" id="ModalEdit{{$item->id}}" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
+        <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ __('Applicant Details') }}</h5>
+          <h5 class="modal-title">{{ __('Applicant Details') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ url('form/' .$item->id) }}" method="post" class="row g-3">
-                {{ method_field('patch') }}
+            <form action="{{ route('form.update', $item->id) }}" method="post" class="row g-3" enctype="multipart/form-data">
+                {{ method_field('PUT') }}
                 {!! csrf_field() !!}
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -53,7 +52,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Extraction Fee</label>
-                        <input type="text" class="form-control" id="extraction_fee" name="extraction_fee" readonly="" value="{{ $item->extraction_fee }}">
+                        <input type="text" class="form-control" id="extraction_fees" name="extraction_fee" readonly="" value="{{ $item->extraction_fee }}">
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
@@ -65,7 +64,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Volume/Tonnage</label>
-                        <input type="text" class="form-control" id="tonnage" name="tonnage" value="{{ $item->tonnage }}">
+                        <input type="text" class="form-control" id="tonnages" name="tonnage" value="{{ $item->tonnage }}">
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Cosigned To</label>
@@ -73,7 +72,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Estimated Value</label>
-                        <input type="text" class="form-control" id="estimated_value" name="estimated_value" readonly="" value="{{ $item->estimated_value }}">
+                        <input type="text" class="form-control" id="estimated_values" name="estimated_value" readonly="" value="{{ $item->estimated_value }}">
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Mailing Address</label>
@@ -81,7 +80,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">No. of Vehicle</label>
-                        <input type="text" class="form-control" id="num_vehicle" name="num_vehicle" readonly="" value="{{ $item->num_vehicle }}">
+                        <input type="text" class="form-control" id="num_vehicles" name="num_vehicle" readonly="" value="{{ $item->num_vehicle }}">
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Specification</label>
@@ -95,4 +94,5 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+

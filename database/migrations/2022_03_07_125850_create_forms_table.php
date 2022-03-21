@@ -27,11 +27,11 @@ class CreateFormsTable extends Migration
             $table->integer('num_vehicle');
             $table->string('specification');
             $table->double('processing_fee');
-            $table->integer('processing_or');
+            $table->string('processing_or');
             $table->double('excise_tax');
-            $table->integer('excise_or');
+            $table->string('excise_or');
             $table->double('extraction_fee');
-            $table->integer('extraction_or');
+            $table->string('extraction_or');
             $table->string('buyer');
             $table->string('buyer_mail');
             $table->string('total_print')->nullable();
