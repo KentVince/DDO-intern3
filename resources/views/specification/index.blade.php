@@ -79,7 +79,7 @@
 								    
 								    <select class="form-select w-auto" id="search_cat" name="search_cat">
 										  <option selected value="all">All</option>
-										  <option value="rec">Recency</option>
+										  <option value="rec">Recenct</option>
 										  <option value="old">Oldest</option>
 									</select>
 							    </div>
