@@ -55,7 +55,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
-                        <input type="text" class="form-control"  name="kind_mineral" required>
+                        <select class="form-select" aria-label="Default select example" name="kind_mineral" required>
+                            <option selected>Open this select menu</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Hollowblacks</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Extraction OR</label>
@@ -83,7 +88,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Specification</label>
-                        <input type="text" class="form-control"  name="specification" required>
+                        <select class="form-select" aria-label="Default select example" name="specification" required>
+                            <option selected>Open this select menu</option>
+                            <option>Cement</option>
+                            <option>Sand</option>
+                            <option>Hollowblacks</option>
+                        </select>
                     </div>
                     <div class="col-12 float-end">
                       <button type="submit" class="btn btn-primary">Add</button>

@@ -70,7 +70,7 @@
 					    </div>   
 				    </div>
 			    </div>
-				<div class="tab-content" id="orders-table-tab-content">
+				{{-- <div class="tab-content" id="orders-table-tab-content">
 			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
 						    <div class="app-card-body">
@@ -80,7 +80,21 @@
 						    </div>	
 						</div>	
 			        </div>        
-				</div>
+				</div> --}}
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>List of Applicants</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    @include('forms.table')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>          
 		    </div>
 	    </div>    
     </div>
