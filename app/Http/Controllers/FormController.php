@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Forms;
+use App\Models\Mineral;
 
 class FormController extends Controller
 {
     public function index()
     {
-        $forms = Forms::all();
-      return view ('forms.index')->with('forms', $forms);
-      
+      $minerals=Mineral::select('name_of_minerals','id')->get();
+      $forms = Forms::all();
+    //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
+      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals]);
     }
 
     public function create()

@@ -56,7 +56,14 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
-                        <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}">
+                        {{-- <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}"> --}}
+                        <select class="form-select" aria-label="Default select example" name="kind_mineral" value="{{ $item->kind_mineral }}" required>
+                            <option selected value="{{ $item->kind_mineral }}">Open this select menu</option>
+                            @foreach($minerals as $each_mineral)
+						<option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
+						
+						@endforeach
+                        </select>
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Extraction OR</label>

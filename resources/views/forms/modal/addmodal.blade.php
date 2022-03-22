@@ -57,9 +57,10 @@
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
                         <select class="form-select" aria-label="Default select example" name="kind_mineral" required>
                             <option selected>Open this select menu</option>
-                            <option>Cement</option>
-                            <option>Sand</option>
-                            <option>Hollowblacks</option>
+                            @foreach($minerals as $each_mineral)
+						<option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
+						
+						@endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
