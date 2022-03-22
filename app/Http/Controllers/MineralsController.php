@@ -99,8 +99,6 @@ class MineralsController extends Controller
     public function edit(Mineral $mineral)
     {
         //
-     
-    
         return view('minerals.edit')->with('minerals',$mineral);
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MineralsController;
+use App\Http\Controllers\SpecificationController;
 use App\Http\Controllers\FormController;
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ Route::get('/', function () {
 });
 // Route::get('/minerals/search/{input}/{category}','App\Http\Controllers\MineralsController@search');
 Route::resource('/minerals',MineralsController::class);
+Route::resource('/specification',SpecificationController::class);
 Route::resource('/form',FormController::class);
 Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
