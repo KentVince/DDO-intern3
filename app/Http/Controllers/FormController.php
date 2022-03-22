@@ -11,6 +11,7 @@ class FormController extends Controller
     public function index()
     {
         $forms = Forms::all();
+        print($forms);
       return view ('forms.index')->with('forms', $forms);
       
     }
@@ -23,9 +24,13 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
+        $request['mineral_id']=12;
+        $request['processing_fee']=12.0;
+        $request['excise_tax']=12.0;
         $input = $request->all();
+        
         Forms::create($input);
-        return redirect('form')->with('flash_message', 'Form Addedd!');
+        return redirect('form')->with('flash_message', 'Form Added!');
     
     }
 

@@ -17,4 +17,8 @@ class Mineral extends Model
         return $this->hasMany(MineralSpecification::class);
 
     }
+    public function forms()
+    {
+        return $this->belongsToMany(Forms::class);
+    }
 }

@@ -10,4 +10,9 @@ class Forms extends Model
     protected $table = 'forms';
     protected $primaryKey = 'id';
     protected $guarded = [];
+    public function minerals()
+    {
+        return $this->hasMany(Mineral::class);
+    }
+    
 }
