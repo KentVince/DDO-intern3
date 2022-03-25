@@ -1,14 +1,14 @@
-<div class="modal fade" id="ModalCreate" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
+<!-- Modal -->
+<div class="modal fade" id="ModalCreate2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">{{ __('Application Form') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="exampleModalLabel">Application Form</h5>
         </div>
-            <div class="modal-body">
-                <form action="{{ url('form') }}" method="post" >
+        <div class="modal-body">
+            <form action="/form" method="post">
                 {!! csrf_field() !!}
-                <div class="row g-3">
+                <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">OTP Number</label>
                         <input type="text" class="form-control" name="otp_number"  required>
@@ -91,12 +91,13 @@
                         <label for="inputCity" class="form-label">Specification</label>
                         <input type="text" class="form-control"  name="specification"  required>
                     </div>
-                    <div class="col-12 float-end">
-                      <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-secondary">Add</button>
                 </div>
             </form>
         </div>
       </div>
     </div>
-</div>
+  </div>

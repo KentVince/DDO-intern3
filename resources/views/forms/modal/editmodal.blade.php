@@ -3,7 +3,7 @@
         <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{ __('Applicant Details') }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form action="{{ route('form.update', $item->id) }}" method="post" class="row g-3" enctype="multipart/form-data">

@@ -1,62 +1,64 @@
-<div class="modal fade" id="ModalCreate" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
+<!-- Modal -->
+<div class="modal fade" id="ModalEdit2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">{{ __('Application Form') }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="exampleModalLabel">Applicant Details</h5>
         </div>
-            <div class="modal-body">
-                <form action="{{ url('form') }}" method="post" >
+        <div class="modal-body">
+            <form  method="post" id="updatelForm" >
+                {{ method_field('PUT') }}
                 {!! csrf_field() !!}
-                <div class="row g-3">
+                <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">OTP Number</label>
-                        <input type="text" class="form-control" name="otp_number"  required>
+                        <input type="text" class="form-control" name="otp_number2" id="otp_number" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Processing Fee</label>
-                        <input type="text" class="form-control"  name="processing_fee" required>
+                        <input type="text" class="form-control" id="processing_fee" name="processing_fee2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Name of Permittee</label>
-                        <input type="text" class="form-control" name="name_permitte"  required>
+                        <input type="text" class="form-control" name="name_permitte2">
                     </div>
                     <div class="col-md-6">
                         <label for="inputAddress2" class="form-label">Processing OR</label>
-                        <input type="text" class="form-control"  name="processing_or" required>
+                        <input type="text" class="form-control" id="processing_or" name="processing_or2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputAddress" class="form-label">Municipality</label>
-                        <input type="text" class="form-control" name="municipality" required>
+                        <input type="text" class="form-control" id="municipality" name="municipality2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputAddress" class="form-label">Barangay</label>
-                        <input type="text" class="form-control"  name="barangay" required>
+                        <input type="text" class="form-control" id="barangay" name="barangay2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Excise Tax</label>
-                        <input type="text" class="form-control"  name="excise_tax" required>
+                        <input type="text" class="form-control" id="excise_tax" name="excise_tax2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Name of Applicant</label>
-                        <input type="text" class="form-control"  name="name_applicant" required>
+                        <input type="text" class="form-control" id="name_applicant" name="name_applicant2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Excise OR</label>
-                        <input type="text" class="form-control"  name="excise_or" required>
+                        <input type="text" class="form-control" id="excise_or" name="excise_or2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Mailing Address</label>
-                        <input type="text" class="form-control"  name="applicant_mail" required>
+                        <input type="text" class="form-control" id="applicant_mail" name="applicant_mail2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Extraction Fee</label>
-                        <input type="text" class="form-control" id="extraction_fee" name="extraction_fee" readonly="" required>
+                        <input type="text" class="form-control" id="extraction_fees" name="extraction_fee2" readonly="" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
-                        <select class="form-select" aria-label="Default select example" name="kind_mineral" required>
-                            <option selected value="">Select</option>
+                        {{-- <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}"> --}}
+                        <select class="form-select" aria-label="Default select example" name="kind_mineral2"  required>
+                            <option selected value="{{ $item->kind_mineral }}">Open this select menu</option>
                             @foreach($minerals as $each_mineral)
 						<option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
 						
@@ -65,38 +67,39 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Extraction OR</label>
-                        <input type="text" class="form-control"  name="extraction_or" required>
+                        <input type="text" class="form-control" id="extraction_or" name="extraction_or2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Volume/Tonnage</label>
-                        <input type="text" class="form-control" id="tonnage" name="tonnage" required>
+                        <input type="text" class="form-control" id="tonnages" name="tonnage2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Cosigned To</label>
-                        <input type="text" class="form-control"  name="buyer" required>
+                        <input type="text" class="form-control" id="buyer" name="buyer2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Estimated Value</label>
-                        <input type="text" class="form-control" id="estimated_value" name="estimated_value" readonly="" required>
+                        <input type="text" class="form-control" id="estimated_values" name="estimated_value2" readonly="" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Mailing Address</label>
-                        <input type="text" class="form-control"  name="buyer_mail" required>
+                        <input type="text" class="form-control" id="buyer_mail" name="buyer_mail2" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">No. of Vehicle</label>
-                        <input type="text" class="form-control" id="num_vehicle" name="num_vehicle" readonly="" required>
+                        <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly="" >
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Specification</label>
-                        <input type="text" class="form-control"  name="specification"  required>
+                        <input type="text" class="form-control" id="specification" name="specification2" >
                     </div>
-                    <div class="col-12 float-end">
-                      <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-warning">Save changes</button>
                 </div>
             </form>
         </div>
       </div>
     </div>
-</div>
+  </div>
