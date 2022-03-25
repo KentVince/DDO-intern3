@@ -16,7 +16,7 @@
                         </div>
                         </div>
                     </div>
-                </section>      
+                </section>
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                @include('forms.modal.addmodal') 
+                @include('forms.modal.addmodal')
             </section>
                 <section class="content">
                     <div class="container-fluid">
@@ -63,11 +63,11 @@
 							        <div>Hello, {{ Auth::user()->name ?? "user!" }}.&nbsp;This is where you can add new form</div>
 							    </div><!--//col-->
 							    <div class="col-12 col-lg-3">
-                                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#ModalCreate">{{ __('Add New Record') }}</a> 
-                                    @include('forms.modal.addmodal') 
+                                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#ModalCreate">{{ __('Add New Record') }}</a>
+                                    @include('forms.modal.addmodal')
 							    </div>
 						    </div>
-					    </div>   
+					    </div>
 				    </div>
 			    </div>
 				{{-- <div class="tab-content" id="orders-table-tab-content">
@@ -76,10 +76,10 @@
 						    <div class="app-card-body">
 							    <div class="table-responsive">
                                     @include('forms.table')
-						        </div>  
-						    </div>	
-						</div>	
-			        </div>        
+						        </div>
+						    </div>
+						</div>
+			        </div>
 				</div> --}}
                 <section class="content-header">
                     <div class="container-fluid">
@@ -94,9 +94,9 @@
                             </div>
                         </div>
                     </div>
-                </section>          
+                </section>
 		    </div>
-	    </div>    
+	    </div>
     </div>
 </body>
 @endsection
@@ -105,9 +105,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <!-- Page Specific JS -->
-<script src="assets/js/app.js"></script> 
-<script src="assets/js/add.js"></script> 
-<script src="assets/js/edit.js"></script> 
+<script src="assets/js/app.js"></script>
+<script src="assets/js/add.js"></script>
+{{-- <script src="assets/js/edit.js"></script>  --}}
 
 <!-- Datatables CDN -->
 <script src="//code.jquery.com/jquery-1.12.3.js"></script>
@@ -116,8 +116,8 @@
   $(document).ready(function() {
     $('#myTable').DataTable();
 } );
-</script> 
+</script>
 <!-- Boostrap CDN-->
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> 
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 @endsection

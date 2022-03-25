@@ -15,3 +15,27 @@ jQuery(($) => {
         $("#extraction_fees").val(total_extraction_fee);
     });
 });
+// $(".modal.updateModal").on("hidden.bs.modal", function(){
+//     id = $(this).attr('id')
+//       alert("modal closed");
+//       alert(id);
+//       $(this).find('form').trigger('reset');
+//     // $(".modal-body1").html("");
+// });
+
+// $('select#kind_mineral').on('change', function() {
+//     $('ul#specs_group').empty();
+//   alert( this.value );
+
+//   var mineralInfo = $(this).find(':selected').data('mineral-variable');
+
+//   for(let i=0;i<mineralInfo.length; i++){
+//       var currentSpec=Object.values(mineralInfo[i]);
+
+//      $(' #specs_group').append(`<li class="list-group-item">${currentSpec[2]}</li>`);
+
+//   }
+
+
+
+// });

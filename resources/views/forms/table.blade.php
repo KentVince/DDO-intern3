@@ -6,7 +6,7 @@
                 <th>Name Of Permittee</th>
                 <th>Name of Applicant</th>
                 <th>Buyer</th>
-                <th>Total Tonnage</th>   
+                <th>Total Tonnage</th>
                 <th>Date of Filling</th>
                 <th>Updated At</th>
                 <th>View</th>
@@ -22,9 +22,10 @@
                 <td>{{ $item->buyer }}</td>
                 <td>{{ $item->tonnage }}</td>
                 <td>{{ $item->created_at }}</td>
+                {{-- <td>{{ $item->mineral->name_of_minerals }}</td> --}}
                 <td>{{ $item->updated_at }}</td>
                 <td>
-                    <a class="btn btn-secondary btn-sm" href="#" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$item->id}}">{{ __('View') }}</a>  
+                    <a class="btn btn-secondary btn-sm" href="#" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$item->id}}">{{ __('View') }}</a>
                 </td>
                 <td>
                     <form method="POST" action="{{ url('/form' . '/' . $item->id) }}" accept-charset="UTF-8">
@@ -38,6 +39,6 @@
         @endforeach
         </tbody>
     </table>
-     
+
 
 

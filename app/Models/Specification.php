@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specification extends Model
 {
-    
+
     use HasFactory;
     protected $table='specification';
     protected $primaryKey='id';
+    protected $with = ['mineral'];
     protected $fillable=['specification_name','mineral_id'];
     // A mineral specification belongs to a mineral.
     // foreign key connection
     public function mineral(){
         return $this->belongsTo(Mineral::class);
     }
+
 }

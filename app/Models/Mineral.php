@@ -14,11 +14,12 @@ class Mineral extends Model
     protected $fillable = ['name_of_minerals'];
     //mineral foreign key connection
     public function mineralSpecifications(){
-        return $this->hasMany(MineralSpecification::class);
+        return $this->hasMany(Specification::class);
 
     }
-    public function forms()
-    {
-        return $this->belongsToMany(Forms::class);
-    }
+
+    // public function specifications(){
+    //     return $this->hasManyThrough(Specification::class,Mineral::class);
+    // }
+
 }
