@@ -25,7 +25,7 @@
                 {{-- <td>{{ $item->mineral->name_of_minerals }}</td> --}}
                 <td>{{ $item->updated_at }}</td>
                 <td>
-                    <a class="btn btn-secondary btn-sm" href="#" data-bs-toggle="modal" data-bs-target="#ModalEdit{{$item->id}}">{{ __('View') }}</a>
+                    <a class="btn btn-secondary btn-sm" href="#" data-toggle="modal" data-target="#ModalEdit2{{$item->id}}">{{ __('View') }}</a>
                 </td>
                 <td>
                     <form method="POST" action="{{ url('/form' . '/' . $item->id) }}" accept-charset="UTF-8">
@@ -34,7 +34,7 @@
                         <button type="submit" class="btn btn-danger btn-sm" title="Delete Form" onclick="return confirm(&quot;Confirm delete?&quot;)">Delete</button>
                     </form>
                 </td>
-                @include('forms.modal.editmodal')
+                @include('forms.modal.editmodal2')
             </tr>
         @endforeach
         </tbody>
