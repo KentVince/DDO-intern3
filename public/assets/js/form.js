@@ -15,7 +15,7 @@ $(document).ready(function () {
         $(e.currentTarget).find('input[name="processing_or2"]').val(bookId[13]);
         $(e.currentTarget).find('input[name="municipality2"]').val(bookId[3]);
         $(e.currentTarget).find('input[name="barangay2"]').val(bookId[4]);
-        $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[13]);
+        $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[14]);
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[5]);
         $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[9]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[6]);

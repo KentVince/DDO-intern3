@@ -12,7 +12,7 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">OTP Number</label>
-                        <input type="text" class="form-control" name="otp_number2" id="otp_number" >
+                        <input type="text" class="form-control" name="otp_number2" id="otp_number">
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Processing Fee</label>
