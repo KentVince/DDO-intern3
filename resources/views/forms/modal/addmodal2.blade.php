@@ -55,11 +55,11 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
-                        <select class="form-select" aria-label="Default select example" name="kind_mineral" required>
+                        <select class="form-select" aria-label="Default select example" name="kind_mineral" id="kind_mineral" required>
                             <option selected value="">Select</option>
                             @foreach($minerals as $each_mineral)
-						<option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
-						
+						<option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
+
 						@endforeach
                         </select>
                     </div>
@@ -88,8 +88,9 @@
                         <input type="text" class="form-control" id="num_vehicle" name="num_vehicle" readonly="" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCity" class="form-label">Specification</label>
-                        <input type="text" class="form-control"  name="specification"  required>
+                        <label for="specification" class="form-label">Specification</label>
+                        <ul name="specification" id="specs_group">
+                          </ul>
                     </div>
                 </div>
                 <div class="modal-footer">

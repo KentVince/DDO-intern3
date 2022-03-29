@@ -29,6 +29,7 @@ class CreateSpecificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('specifications');
+      
+        Schema::dropIfExists('specification');
     }
 }

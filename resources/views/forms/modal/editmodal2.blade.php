@@ -57,11 +57,10 @@
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
                         {{-- <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}"> --}}
-                        <select class="form-select" aria-label="Default select example" name="kind_mineral2"  required>
-                            <option selected value="{{ $item->kind_mineral }}">Open this select menu</option>
+                        <select class="form-select" aria-label="Default select example" name="kind_mineral2" id="kind_mineral2"  required>
                             @foreach($minerals as $each_mineral)
-						<option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
-						
+						<option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
+
 						@endforeach
                         </select>
                     </div>
@@ -90,8 +89,10 @@
                         <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly="" >
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCity" class="form-label">Specification</label>
-                        <input type="text" class="form-control" id="specification" name="specification2" >
+                        <label for="specification2" class="form-label">Specification</label>
+                        <ul name="specification2" id="specs_group_edit">
+
+                          </ul>
                     </div>
                 </div>
                 <div class="modal-footer">

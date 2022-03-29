@@ -1,4 +1,4 @@
-<div class="modal fade" id="ModalEdit{{$item->id}}" tabindex="-1">
+<div class="modal fade updateModal" id="ModalEdit{{$item->id}}" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
         <div class="modal-header">
@@ -55,14 +55,16 @@
                         <input type="text" class="form-control" id="extraction_fees" name="extraction_fee" readonly="" value="{{ $item->extraction_fee }}">
                     </div>
                     <div class="col-md-6">
-                        <label for="inputCity" class="form-label">Kind of Mineral</label>
+                        <label for="inputCity" class="form-label">Mineral Type</label><small>&nbsp; Currently :{{$item->mineral->name_of_minerals}} </small>
                         {{-- <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}"> --}}
-                        <select class="form-select" aria-label="Default select example" name="kind_mineral" value="{{ $item->kind_mineral }}" required>
-                            <option selected value="{{ $item->kind_mineral }}">Open this select menu</option>
+                        <select class="form-select" aria-label="Default select example" id="kind_mineral" name="mineral_id" required>
+                            <option selected value="{{$item->mineral->id}}" data-mineral-variable="{{ $item->mineral->mineralSpecifications}}">{{$item->mineral->name_of_minerals}}</option>
                             @foreach($minerals as $each_mineral)
-						<option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
-						
-						@endforeach
+                            @if($each_mineral['name_of_minerals'] !== $item->mineral->name_of_minerals)
+                            <option value="{{$each_mineral['id']}}" data-mineral-variable="{{ $each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
+                            @endif
+						    {{-- <option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}" data-mineral-variable="{{ $each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option> --}}
+						    @endforeach
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -91,7 +93,18 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Specification</label>
-                        <input type="text" class="form-control" id="specification" name="specification" value="{{ $item->specification }}">
+                        <input type="text" class="form-control" id="specification" name="specification" value="{{ $item->specification}}">
+                    </div>
+                    <div class="col-md-6" >
+                        <label for="inputCity" class="form-label"> Specifications</label>
+                    <ul class="list-group" id="specs_group">
+                        {{-- @forelse($item->mineral->mineralSpecifications as $userSpecs)
+                        <li class="list-group-item">{{$userSpecs->specification_name}}</li>
+                        @empty
+                        <h5>No record</h5>
+                        @endforelse --}}
+
+                      </ul>
                     </div>
                     <div class="col-12 float-right">
                         <button type="submit" class="btn btn-warning">Edit</button>
@@ -102,4 +115,43 @@
       </div>
     </div>
 </div>
+{{-- <script>
 
+
+// A $( document ).ready() block.
+$( document ).ready(function() {
+    alert( "ready!" );
+    $(".modal").on("show.bs.modal", function(){
+
+
+    // $(".modal-body1").html("");
+});
+$(".modal.updateModal").on("hidden.bs.modal", function(){
+    id = $(this).attr('id')
+      alert("modal closed");
+      alert(id);
+      $(this).find('form').trigger('reset');
+    // $(".modal-body1").html("");
+});
+});
+
+$('select#kind_mineral').on('change', function() {
+    $('ul#specs_group').empty();
+  alert( this.value );
+
+  var mineralInfo = $(this).find(':selected').data('mineral-variable');
+
+  for(let i=0;i<mineralInfo.length; i++){
+      var currentSpec=Object.values(mineralInfo[i]);
+
+     $(' #specs_group').append(`<li class="list-group-item">${currentSpec[2]}</li>`);
+
+  }
+
+
+
+});
+
+
+    </script>
+ --}}

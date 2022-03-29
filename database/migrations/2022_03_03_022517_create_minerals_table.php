@@ -34,6 +34,8 @@ class CreateMineralsTable extends Migration
      */
     public function down()
     {
+       
+        
         Schema::dropIfExists('minerals');
     }
 }
