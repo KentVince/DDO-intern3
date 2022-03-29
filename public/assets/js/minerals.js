@@ -1,5 +1,18 @@
 $(document).ready(function () {
+    
+    $('.toggle-alert').click(function(){
+        $('.toast').toggle();
+      });
+
     $("#minerals_table").DataTable();
+    $('.toast').toast('show',{
+        animation: true,
+        autohide: true,
+        delay: 500
+      });
+      $(window).scroll(function(){
+        $("#mineral_notif").stop().animate({"marginTop": ($(window).scrollTop()) + "px", "marginLeft":($(window).scrollLeft()) + "px"}, "slow" );
+      });
 });
 // check if error class is triggered.
 
@@ -30,8 +43,45 @@ $(".modal#updateModal").on("show.bs.modal", function (e) {
     $("form#updateMineralForm").attr("action", `/minerals/${bookId[0]}`);
     //populate the textbox
     $(e.currentTarget).find('input[name="name_of_minerals2"]').val(bookId[1]);
-    alert(bookId);
+  
 });
+
+function confirmAction(info,status,formId){
+    var td_name=$('#td_name').text();
+   
+    if(status=="danger"){
+        swal({
+            title: `Are you sure you want to delete this ${info}?`,
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            dangerMode: true,
+            buttons:  {   
+                cancel: {
+                    text: "I changed my mind.",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true
+                  },
+                confirm: {
+                    text: "Yes, I'm sure.",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true
+                  }}
+                
+          }).then((value) => {
+              if(value==true){
+                $(`#${formId}`).submit();
+              }
+          
+          });
+
+         
+    }
+
+}
 // function getCorrectDate(unixTimestamp){
 //     converted_dt=unixTimestamp.split(/[T.]/);
 // return converted_dt[0]+" "+converted_dt[1];
