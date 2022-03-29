@@ -1,27 +1,55 @@
 @extends('layouts.app')
 @section('content')
 <body class="app">
+	@if(session()->has('result_msg'))
+	
+	<div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
+		<div class="toast bg-primary text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
+		  <div class="toast-header ">
+			<i class="fa-solid fa-badge-check"></i>
+			<strong class="mr-auto">Notification</strong>
+			<small>Today</small>
+			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			  <span aria-hidden="true" class="toggle-alert">&times;</span>
+			</button>
+		  </div>
+		  <div class="toast-body">
+		{{ session()->get('result_msg') }}
+		  </div>
+		</div>
+	  </div>
+	
+	@endif
+	@if ($errors->any())
+    <div class="alert alert-danger">
+       <ul>
+          @foreach ($errors->all() as $error)
+		  <div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
+			<div class="toast bg-primary text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
+			  <div class="toast-header ">
+				<i class="fa-solid fa-badge-check"></i>
+				<strong class="mr-auto">Notification</strong>
+				<small>Today</small>
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+				  <span aria-hidden="true" class="toggle-alert">&times;</span>
+				</button>
+			  </div>
+			  <div class="toast-body">
+			{{ $error }}
+			  </div>
+			</div>
+		  </div>
+          @endforeach
+      </ul>
+   </div>
+@endif
     <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
             
 		    <div class="container-xl">
-				@if ($errors->any())
-    <div class="alert alert-danger">
-       <ul>
-          @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-          @endforeach
-      </ul>
-   </div>
-@endif
-				@if(session()->has('result_msg'))
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					{{ session()->get('result_msg') }}
-					<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true"></span>
-				  </div>
-				@endif
+				
+			
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
@@ -138,10 +166,10 @@
 												<td class="cell"><span class="cell-data">{{$each_mineral->updated_at}}</td>
 												<td class="cell"><button class="btn-sm app-btn-secondary" id="updatespecification_modal_btn" data-toggle="modal" data-specs-info="{{$each_mineral}}" data-mineral-info="{{ $each_mineral->mineral->name_of_minerals }}" data-target="#updateModal" >View</button></td>
 												<td class="cell">
-													<form method="POST" class="ignore-css" action="/specification/{{ $each_mineral->id }}">
+													<form method="POST" id="delete_specs" class="ignore-css" action="/specification/{{ $each_mineral->id }}">
 														@csrf
 														@method('delete')
-													<button class="btn-sm app-btn-danger" onclick="return confirm('Are you sure you want to delete this specification record?');">Delete</button>
+													<button class="btn-sm app-btn-danger" type="button" onclick="confirmAction('specification record','danger','delete_specs')">Delete</button>
 												</form>
 											</td>
 											</tr>

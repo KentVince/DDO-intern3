@@ -1,19 +1,34 @@
 @extends('layouts.app')
 @section('content')
+
 <body class="app">
+	@if(session()->has('result_msg'))
+	
+	<div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
+		<div class="toast bg-primary text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
+		  <div class="toast-header ">
+			<i class="fa-solid fa-badge-check"></i>
+			<strong class="mr-auto">Notification</strong>
+			<small>Today</small>
+			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			  <span aria-hidden="true" class="toggle-alert">&times;</span>
+			</button>
+		  </div>
+		  <div class="toast-body">
+		{{ session()->get('result_msg') }}
+		  </div>
+		</div>
+	  </div>
+	
+	@endif
+	
     <div class="app-wrapper">
-	    
+	
+
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
-            
+
 		    <div class="container-xl">
-				
-				@if(session()->has('result_msg'))
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					{{ session()->get('result_msg') }}
-					<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true"></span>
-				  </div>
-				@endif
+			
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
@@ -123,20 +138,20 @@
 									
 											<tr>
 												<td class="cell searchable">{{$each_mineral->id}}</td>
-												<td class="cell searchable"><span class="truncate">{{$each_mineral->name_of_minerals}}</span></td>
+												<td class="cell searchable" id="td_name"><span class="truncate">{{$each_mineral->name_of_minerals}}</span></td>
 												<td class="cell">{{$each_mineral->created_at}}</td>
 												<td class="cell"><span class="cell-data">{{$each_mineral->updated_at}}</td>
 												<td class="cell"><button class="btn-sm app-btn-secondary" id="updateminerals_modal_btn" data-toggle="modal" data-mineral-info="{{$each_mineral}}" data-target="#updateModal" >View</button></td>
 												<td class="cell">
-													<form method="POST" class="ignore-css" action="/minerals/{{ $each_mineral->id }}">
+													<form method="POST" id="delete_mineral" class="ignore-css" action="/minerals/{{ $each_mineral->id }}">
 														@csrf
-														@method('delete')
-													<button class="btn-sm app-btn-danger" onclick="return confirm('Are you sure you want to delete this mineral record?');">Delete</button>
+														@method('delete') 
+													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('mineral record','danger','delete_mineral')">Delete</button>
 												</form>
 											</td>
 											</tr>
 											@empty
-											<tr><td colspan="12">No Mineral record available.&nbsp; <a href="/minerals/create">Create one here.</a></td>
+											<tr><td colspan="12">No Mineral record available.&nbsp; <a href="" data-toggle="modal" data-target="#exampleModal">Create one here.</a></td>
 											@endforelse
 											
 										

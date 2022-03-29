@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5c2a9b5273d3fcdb970250848fb9c6efd23b3b9a',
+        'reference' => 'efee83714d5d7927a397b08398aca9adab13b35c',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -59,12 +59,12 @@
             'dev_requirement' => false,
         ),
         'doctrine/dbal' => array(
-            'pretty_version' => '3.3.3',
-            'version' => '3.3.3.0',
+            'pretty_version' => '3.3.4',
+            'version' => '3.3.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/dbal',
             'aliases' => array(),
-            'reference' => '82331b861727c15b1f457ef05a8729e508e7ead5',
+            'reference' => '83f779beaea1893c0bece093ab2104c6d15a7f26',
             'dev_requirement' => false,
         ),
         'doctrine/deprecations' => array(
@@ -436,7 +436,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5c2a9b5273d3fcdb970250848fb9c6efd23b3b9a',
+            'reference' => 'efee83714d5d7927a397b08398aca9adab13b35c',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -820,8 +820,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -867,18 +867,18 @@
             'dev_requirement' => false,
         ),
         'ramsey/uuid' => array(
-            'pretty_version' => '4.2.3',
-            'version' => '4.2.3.0',
+            'pretty_version' => '4.3.0',
+            'version' => '4.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
-            'reference' => 'fc9bb7fb5388691fd7373cd44dcb4d63bbcf24df',
+            'reference' => '8ced2afadd9ce455e2d5919d27c57e344bae4a09',
             'dev_requirement' => false,
         ),
         'rhumsaa/uuid' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '4.2.3',
+                0 => '4.3.0',
             ),
         ),
         'sebastian/cli-parser' => array(
