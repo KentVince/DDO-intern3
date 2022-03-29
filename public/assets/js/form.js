@@ -108,4 +108,56 @@ $(document).ready(function () {
 
         // $(".modal-body1").html("");
     });
+    $(".toggle-alert").click(function () {
+        $(".toast").toggle();
+    });
+    $(".toast").toast("show", {
+        animation: true,
+        autohide: true,
+        delay: 500,
+    });
+    $(window).scroll(function () {
+        $("#form_notif")
+            .stop()
+            .animate(
+                {
+                    marginTop: $(window).scrollTop() + "px",
+                    marginLeft: $(window).scrollLeft() + "px",
+                },
+                "slow"
+            );
+    });
 });
+
+function confirmAction(info, status, formId) {
+    var td_name = $("#td_name").text();
+
+    if (status == "danger") {
+        swal({
+            title: `Are you sure you want to delete this ${info}?`,
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: {
+                    text: "I changed my mind.",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "Yes, I'm sure.",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+        }).then((value) => {
+            if (value == true) {
+                $(`#${formId}`).submit();
+            }
+        });
+    }
+}
