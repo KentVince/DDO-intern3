@@ -11,7 +11,7 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">OTP Number</label>
-                        <input type="text" class="form-control" name="otp_number"  required>
+                        <input type="text" class="form-control" name="otp_number"  required readonly  value="NM-{{ now()->year }}-{{$form_current_id}}">
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Processing Fee</label>

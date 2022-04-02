@@ -22,9 +22,9 @@ class FormController extends Controller
     //   $form2= Forms::with('mineral.mineralSpecifications')->get();
 
     //   echo($form2[0]->mineral->mineralSpecifications[0]->specification_name);
-
+    $form_current_id=$this::getLastIdFromOTP();
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
-      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals]);
+      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id]);
     }
 
     public function create()
@@ -69,6 +69,33 @@ class FormController extends Controller
 
 
 
+    }
+    public function getLastId()
+    {
+     
+    $form = Forms::latest()->first();
+    if($form==null){
+        return 1;
+    }else{
+        return($form->id+1);
+        }
+       
+       
+    }
+    public function getLastIdFromOTP()
+    {
+     
+    $form = Forms::latest()->first();
+    if($form==null){
+        return 1;
+    }else{
+        $otp_number=explode("-",$form->otp_number);
+        $current_otp_id=end($otp_number);
+        echo($current_otp_id);
+        return($current_otp_id+1);
+        }
+       
+       
     }
 
     public function update(Request $request, $id)
