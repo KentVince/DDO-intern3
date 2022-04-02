@@ -5,7 +5,7 @@
 	@if(session()->has('result_msg'))
 	
 	<div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
-		<div class="toast bg-primary text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
+		<div class="toast bg-primary text-white fade show" id="form_notif" style="position: absolute; top: 0; right: 0;">
 		  <div class="toast-header ">
 			<i class="fa-solid fa-badge-check"></i>
 			<strong class="mr-auto">Notification</strong>

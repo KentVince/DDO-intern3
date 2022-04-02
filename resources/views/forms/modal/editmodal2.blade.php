@@ -12,7 +12,7 @@
                 <div class="form-row">
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">OTP Number</label>
-                        <input type="text" class="form-control" name="otp_number2" id="otp_number" >
+                        <input type="text" class="form-control" name="otp_number2" id="otp_number">
                     </div>
                     <div class="col-md-6">
                         <label for="inputPassword4" class="form-label">Processing Fee</label>
@@ -57,7 +57,7 @@
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
                         {{-- <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}"> --}}
-                        <select class="form-select" aria-label="Default select example" name="kind_mineral2" id="kind_mineral2"  required>
+                        <select class="form-select" aria-label="Default select example" name="mineral_id2" id="kind_mineral2"  required>
                             @foreach($minerals as $each_mineral)
 						<option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
 

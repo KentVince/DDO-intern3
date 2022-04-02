@@ -1,62 +1,32 @@
 @extends('layouts.app')
-@section('css')
- <!-- Datatable CSS -->
- <link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-@endsection
 @section('content')
 <body class="app">
-    {{-- <div class="app-wrapper">
-        <div class="wrapper">
-            <div class="content-wrapper">
-                <section class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                        <div class="col-sm-6">
-                        <h1>Application Form</h1>
-                        </div>
-                        </div>
-                    </div>
-                </section>
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#ModalCreate">{{ __('Add New Record') }}</a>
-                        </div>
-                    </div>
-                </div>
-                @include('forms.modal.addmodal')
-            </section>
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>List of Applicants</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    @include('forms.table')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div> --}}
+    @if(session()->has('result_msg'))
+	
+	<div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
+		<div class="toast bg-primary text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
+		  <div class="toast-header ">
+			<i class="fa-solid fa-badge-check"></i>
+			<strong class="mr-auto">Notification</strong>
+			<small>Today</small>
+			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			  <span aria-hidden="true" class="toggle-alert">&times;</span>
+			</button>
+		  </div>
+		  <div class="toast-body">
+		{{ session()->get('result_msg') }}
+		  </div>
+		</div>
+	  </div>
+	
+	@endif
     <div class="app-wrapper">
 
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 
 		    <div class="container-xl">
 
-				@if(session()->has('result_msg'))
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					{{ session()->get('result_msg') }}
-					<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true"></span>
-				  </div>
-				@endif
+			
                 <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
@@ -124,11 +94,16 @@
                                                 <td>{{ $item->updated_at }}</td>
                                                 <td class="cell"><button class="btn-sm app-btn-secondary"  data-toggle="modal" data-form-info="{{$item}}" data-mineral-info="{{$item->mineral->id}}" data-target="#ModalEdit2" >View</button></td>
                                                 <td>
-                                                    <form method="POST" action="{{ url('/form' . '/' . $item->id) }}" accept-charset="UTF-8">
+                                                    {{-- <form method="POST"  id="delete_form" class="ignore-css" action="{{ url('/form' . '/' . $item->id) }}" >
                                                         {{ method_field('DELETE') }}
                                                         {{ csrf_field() }}
                                                         <button type="submit" class="btn btn-danger btn-sm" title="Delete Form" onclick="return confirm(&quot;Confirm delete?&quot;)">Delete</button>
-                                                    </form>
+                                                    </form> --}}
+													<form method="POST" id="delete_form" class="ignore-css" action="/form/{{ $item->id }}">
+														@csrf
+														@method('delete') 
+													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('form record','danger','delete_form')">Delete</button>
+												</form>
                                                 </td>
 
                                                 @include('forms.modal.editmodal2')

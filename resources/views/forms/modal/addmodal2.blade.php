@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
-                        <select class="form-select" aria-label="Default select example" name="kind_mineral" id="kind_mineral" required>
+                        <select class="form-select" aria-label="Default select example" name="mineral_id" id="kind_mineral" required>
                             <option selected value="">Select</option>
                             @foreach($minerals as $each_mineral)
 						<option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
