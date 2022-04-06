@@ -17,6 +17,7 @@ class CreateFormsTable extends Migration
             $table->id(); //id sa form(auto increment)
             $table->string('otp_number');
             $table->string('name_permitte');
+            $table->string('province');
             $table->string('municipality');
             $table->string('barangay');
             $table->string('name_applicant');

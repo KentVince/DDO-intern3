@@ -90,7 +90,7 @@ class FormController extends Controller
     public function update(Request $request, $id)
     {
         $request1 = array("otp_number"=>$request['otp_number2'], "processing_fee"=>$request['processing_fee2'], 
-        "name_permitte"=>$request['name_permitte2'], "processing_or"=>$request['processing_or2'],
+        "name_permitte"=>$request['name_permitte2'], "processing_or"=>$request['processing_or2'], "province"=>$request['province2'],
         "municipality"=>$request['municipality2'], "barangay"=>$request['barangay2'],
         "excise_tax"=>$request['excise_tax2'], "name_applicant"=>$request['name_applicant2'],
         "excise_or"=>$request['excise_or2'], "applicant_mail"=>$request['applicant_mail2'],
