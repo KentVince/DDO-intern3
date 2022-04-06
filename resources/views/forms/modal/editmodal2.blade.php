@@ -13,7 +13,7 @@
                     <div class="col-sm-7">
                         <div class="card bg-light">
                           <div class="card-body">
-                            <h5 class="card-title">1st card</h5>
+                            
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="inputEmail4" class="form-label">OTP Number</label>
@@ -58,15 +58,12 @@
                       <div class="col-sm-5">
                         <div class="card bg-light">
                           <div class="card-body">
-                            <h5 class="card-title">2nd card</h5> 
                             <div class="col-md-12">
                                 <label for="inputCity" class="form-label">Kind of Mineral</label>
-                                
                                 <select class="form-select" aria-label="Default select example" name="mineral_id2" id="kind_mineral2"  required>
                                     @foreach($minerals as $each_mineral)
                                 <option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
-        
-                                @endforeach
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-12">
@@ -87,7 +84,6 @@
                       <div class="col-sm-12">
                         <div class="card bg-light">
                           <div class="card-body">
-                            <h5 class="card-title">3rd card</h5>
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Estimated Value</label>
@@ -114,11 +110,6 @@
                                     <label for="inputCity" class="form-label">Excise Tax</label>
                                     <input type="text" class="form-control" id="excise_tax" name="excise_tax2" >
                                 </div>
-                               
-                                
-                               
-                                
-                               
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Extraction OR</label>
                                     <input type="text" class="form-control" id="extraction_or" name="extraction_or2" >
@@ -129,7 +120,6 @@
                       </div>
                   </div>
                 </div>
-               
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-warning">Save changes</button>

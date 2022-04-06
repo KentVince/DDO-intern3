@@ -12,7 +12,7 @@
                     <div class="col-sm-7">
                       <div class="card bg-light">
                         <div class="card-body">
-                          <h5 class="card-title">1st card</h5>
+                         
                           <div class="form-row">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">OTP Number</label>
@@ -57,7 +57,7 @@
                     <div class="col-sm-5">
                       <div class="card bg-light">
                         <div class="card-body">
-                          <h5 class="card-title">2nd card</h5> 
+                          
                             <div class="col-md-12">
                                 <label for="inputCity" class="form-label">Kind of Mineral</label>
                                 <select class="form-select" aria-label="Default select example" name="mineral_id" id="kind_mineral" required>
@@ -86,7 +86,7 @@
                     <div class="col-sm-12">
                         <div class="card bg-light">
                           <div class="card-body">
-                            <h5 class="card-title">3rd card</h5>
+                           
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Estimated Value</label>
