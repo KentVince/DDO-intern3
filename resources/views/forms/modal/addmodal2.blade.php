@@ -28,7 +28,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputAddress" class="form-label">Province</label>
-                                <input type="text" class="form-control" name="province" required>
+                                <select class="form-select" aria-label="Default select example"  required>
+                                    <option selected value="">Select</option>
+                                        @foreach($provinces as $each_province)
+                                     <option value="{{$each_province['id']}}">{{$each_province['provDesc']}}</option> 
+                                        @endforeach
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputAddress" class="form-label">Municipality</label>

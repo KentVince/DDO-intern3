@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Forms;
 use App\Models\Mineral;
+use App\Models\Province;
 
 class FormController extends Controller
 {
@@ -16,6 +17,7 @@ class FormController extends Controller
     public function index()
     {
       $minerals=Mineral::select('name_of_minerals','id')->get();
+      $provinces=Province::select('provDesc','id')->get();
       $forms = Forms::all();
     // dd($forms->mineral);
     //   $form2= Forms::with('mineral.mineralSpecifications')->get();
@@ -23,7 +25,7 @@ class FormController extends Controller
     //   echo($form2[0]->mineral->mineralSpecifications[0]->specification_name);
     $form_current_id=$this::getLastIdFromOTP();
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
-      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id]);
+      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces]);
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
       
     }
