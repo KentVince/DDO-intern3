@@ -19,7 +19,7 @@ class Forms extends Model
 
 
 
-    protected $fillable=['otp_number','processing_fee', 'name_permitte', 'processing_or', 'municipality',
+    protected $fillable=['otp_number','processing_fee', 'name_permitte', 'processing_or', 'province', 'municipality',
     'barangay', 'excise_tax', 'name_applicant', 'excise_or', 'applicant_mail', 'extraction_fee', 'kind_mineral',
     'extraction_or', 'tonnage', 'buyer', 'estimated_value', 'buyer_mail', 'num_vehicle', 'specification_id'];
     // protected $guarded = [];

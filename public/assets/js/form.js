@@ -25,25 +25,29 @@ $(document).ready(function () {
             .find('input[name="processing_fee2"]')
             .val(bookId[10]);
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
-        $(e.currentTarget).find('input[name="processing_or2"]').val(bookId[11]);
-        $(e.currentTarget).find('input[name="municipality2"]').val(bookId[3]);
-        $(e.currentTarget).find('input[name="barangay2"]').val(bookId[4]);
-        $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[12]);
-        $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[5]);
-        $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[13]);
-        $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[6]);
-        $(e.currentTarget)
-            .find('input[name="extraction_fee2"]')
-            .val(bookId[14]);
-
-        $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[15]);
-        $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[7]);
-        $(e.currentTarget).find('input[name="buyer2"]').val(bookId[16]);
+        $(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
+        $(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
+        $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]);
+        $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
+        $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
+        $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[8]);
         $(e.currentTarget)
             .find('input[name="estimated_value2"]')
-            .val(bookId[8]);
-        $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[17]);
-        $(e.currentTarget).find('input[name="num_vehicle2"]').val(bookId[9]);
+            .val(bookId[9]);
+        $(e.currentTarget).find('input[name="num_vehicle2"]').val(bookId[10]);
+        $(e.currentTarget)
+            .find('input[name="processing_fee2"]')
+            .val(bookId[11]);
+        $(e.currentTarget).find('input[name="processing_or2"]').val(bookId[12]);
+        $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[13]);
+        $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[14]);
+        $(e.currentTarget)
+            .find('input[name="extraction_fee2"]')
+            .val(bookId[15]);
+        $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[16]);
+        $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
+        $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
+        alert(bookId);
     });
     $("body").on("keyup", "#tonnage", function () {
         var tonnage = parseFloat($(this).val());
@@ -125,11 +129,14 @@ $(document).ready(function () {
     $(".toggle-alert").click(function () {
         $(".toast").toggle();
     });
-    $(".toast").toast("show", {
-        animation: true,
-        autohide: true,
-        delay: 500,
-    });
+    var timeout = setTimeout($(".toast").toast("show", {}), 5000);
+    clearTimeout(timeout);
+    // $(".toast").toast("show", {
+    //     animation: true,
+    //     autohide: true,
+    //     delay: 100,
+    // });
+
     $(window).scroll(function () {
         $("#form_notif")
             .stop()

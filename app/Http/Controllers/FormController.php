@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Forms;
 use App\Models\Mineral;
+use App\Models\Province;
 
 class FormController extends Controller
 {
@@ -16,6 +17,7 @@ class FormController extends Controller
     public function index()
     {
       $minerals=Mineral::select('name_of_minerals','id')->get();
+      $provinces=Province::select('provDesc','id')->get();
       $forms = Forms::all();
     // dd($forms->mineral);
     //   $form2= Forms::with('mineral.mineralSpecifications')->get();
@@ -23,7 +25,7 @@ class FormController extends Controller
     //   echo($form2[0]->mineral->mineralSpecifications[0]->specification_name);
     $form_current_id=$this::getLastIdFromOTP();
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
-      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id]);
+      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces]);
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
       
     }
@@ -93,7 +95,7 @@ class FormController extends Controller
     public function update(Request $request, $id)
     {
         $request1 = array("otp_number"=>$request['otp_number2'], "processing_fee"=>$request['processing_fee2'], 
-        "name_permitte"=>$request['name_permitte2'], "processing_or"=>$request['processing_or2'],
+        "name_permitte"=>$request['name_permitte2'], "processing_or"=>$request['processing_or2'], "province"=>$request['province2'],
         "municipality"=>$request['municipality2'], "barangay"=>$request['barangay2'],
         "excise_tax"=>$request['excise_tax2'], "name_applicant"=>$request['name_applicant2'],
         "excise_or"=>$request['excise_or2'], "applicant_mail"=>$request['applicant_mail2'],
