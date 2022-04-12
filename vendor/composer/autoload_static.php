@@ -561,6 +561,7 @@ class ComposerStaticInit61f0e992b1bfc211f0bf68da94d30b9f
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\FormController' => __DIR__ . '/../..' . '/app/Http/Controllers/FormController.php',
+        'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MineralsController' => __DIR__ . '/../..' . '/app/Http/Controllers/MineralsController.php',
         'App\\Http\\Controllers\\SpecificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/SpecificationController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

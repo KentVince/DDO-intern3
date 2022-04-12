@@ -59,8 +59,9 @@
 									</div><!--//col-6-->
 									<div class="col-6">
 										@if (Route::has('password.request'))
+						
 										<div class="forgot-password text-end">
-											<a href="reset-password.html">Forgot password?</a>
+											<a  href="{{ route('password.request') }}">Forgot password?</a>
 										</div>
 										 @endif
 									</div><!--//col-6-->
@@ -71,7 +72,7 @@
 							</div>
 						</form>
 						
-						<div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link" href="signup" >here</a>.</div>
+						<div class="auth-option text-center pt-5">No Account? Sign up <a class="text-link" href="{{ route('register') }}" >here</a>.</div>
 					</div><!--//auth-form-container-->	
 
 			    </div><!--//auth-body-->

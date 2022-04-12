@@ -89,10 +89,10 @@
                         <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly="" >
                     </div>
                     <div class="col-md-6">
-                        <label for="specification2" class="form-label">Specification</label>
-                        <ul name="specification2" id="specs_group_edit">
-
-                          </ul>
+                        <label for="specification" class="form-label">Specification</label>
+                        <select class="form-select" aria-label="Default select example" name="specification" id="specs_group_edit" required>
+                            <option selected value="" class="default">Select</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

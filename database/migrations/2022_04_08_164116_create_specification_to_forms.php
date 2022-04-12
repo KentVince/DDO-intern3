@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateSpecificationToForms extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('forms', function (Blueprint $table) {
+            $table->dropForeign(['mineral_id']);
+            $table->dropColumn(['mineral_id']);
+            $table->unsignedInteger('specification_id')->nullable();
+            $table->foreign('specification_id')->references('id')->on('specification')->nullOnDelete();
+             });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('forms', function (Blueprint $table) {
+            $table->dropForeign(['specification_id']);
+
+        });
+    }
+}

@@ -18,5 +18,8 @@ class Specification extends Model
     public function mineral(){
         return $this->belongsTo(Mineral::class);
     }
+    public function form(){
+        return $this->hasMany(Forms::class);
+    }
 
 }

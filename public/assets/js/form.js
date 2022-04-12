@@ -2,15 +2,20 @@ $(document).ready(function () {
     $("#myTable").DataTable();
 
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
-        $("ul#specs_group_edit").empty();
+        $("select#specs_group_edit").empty();
         //get data-id attribute of the clicked element
         var bookId = $(e.relatedTarget).data("form-info");
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
+        var specs_info = $(e.relatedTarget).data("specs-info");
         bookId = Object.values(bookId);
         $("#kind_mineral2").val(mineralInfo);
+
+        // $("#specs_group_edit").val(specs_info);
+        $("select#specs_group_edit").val(specs_info).change();
         generateMineralSpecs(
             $("select#kind_mineral2").find(":selected").data("mineral-variable")
         );
+        $("select#specs_group_edit").val(specs_info).change();
         // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
         //populate the textbox
@@ -74,25 +79,34 @@ $(document).ready(function () {
     function generateMineralSpecs(mineralInfo) {
         for (let i = 0; i < mineralInfo.length; i++) {
             var currentSpec = Object.values(mineralInfo[i]);
-            $("#specs_group").append(`<li>${currentSpec[2]}</li>`);
-            $("#specs_group_edit").append(`<li>${currentSpec[2]}</li>`);
+            $('select#specs_group').append($('<option>', {
+                value: currentSpec[0],
+                text: currentSpec[2]
+            }));
+            
+            // $("#specs_group").append(`<li>${currentSpec[2]}</li>`);
+            $('select#specs_group_edit').append($('<option>', {
+                value: currentSpec[0],
+                text: currentSpec[2]
+            }));
+            
         }
     }
     $("select#kind_mineral").on("change", function () {
-        $("ul#specs_group").empty();
+        $("select#specs_group").empty();
 
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
 
         generateMineralSpecs(mineralInfo);
     });
     $("select#kind_mineral2").on("change", function () {
-        $("ul#specs_group_edit").empty();
+        $("select#specs_group_edit").empty();
 
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
         generateMineralSpecs(mineralInfo);
     });
     $("#ModalCreate2").on("show.bs.modal", function (e) {
-        $("ul#specs_group").empty();
+        // $("ul#specs_group").empty();
 
         // var mineralInfo = $('select#kind_mineral').find(':selected').data('mineral-variable');
         // var mineralInfo = $(e.relatedTarget).data("form-info");
@@ -104,7 +118,7 @@ $(document).ready(function () {
         id = $(this).attr("id");
 
         $(this).find("form").trigger("reset");
-        $("ul#specs_group").empty();
+        $("select#specs_group").empty();
 
         // $(".modal-body1").html("");
     });

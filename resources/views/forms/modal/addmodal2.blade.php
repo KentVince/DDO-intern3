@@ -56,7 +56,7 @@
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Kind of Mineral</label>
                         <select class="form-select" aria-label="Default select example" name="mineral_id" id="kind_mineral" required>
-                            <option selected value="">Select</option>
+                            <option selected value="" class="default" autocomplete="off">Select</option>
                             @foreach($minerals as $each_mineral)
 						<option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
 
@@ -87,10 +87,16 @@
                         <label for="inputCity" class="form-label">No. of Vehicle</label>
                         <input type="text" class="form-control" id="num_vehicle" name="num_vehicle" readonly="" required>
                     </div>
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <label for="specification" class="form-label">Specification</label>
                         <ul name="specification" id="specs_group">
                           </ul>
+                    </div> --}}
+                    <div class="col-md-6">
+                        <label for="specification" class="form-label">Specification</label>
+                        <select class="form-select" aria-label="Default select example" name="specification_id" id="specs_group" required>
+                            <option selected value="" class="default">Select</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

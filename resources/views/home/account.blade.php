@@ -1,7 +1,44 @@
 @extends('layouts.app')
 @section('content')
 <body class="app">   	
-    
+	@if(session()->has('error'))
+	
+	<div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
+		<div class="toast bg-danger text-white fade show" id="form_notif" style="position: absolute; top: 0; right: 0;">
+		  <div class="toast-header ">
+			<i class="fa-solid fa-badge-check"></i>
+			<strong class="mr-auto">Notification</strong>
+			<small>Today</small>
+			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			  <span aria-hidden="true" class="toggle-alert">&times;</span>
+			</button>
+		  </div>
+		  <div class="toast-body">
+		{{ session()->get('error') }}
+		  </div>
+		</div>
+	  </div>
+	
+	@endif
+	@if(session()->has('result_msg'))
+	
+	<div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
+		<div class="toast bg-primary text-white fade show" id="form_notif" style="position: absolute; top: 0; right: 0;">
+		  <div class="toast-header ">
+			<i class="fa-solid fa-badge-check"></i>
+			<strong class="mr-auto">Notification</strong>
+			<small>Today</small>
+			<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+			  <span aria-hidden="true" class="toggle-alert">&times;</span>
+			</button>
+		  </div>
+		  <div class="toast-body">
+		{{ session()->get('result_msg') }}
+		  </div>
+		</div>
+	  </div>
+	
+	@endif
     <div class="app-wrapper">
 	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
@@ -27,155 +64,76 @@
 						        </div><!--//row-->
 						    </div><!--//app-card-header-->
 						    <div class="app-card-body px-4 w-100">
-							    <div class="item border-bottom py-3">
+							   
 								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
+									
+									    {{-- <div class="col-auto">
 										    <div class="item-label mb-2"><strong>Photo</strong></div>
 										    <div class="item-data"><img class="profile-image" src="assets/images/user.png" alt=""></div>
 									    </div><!--//col-->
 									    <div class="col text-end">
 										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
+									    </div><!--//col--> --}}
 								    </div><!--//row-->
-							    </div><!--//item-->
+							   
+								<form id="reset_account_creds" method="POST" action="{{ route('update_account') }}">
+									@csrf
 							    <div class="item border-bottom py-3">
 								    <div class="row justify-content-between align-items-center">
 									    <div class="col-auto">
 										    <div class="item-label"><strong>Name</strong></div>
-									        <div class="item-data">James Doe</div>
+											<input type="text" placeholder="Enter your current name here" style="outline: 0; border:0" name="name" value="{{$user_data['full_name']}}" required class=" @error('name') is-invalid @enderror"/>
+								
 									    </div><!--//col-->
-									    <div class="col text-end">
+									    {{-- <div class="col text-end">
 										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
+									    </div><!--//col--> --}}
 								    </div><!--//row-->
 							    </div><!--//item-->
 							    <div class="item border-bottom py-3">
 								    <div class="row justify-content-between align-items-center">
 									    <div class="col-auto">
 										    <div class="item-label"><strong>Email</strong></div>
-									        <div class="item-data">james.doe@website.com</div>
+									      <input type="email" placeholder="Enter your current email here" style="outline: 0; border:0;" name="email" value="{{$user_data['email']}}" required class=" @error('email') is-invalid @enderror"/>
 									    </div><!--//col-->
-									    <div class="col text-end">
+									    {{-- <div class="col text-end">
 										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
+									    </div><!--//col--> --}}
 								    </div><!--//row-->
 							    </div><!--//item-->
 							    <div class="item border-bottom py-3">
 								    <div class="row justify-content-between align-items-center">
 									    <div class="col-auto">
-										    <div class="item-label"><strong>Website</strong></div>
+										    <div class="item-label"><strong>Created At</strong></div>
 									        <div class="item-data">
-										        https://johndoewebsite.com
+												{{$user_data['created_at']}}
 									        </div>
 									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
+
 								    </div><!--//row-->
 							    </div><!--//item-->
 							    <div class="item border-bottom py-3">
 								    <div class="row justify-content-between align-items-center">
 									    <div class="col-auto">
-										    <div class="item-label"><strong>Location</strong></div>
+										    <div class="item-label"><strong>Recently Updated At</strong></div>
 									        <div class="item-data">
-										        New York
+												{{$user_data['updated_at']}}
 									        </div>
 									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
+
 								    </div><!--//row-->
 							    </div><!--//item-->
 						    </div><!--//app-card-body-->
 						    <div class="app-card-footer p-4 mt-auto">
-							   <a class="btn app-btn-secondary" href="#">Manage Profile</a>
+							     <button class="btn app-btn-secondary" id="update_account_btn" type="submit">Save Changes</button>
 						    </div><!--//app-card-footer-->
-						   
+						</form>
 						</div><!--//app-card-->
 	                </div><!--//col-->
-	                <div class="col-12 col-lg-6">
-		                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-						    <div class="app-card-header p-3 border-bottom-0">
-						        <div class="row align-items-center gx-3">
-							        <div class="col-auto">
-								        <div class="app-icon-holder">
-										    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
-</svg>
-									    </div><!--//icon-holder-->
-						                
-							        </div><!--//col-->
-							        <div class="col-auto">
-								        <h4 class="app-card-title">Preferences</h4>
-							        </div><!--//col-->
-						        </div><!--//row-->
-						    </div><!--//app-card-header-->
-						    <div class="app-card-body px-4 w-100">
-							    
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>Language </strong></div>
-									        <div class="item-data">English</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>Time Zone</strong></div>
-									        <div class="item-data">Central Standard Time (UTC-6)</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>Currency</strong></div>
-									        <div class="item-data">$(US Dollars)</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>Email Subscription</strong></div>
-									        <div class="item-data">Off</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>SMS Notifications</strong></div>
-									        <div class="item-data">On</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
-						    </div><!--//app-card-body-->
-						    <div class="app-card-footer p-4 mt-auto">
-							   <a class="btn app-btn-secondary" href="#">Manage Preferences</a>
-						    </div><!--//app-card-footer-->
-						   
-						</div><!--//app-card-->
-	                </div><!--//col-->
-	                <div class="col-12 col-lg-6">
-		                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+					
+	                <div class="col-12 col-lg-6 h-25">
+						
+		                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start ">
 						    <div class="app-card-header p-3 border-bottom-0">
 						        <div class="row align-items-center gx-3">
 							        <div class="col-auto">
@@ -195,84 +153,95 @@
 						    <div class="app-card-body px-4 w-100">
 							    
 							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>Password</strong></div>
-									        <div class="item-data">••••••••</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
+									<div class="row justify-content-between align-items-center">
+					
+											<form id="reset_password_form" method="POST" action="{{ route('change_password') }}">
+												
+											@csrf
+											{{-- <input type="hidden" name="token" value="{{ $token }}"> --}}
+										<div id="password_gui_form">
+											<div class="col-auto">
+												<div class="item-label"><strong>Password</strong></div>
+												<div class="item-data">••••••••</div>
+											</div><!--//col-->
+									
+									
+										</div>
+										<div id="reset_password_div" hidden>
+											<div class="col-auto mb-2">
+											<div class="hide-div" hidden>
+												<div class="item-label"><strong>Email</strong></div>
+												<input type="email" placeholder="Enter your current email here" style="outline: 0; border:0" name="email" value="{{$user_data['email']}}" required autocomplete="new-password" class=" @error('email') is-invalid @enderror"/>
+											</div>
+										</div>
+											<div class="col-auto mb-2">
+											
+												<div class="item-label"><strong>Current Password</strong></div>
+												<input type="password" class="@error('password') is-invalid @enderror" placeholder="Enter your current password here" style="outline: 0; border:0" name="password" required autocomplete="new-password"/>
+											</div>
+											<hr class="mt-2 mb-3"/>
+											<div class="col-auto">
+												<div class="item-label"><strong>New Password</strong></div>
+												<input id="password-confirm" class=" @error('password_confirmation') is-invalid @enderror" type="password" placeholder="Enter new password here" style="outline: 0; border:0"   name="password_confirmation" required autocomplete="new-password" />
+											</div><!--//col-->
+											
+									
+										</div>
+										
+								    </div>
+							
+							
 							    </div><!--//item-->
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><strong>Two-Factor Authentication</strong></div>
-									        <div class="item-data">You haven't set up two-factor authentication. </div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Set up</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
+
+								
+							  
 						    </div><!--//app-card-body-->
 						    
 						    <div class="app-card-footer p-4 mt-auto">
-							   <a class="btn app-btn-secondary" href="#">Manage Security</a>
+								<button class="btn app-btn-secondary" type="button" id="change_password_btn">Change Password</a>
+							   <button class="btn app-btn-primary" id="reset_password_btn" type="submit" hidden >Save Changes</a>
 						    </div><!--//app-card-footer-->
+							</form>
 						   
 						</div><!--//app-card-->
-	                </div>
-	                <div class="col-12 col-lg-6">
-		                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+						{{-- ----------------------------Next App card --}}
+						<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start mt-3">
 						    <div class="app-card-header p-3 border-bottom-0">
 						        <div class="row align-items-center gx-3">
 							        <div class="col-auto">
 								        <div class="app-icon-holder">
-										    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
-  <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1z"/>
-</svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+												<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+												<path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+											  </svg>
 									    </div><!--//icon-holder-->
 						                
 							        </div><!--//col-->
 							        <div class="col-auto">
-								        <h4 class="app-card-title">Payment methods</h4>
+								        <h4 class="app-card-title">Account Settings</h4>
 							        </div><!--//col-->
 						        </div><!--//row-->
 						    </div><!--//app-card-header-->
 						    <div class="app-card-body px-4 w-100">
 							    
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><i class="fab fa-cc-visa me-2"></i><strong>Credit/Debit Card </strong></div>
-									        <div class="item-data">1234*******5678</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Edit</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
-							    <div class="item border-bottom py-3">
-								    <div class="row justify-content-between align-items-center">
-									    <div class="col-auto">
-										    <div class="item-label"><i class="fab fa-paypal me-2"></i><strong>PayPal</strong></div>
-									        <div class="item-data">Not connected</div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Connect</a>
-									    </div><!--//col-->
-								    </div><!--//row-->
-							    </div><!--//item-->
+							    <h5 class="app-card-title">Delete Account</h4>
+								<p class="pt-3"> Deleting your account will remove your account from the database and will be irreversible.</p>
 						    </div><!--//app-card-body-->
-						    <div class="app-card-footer p-4 mt-auto">
-							   <a class="btn app-btn-secondary" href="#">Manage Payment</a>
+						    
+						    <div class="app-card-footer p-4 mt-auto ">
+								<form id="delete_account_btn" method="POST"  action=" {{route('delete_account')}}">
+									@csrf
+									@method("delete")
+							   <button class="btn app-btn-danger" onclick="confirmAction('account','danger','delete_account_btn')"  type="button">Delete Account</button>
+								</form>
 						    </div><!--//app-card-footer-->
 						   
 						</div><!--//app-card-->
 	                </div>
+					
+
+
+
                 </div><!--//row-->
 			    
 		    </div><!--//container-fluid-->
@@ -282,7 +251,7 @@
 	    
     </div><!--//app-wrapper-->    					
 
- 
+	<script src="/assets/js/home.js"></script>
     <!-- Javascript -->          
     <script src="assets/plugins/popper.min.js"></script>
     <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  

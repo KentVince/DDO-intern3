@@ -70,7 +70,7 @@
 							</div>
 						</form><!--//auth-form-->
 						
-						<div class="auth-option text-center pt-5">Already have an account? <a class="text-link" href="login.html" >Log in</a></div>
+						<div class="auth-option text-center pt-5">Already have an account? <a class="text-link" href="{{route('login')}}" >Log in</a></div>
 					</div><!--//auth-form-container-->	
 					
 					

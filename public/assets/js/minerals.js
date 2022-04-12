@@ -52,7 +52,7 @@ function confirmAction(info,status,formId){
     if(status=="danger"){
         swal({
             title: `Are you sure you want to delete this ${info}?`,
-            text: "Once deleted, you will not be able to recover this imaginary file!",
+            text: "Once deleted, its connected specifications will also be deleted.",
             icon: "warning",
             dangerMode: true,
             buttons:  {   

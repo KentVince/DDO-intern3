@@ -36,6 +36,9 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
+        
+        unset($request['mineral_id']);
+        
         $input = $request->all();
         Forms::create($input);
         return redirect('/form')->with('result_msg', "You have successfully added application form record.");
@@ -94,11 +97,11 @@ class FormController extends Controller
         "municipality"=>$request['municipality2'], "barangay"=>$request['barangay2'],
         "excise_tax"=>$request['excise_tax2'], "name_applicant"=>$request['name_applicant2'],
         "excise_or"=>$request['excise_or2'], "applicant_mail"=>$request['applicant_mail2'],
-        "extraction_fee"=>$request['extraction_fee2'], "mineral_id"=>$request['mineral_id2'],
+        "extraction_fee"=>$request['extraction_fee2'],
         "extraction_or"=>$request['extraction_or2'], "tonnage"=>$request['tonnage2'],
         "buyer"=>$request['buyer2'], "estimated_value"=>$request['estimated_value2'],
         "buyer_mail"=>$request['buyer_mail2'], "num_vehicle"=>$request['num_vehicle2'],
-        "specification"=>$request['specification2']
+        "specification_id"=>$request['specification']
         );
         
         // $request=array("otp_number"=>$request['otp_number2'],"processing_fee"=>$request['processing_fee2'],
@@ -110,10 +113,14 @@ class FormController extends Controller
         // "buyer_mail"=>$request['buyer_mail2'], "num_vehicle"=>$request['num_vehicle2'], "specification"=>$request['specification2']
         // );
 
-        $form = Forms::find($id);
+        $form = Forms::find($id);  
         // $input = $request->all();
         $form->update($request1);
-        return redirect('/form')->with('result_msg', "Update Successfully.");
+       
+          
+            return redirect('/form')->with('result_msg', "Updateds Successfully.");
+   
+        // return redirect('/form')->with('result_msg', "Updateds Successfully.");
 
      
      
