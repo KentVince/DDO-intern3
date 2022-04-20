@@ -36,6 +36,8 @@ Route::get('/welcome', function () {
 Route::get('/', function () {
     return redirect(route('home'));
 });
+Route::get('/findMunicipality',[App\Http\Controllers\FormController::class, 'findMunicipality']);
+Route::get('/findBarangay',[App\Http\Controllers\FormController::class, 'findBarangay']);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/apps', [App\Http\Controllers\HomeController::class, 'apps'])->name('apps');
 // Route::get('/account', [App\Http\Controllers\HomeController::class, 'account'])->name('account');

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Forms;
 use App\Models\Mineral;
 use App\Models\Province;
+use App\Models\Municipal;
+use App\Models\Barangay;
+use DB;
 
 class FormController extends Controller
 {
@@ -17,7 +20,8 @@ class FormController extends Controller
     public function index()
     {
       $minerals=Mineral::select('name_of_minerals','id')->get();
-      $provinces=Province::select('provDesc','id')->get();
+    //   $provinces=Province::all();
+      $provinces=Province::select('provCode', 'provDesc')->where('provDesc', '=', 'Davao de Oro')->get();
       $forms = Forms::all();
     // dd($forms->mineral);
     //   $form2= Forms::with('mineral.mineralSpecifications')->get();
@@ -25,9 +29,25 @@ class FormController extends Controller
     //   echo($form2[0]->mineral->mineralSpecifications[0]->specification_name);
     $form_current_id=$this::getLastIdFromOTP();
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
-      return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces]);
+    return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces]);
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
       
+    }
+
+    public function findMunicipality(Request $request){
+        $municipals=Municipal::select('citymunDesc','citymunCode')->where('provCode',$request->id)->get();
+        return response()->json($municipals);
+    //    $p=DB::table('municipals')
+    //    ->select('citymunDesc','citymunCode')
+    //    ->join('provinces','municipals.provCode','=','provinces.provCode')
+    //    ->where('provinces.provCode',$request->id)
+    //    ->get();
+        
+        //SELECT municipals.citymunDesc FROM municipals INNER JOIN provinces ON municipals.provCode = provinces.provCode;
+    }
+    public function findBarangay(Request $request){
+        $brgy=Barangay::select('brgyDesc','id')->where('citymunCode',$request->id)->get();
+        return response()->json($brgy);
     }
 
     public function create()
