@@ -27,11 +27,11 @@
                 @enderror
                 </div>
                 <div class="mb-3">
-                  <label for="mineral_select2" class="form-label">Mineral Connection &nbsp;</label><small>Currently : </small> <small name="spec_input"> </small>
+                  <label for="mineral_select2" class="form-label">Mineral Connection &nbsp;</label>
                   <select required class="form-select" aria-label="Default select example" name="mineral_select2">
                     <option selected value="">Choose:</option>
                     @foreach($minerals as $each_mineral)
-                    <option value="{'name':'{{$each_mineral['name_of_minerals']}}','id':'{{$each_mineral['id']}}'}">{{$each_mineral['name_of_minerals']}}</option>
+                    <option value="{{$each_mineral['id']}}">{{$each_mineral['name_of_minerals']}}</option>
                     
                     @endforeach
                     </select>

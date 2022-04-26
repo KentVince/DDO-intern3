@@ -26,10 +26,14 @@
         var bookId = $(e.relatedTarget).data('specs-info');
         var mineralInfo = $(e.relatedTarget).data('mineral-info');
         bookId=Object.values(bookId);
-        alert(bookId);
+        mineral_data=Object.values(mineralInfo);
+        // alert("SPECS: "+bookId[1]);
+        // alert("mineral: "+mineral_data);
         $('form#updateMineralForm').attr('action', `/specification/${bookId[0]}`);
         //populate the textbox
         $(e.currentTarget).find('input[name="specification_name2"]').val(bookId[2]);
+        $('#mineral_select2').val(mineral_data[0]);
+        $(e.currentTarget).find('select[name="mineral_select2"]').val(bookId[1]);
         $(e.currentTarget).find('small[name="spec_input"]').text(mineralInfo);
         
         });

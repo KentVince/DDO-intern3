@@ -21,11 +21,11 @@
 	
 	@endif
 	@if ($errors->any())
-    <div class="alert alert-danger">
+  
        <ul>
           @foreach ($errors->all() as $error)
 		  <div aria-live="polite" aria-atomic="true" style="position: relative; z-index:10;">
-			<div class="toast bg-primary text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
+			<div class="toast bg-danger text-white fade show" id="mineral_notif" style="position: absolute; top: 0; right: 0;">
 			  <div class="toast-header ">
 				<i class="fa-solid fa-badge-check"></i>
 				<strong class="mr-auto">Notification</strong>
@@ -41,7 +41,7 @@
 		  </div>
           @endforeach
       </ul>
-   </div>
+  
 @endif
     <div class="app-wrapper">
 	    
@@ -164,7 +164,7 @@
                                                 <td class="cell searchable"><span class="truncate">{{$each_mineral->mineral->name_of_minerals}}</span></td>
 												<td class="cell">{{$each_mineral->created_at}}</td>
 												<td class="cell"><span class="cell-data">{{$each_mineral->updated_at}}</td>
-												<td class="cell"><button class="btn-sm app-btn-secondary" id="updatespecification_modal_btn" data-toggle="modal" data-specs-info="{{$each_mineral}}" data-mineral-info="{{ $each_mineral->mineral->name_of_minerals }}" data-target="#updateModal" >View</button></td>
+												<td class="cell"><button class="btn-sm app-btn-secondary" id="updatespecification_modal_btn" data-toggle="modal" data-specs-info="{{$each_mineral}}" data-mineral-info="{{ $each_mineral->mineral }}" data-target="#updateModal" >View</button></td>
 												<td class="cell">
 													<form method="POST" id="delete_specs" class="ignore-css" action="/specification/{{ $each_mineral->id }}">
 														@csrf

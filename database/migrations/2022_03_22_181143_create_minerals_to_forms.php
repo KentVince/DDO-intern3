@@ -17,7 +17,7 @@ class CreateMineralsToForms extends Migration
 
        $table->unsignedInteger('mineral_id')->nullable();
        $table->dropColumn(['kind_mineral', 'specification']);
-       $table->foreign('mineral_id')->references('id')->on('minerals')->onDelete('cascade');
+       $table->foreign('mineral_id')->references('id')->on('minerals')->nullOnDelete();
         });
     }
 
@@ -29,8 +29,8 @@ class CreateMineralsToForms extends Migration
     public function down()
     {
         Schema::table('forms', function (Blueprint $table) {
-            $table->dropColumns(['mineral_id']);
-
+            $table->dropForeign(['mineral_id']);
+            $table->dropColumn(['mineral_id']);
         });
     }
 }
