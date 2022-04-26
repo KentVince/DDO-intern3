@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#myTable").DataTable();
 
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
-        
+        $('#ModalEdit2').trigger("reset");
         $("select#specs_group_edit").empty();
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
@@ -51,16 +51,16 @@ $(document).ready(function () {
         .find('input[name="extraction_fee2"]')
         .val(bookId[15]);
     $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[16]);
-    $(e.currentTarget)
-    .find('input[name="processing_fee2"]')
-    .val(bookId[10]);
+    // $(e.currentTarget)
+    // .find('input[name="processing_fee2"]')
+    // .val(bookId[10]);
     }
     $("#province2").val(bookId[3]).trigger('change');
     // $("#province2").change(function(){
     //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
     // });
     // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
-    
+    $("#kind_mineral2").val("");
     alert("Cuyrrent data"+bookId);
     //populate the textbox
     //console.log(bookId);

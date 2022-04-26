@@ -7,7 +7,7 @@
                 <div class="form-group row">
                 <label  class="col-sm-6 col-form-label" >OTP Number:</label>
                 <div class="col-sm-6">
-                    <input type="text" readonly class="form-control-plaintext" name="otp_number2"  >
+                    <input type="text" readonly class="form-control-plaintext" name="otp_number2" autocomplete="off" >
                   </div>
                 </div>
                 </h6>
@@ -26,7 +26,7 @@
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <label for="inputEmail4" class="form-label">Name of Permittee</label>
-                                    <input type="text" class="form-control" name="name_permitte2">
+                                    <input type="text" class="form-control" name="name_permitte2" autocomplete="off">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="inputCity" class="form-label">Name of Applicant</label>
@@ -88,7 +88,9 @@
                                     <label for="inputCity" class="form-label">Kind of Mineral</label>
                                     {{-- <input type="text" class="form-control" id="kind_mineral" name="kind_mineral" value="{{ $item->kind_mineral }}"> --}}
                                     <select class="form-select" aria-label="Default select example" name="mineral_id2" id="kind_mineral2"  required>
+                                      <option value="">Select...</option>
                                         @foreach($minerals as $each_mineral)
+                                        
                                     <option value="{{$each_mineral['id']}}" data-mineral-variable="{{$each_mineral->mineralSpecifications}}">{{$each_mineral['name_of_minerals']}}</option>
             
                                     @endforeach
@@ -102,11 +104,11 @@
                                 </div>
                                   <div class="col-md-12">
                                       <label for="inputCity" class="form-label">Volume/Tonnage</label>
-                                      <input type="text" class="form-control" id="tonnages" name="tonnage2" required>
+                                      <input type="text" class="form-control" id="tonnages" name="tonnage2" required autocomplete="off">
                                   </div>
                                   <div class="col-md-12">
                                       <label for="inputCity" class="form-label">No. of Vehicle</label>
-                                      <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly="" required>
+                                      <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly="" autocomplete="off" required>
                                   </div>
                               </div>
                           </div>
@@ -119,11 +121,11 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Estimated Value</label>
-                                    <input type="text" class="form-control" id="estimated_values" name="estimated_value2" readonly="" >
+                                    <input type="text" class="form-control" id="estimated_values" name="estimated_value2" autocomplete="off" readonly="" >
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Extraction Fee</label>
-                                    <input type="text" class="form-control" id="extraction_fees" name="extraction_fee2" readonly="" >
+                                    <input type="text" class="form-control" id="extraction_fees" name="extraction_fee2" autocomplete="off" readonly="" >
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Excise OR</label>
