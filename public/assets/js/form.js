@@ -2,85 +2,94 @@ $(document).ready(function () {
     $("#myTable").DataTable();
 
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
-        $('#ModalEdit2').trigger("reset");
+        $("#ModalEdit2").trigger("reset");
         $("select#specs_group_edit").empty();
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
         //get data-id attribute of the clicked element
-        if (typeof mineralInfo !== 'undefined' && mineralInfo.length > 0) {
+        if (typeof mineralInfo !== "undefined" && mineralInfo.length > 0) {
             // the array is defined and has at least one element
-        
-        
-        var mineralInfo = $(e.relatedTarget).data("mineral-info");
-        var specs_info = $(e.relatedTarget).data("specs-info");
-        
-        console.log(bookId);
-        $("#kind_mineral2").val(mineralInfo);
-    
-        // $("#specs_group_edit").val(specs_info);
-        generateMineralSpecs(
-            $("select#kind_mineral2").find(":selected").data("mineral-variable")
-        );
-        $("select#specs_group_edit").val(specs_info).change();
-        
 
-      
-        //alert(bookId);
-        //provinces muni brgy
-        //$(this).find('select[name="province2"]').val(bookId[3]);
-        //$(this).find('select[name="municipality2"]').val(bookId[4]);
-        //$(this).find('select[name="municipality2"]').val(bookId[4]);
-        //$("select#province2").val(bookId[3]);
-        //console.log(bookId[3]);
-        //$("select#municipals2").val(bookId[4]);
-        //alert(typeof bookId[4]);
-        //$("select#brgy2").val(bookId[5]);
-        //console.log(bookId[5]);
-        $(e.currentTarget)
-        .find('input[name="estimated_value2"]')
-        .val(bookId[9]);
-  
-    $(e.currentTarget)
-        .find('input[name="processing_fee2"]')
-        .val(bookId[11]);
-    $(e.currentTarget).find('input[name="processing_or2"]').val(bookId[12]);
-    $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[13]);
-    $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[14]);
-    $(e.currentTarget)
-        .find('input[name="extraction_fee2"]')
-        .val(bookId[15]);
-    $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[16]);
-    // $(e.currentTarget)
-    // .find('input[name="processing_fee2"]')
-    // .val(bookId[10]);
-    }
-    $("#province2").val(bookId[3]).trigger('change');
-    // $("#province2").change(function(){
-    //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
-    // });
-    // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
-    $("#kind_mineral2").val("");
-    alert("Cuyrrent data"+bookId);
-    //populate the textbox
-    //console.log(bookId);
-    $("#municipals2").val(bookId[4]).trigger('change');
-    // $("#brgy2").val(bookId[5]).trigger('change');
-    alert("barangay"+bookId[5])
-    
-    // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
- 
-    $("#brgy2").val(bookId[5]).trigger('change');
-    
-    $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
-  
+            var mineralInfo = $(e.relatedTarget).data("mineral-info");
+            var specs_info = $(e.relatedTarget).data("specs-info");
+
+            console.log(bookId);
+            $("#kind_mineral2").val(mineralInfo);
+
+            // $("#specs_group_edit").val(specs_info);
+            generateMineralSpecs(
+                $("select#kind_mineral2")
+                    .find(":selected")
+                    .data("mineral-variable")
+            );
+            $("select#specs_group_edit").val(specs_info).change();
+
+            //alert(bookId);
+            //provinces muni brgy
+            //$(this).find('select[name="province2"]').val(bookId[3]);
+            //$(this).find('select[name="municipality2"]').val(bookId[4]);
+            //$(this).find('select[name="municipality2"]').val(bookId[4]);
+            //$("select#province2").val(bookId[3]);
+            //console.log(bookId[3]);
+            //$("select#municipals2").val(bookId[4]);
+            //alert(typeof bookId[4]);
+            //$("select#brgy2").val(bookId[5]);
+            //console.log(bookId[5]);
+            $(e.currentTarget)
+                .find('input[name="estimated_value2"]')
+                .val(bookId[9]);
+
+            $(e.currentTarget)
+                .find('input[name="processing_fee2"]')
+                .val(bookId[11]);
+            $(e.currentTarget)
+                .find('input[name="processing_or2"]')
+                .val(bookId[12]);
+            $(e.currentTarget)
+                .find('input[name="excise_tax2"]')
+                .val(bookId[13]);
+            $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[14]);
+            $(e.currentTarget)
+                .find('input[name="extraction_fee2"]')
+                .val(bookId[15]);
+            $(e.currentTarget)
+                .find('input[name="extraction_or2"]')
+                .val(bookId[16]);
+            $("#kind_mineral2").val("");
+            // $(e.currentTarget)
+            // .find('input[name="processing_fee2"]')
+            // .val(bookId[10]);
+        } else {
+            $("#kind_mineral2").val("");
+        }
+        $("#province2").val(bookId[3]).trigger("change");
+        // $("#province2").change(function(){
+        //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
+        // });
+        // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
+        //$("#kind_mineral2").val("");
+        alert("Cuyrrent data" + bookId);
+        //populate the textbox
+        //console.log(bookId);
+        $("#municipals2").val(bookId[4]).trigger("change");
+        // $("#brgy2").val(bookId[5]).trigger('change');
+        alert("barangay" + bookId[5]);
+
+        // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
+
+        $("#brgy2").val(bookId[5]).trigger("change");
+
+        $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
+
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
         //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
         //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
         // $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
-       
+        $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[8]);
+        $(e.currentTarget).find('input[name="num_vehicle2"]').val(bookId[10]);
 
         $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
         $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
@@ -142,7 +151,6 @@ $(document).ready(function () {
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
 
         generateMineralSpecs(mineralInfo);
-        
     });
     $("select#kind_mineral2").on("change", function () {
         $("select#specs_group_edit").empty();
@@ -240,8 +248,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data);
                 console.log("success");
-                brgy +=
-                    '<option value="0" disabled>Select Brgy</option>';
+                brgy += '<option value="0" disabled>Select Brgy</option>';
                 for (var i = 0; i < data.length; i++) {
                     brgy +=
                         '<option value="' +
@@ -332,10 +339,9 @@ $(document).ready(function () {
             data: { id: brgy_id },
             dataType: "json",
             success: function (data) {
-                console.log("barangayss"+data);
+                console.log("barangayss" + data);
                 console.log("success");
-                brgy +=
-                    '<option value="0" disabled>Select Brgy</option>';
+                brgy += '<option value="0" disabled>Select Brgy</option>';
                 for (var i = 0; i < data.length; i++) {
                     brgy +=
                         '<option value="' +
