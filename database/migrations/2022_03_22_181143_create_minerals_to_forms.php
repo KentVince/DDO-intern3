@@ -29,8 +29,8 @@ class CreateMineralsToForms extends Migration
     public function down()
     {
         Schema::table('forms', function (Blueprint $table) {
-            $table->dropForeign(['mineral_id']);
-            $table->dropColumn(['mineral_id']);
+            //$table->dropForeign(['mineral_id']);
+            //$table->dropColumn(['mineral_id']);
         });
     }
 }
