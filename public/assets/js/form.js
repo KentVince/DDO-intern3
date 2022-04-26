@@ -2,20 +2,23 @@ $(document).ready(function () {
     $("#myTable").DataTable();
 
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
-        $('#ModalEdit2').trigger("reset");
+        $('#updatelForm').trigger("reset");
         $("select#specs_group_edit").empty();
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
         //get data-id attribute of the clicked element
-        if (typeof mineralInfo !== 'undefined' && mineralInfo.length > 0) {
+        var mineralInfo = $(e.relatedTarget).data("mineral-info");
+        alert(typeof mineralInfo);
+        if (typeof mineralInfo !== 'undefined') {
             // the array is defined and has at least one element
         
         
-        var mineralInfo = $(e.relatedTarget).data("mineral-info");
+        
         var specs_info = $(e.relatedTarget).data("specs-info");
         
         console.log(bookId);
+        alert("mineral info found"+mineralInfo);
         $("#kind_mineral2").val(mineralInfo);
     
         // $("#specs_group_edit").val(specs_info);
@@ -51,16 +54,21 @@ $(document).ready(function () {
         .find('input[name="extraction_fee2"]')
         .val(bookId[15]);
     $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[16]);
+    $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[8]);
+    $(e.currentTarget).find('input[name="num_vehicle2"]').val(bookId[10]);
     // $(e.currentTarget)
     // .find('input[name="processing_fee2"]')
     // .val(bookId[10]);
+    }else{
+        alert("mineral not found"+mineralInfo);
+        $("#kind_mineral2").val("");
     }
     $("#province2").val(bookId[3]).trigger('change');
     // $("#province2").change(function(){
     //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
     // });
     // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
-    $("#kind_mineral2").val("");
+   
     alert("Cuyrrent data"+bookId);
     //populate the textbox
     //console.log(bookId);
@@ -157,7 +165,8 @@ $(document).ready(function () {
         // var mineralInfo = $(e.relatedTarget).data("form-info");
         // generateMineralSpecs(mineralInfo);
         // $(".modal-body1").html("");
-    });
+    });  
+ 
     $(".modal#ModalCreate2").on("hidden.bs.modal", function () {
         id = $(this).attr("id");
 
