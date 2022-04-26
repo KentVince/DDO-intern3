@@ -11,7 +11,6 @@ $(document).ready(function () {
         $("#kind_mineral2").val(mineralInfo);
 
         // $("#specs_group_edit").val(specs_info);
-        $("select#specs_group_edit").val(specs_info).change();
         generateMineralSpecs(
             $("select#kind_mineral2").find(":selected").data("mineral-variable")
         );
@@ -102,6 +101,7 @@ $(document).ready(function () {
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
 
         generateMineralSpecs(mineralInfo);
+        
     });
     $("select#kind_mineral2").on("change", function () {
         $("select#specs_group_edit").empty();
@@ -110,6 +110,7 @@ $(document).ready(function () {
         generateMineralSpecs(mineralInfo);
     });
     $("#ModalCreate2").on("show.bs.modal", function (e) {
+        $("select#specs_group").empty();
         // $("ul#specs_group").empty();
 
         // var mineralInfo = $('select#kind_mineral').find(':selected').data('mineral-variable');

@@ -22,7 +22,6 @@ Route::resource('/minerals',MineralsController::class);
 Route::resource('/specification',SpecificationController::class);
 Route::resource('/form',FormController::class);
 Route::middleware(['auth'])->controller(HomeController::class)->group(function () {
-    Route::get('/home', 'index')->name('home');
     Route::get('/account', 'account')->name('account');
     Route::post('/changepassword', 'changePassword')->name('change_password');
     Route::post('/updateAccount', 'update')->name('update_account');
@@ -34,7 +33,7 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 Route::get('/', function () {
-    return redirect(route('home'));
+    return redirect('/form');
 });
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/apps', [App\Http\Controllers\HomeController::class, 'apps'])->name('apps');
