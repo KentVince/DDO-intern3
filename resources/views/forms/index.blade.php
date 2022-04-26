@@ -92,7 +92,7 @@
                                                 <td>{{ $item->tonnage }}</td>
                                                 <td>{{ $item->created_at }}</td>
                                                 <td>{{ $item->updated_at }}</td>
-                                                <td class="cell"><button class="btn-sm app-btn-secondary"  data-toggle="modal" data-form-info="{{$item}}" data-specs-info="{{$item->specifications->id}}" data-mineral-info="{{$item->specifications->mineral->id}}" data-target="#ModalEdit2" >View</button></td>
+                                                <td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}" data-specs-info="{{$item->specifications->id}}" data-mineral-info="{{$item->specifications->mineral->id}}" data-target="#ModalEdit2" >View</button></td>
                                                 <td>
                                                     {{-- <form method="POST"  id="delete_form" class="ignore-css" action="{{ url('/form' . '/' . $item->id) }}" >
                                                         {{ method_field('DELETE') }}
