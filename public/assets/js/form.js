@@ -2,14 +2,19 @@ $(document).ready(function () {
     $("#myTable").DataTable();
 
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
-        
+        $('#ModalEdit2').trigger("reset");
         $("select#specs_group_edit").empty();
-    
-        //get data-id attribute of the clicked element
         var bookId = $(e.relatedTarget).data("form-info");
+        bookId = Object.values(bookId);
+        $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
+        //get data-id attribute of the clicked element
+        if (typeof mineralInfo !== 'undefined' && mineralInfo.length > 0) {
+            // the array is defined and has at least one element
+        
+        
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
         var specs_info = $(e.relatedTarget).data("specs-info");
-        bookId = Object.values(bookId);
+        
         console.log(bookId);
         $("#kind_mineral2").val(mineralInfo);
     
@@ -19,52 +24,8 @@ $(document).ready(function () {
         );
         $("select#specs_group_edit").val(specs_info).change();
         
-        $("#province2").val(bookId[3]).trigger('change');
-        // $("#province2").change(function(){
-        //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
-        // });
+
       
-       
-        // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
-        $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
-        alert("Cuyrrent data"+bookId);
-        //populate the textbox
-        //console.log(bookId);
-        $("#municipals2").val(bookId[4]).trigger('change');
-        // $("#brgy2").val(bookId[5]).trigger('change');
-        alert("barangay"+bookId[5])
-        
-        // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
-     
-        $("#brgy2").val(bookId[5]).trigger('change');
-        
-        $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
-        $(e.currentTarget)
-            .find('input[name="processing_fee2"]')
-            .val(bookId[10]);
-        $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
-        //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
-        //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
-        // $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
-        $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
-        $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
-        $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[8]);
-        $(e.currentTarget)
-            .find('input[name="estimated_value2"]')
-            .val(bookId[9]);
-        $(e.currentTarget).find('input[name="num_vehicle2"]').val(bookId[10]);
-        $(e.currentTarget)
-            .find('input[name="processing_fee2"]')
-            .val(bookId[11]);
-        $(e.currentTarget).find('input[name="processing_or2"]').val(bookId[12]);
-        $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[13]);
-        $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[14]);
-        $(e.currentTarget)
-            .find('input[name="extraction_fee2"]')
-            .val(bookId[15]);
-        $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[16]);
-        $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
-        $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
         //alert(bookId);
         //provinces muni brgy
         //$(this).find('select[name="province2"]').val(bookId[3]);
@@ -76,6 +37,53 @@ $(document).ready(function () {
         //alert(typeof bookId[4]);
         //$("select#brgy2").val(bookId[5]);
         //console.log(bookId[5]);
+        $(e.currentTarget)
+        .find('input[name="estimated_value2"]')
+        .val(bookId[9]);
+  
+    $(e.currentTarget)
+        .find('input[name="processing_fee2"]')
+        .val(bookId[11]);
+    $(e.currentTarget).find('input[name="processing_or2"]').val(bookId[12]);
+    $(e.currentTarget).find('input[name="excise_tax2"]').val(bookId[13]);
+    $(e.currentTarget).find('input[name="excise_or2"]').val(bookId[14]);
+    $(e.currentTarget)
+        .find('input[name="extraction_fee2"]')
+        .val(bookId[15]);
+    $(e.currentTarget).find('input[name="extraction_or2"]').val(bookId[16]);
+    // $(e.currentTarget)
+    // .find('input[name="processing_fee2"]')
+    // .val(bookId[10]);
+    }
+    $("#province2").val(bookId[3]).trigger('change');
+    // $("#province2").change(function(){
+    //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
+    // });
+    // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
+    $("#kind_mineral2").val("");
+    alert("Cuyrrent data"+bookId);
+    //populate the textbox
+    //console.log(bookId);
+    $("#municipals2").val(bookId[4]).trigger('change');
+    // $("#brgy2").val(bookId[5]).trigger('change');
+    alert("barangay"+bookId[5])
+    
+    // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
+ 
+    $("#brgy2").val(bookId[5]).trigger('change');
+    
+    $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
+  
+        $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
+        //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
+        //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
+        // $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
+        $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
+        $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
+       
+
+        $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
+        $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
     });
 
     $("body").on("keyup", "#tonnage", function () {

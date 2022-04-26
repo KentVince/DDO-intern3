@@ -25,7 +25,7 @@ class FormController extends Controller
        
         
        
-      $minerals=Mineral::select('name_of_minerals','id')->get();
+      $minerals=Mineral::select('name_of_minerals','id')->has('mineralSpecifications')->get();
     //   $provinces=Province::all();
       $provinces=Province::select('provCode', 'provDesc')->where('provDesc', '=', 'Davao de Oro')->get();
       $forms = Forms::all(); 
