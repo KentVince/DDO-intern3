@@ -19,17 +19,30 @@ class FormController extends Controller
     }
     public function index()
     {
+        
+        // $muni=Municipal::select('citymunDesc')->join('forms', 'municipals.citymunCode', '=', 'forms.municipality')->where('forms.id', '=', 2)->get();
+        // $brgys=Barangay::select('brgyDesc')->join('forms', 'barangays.id', '=', 'forms.barangay')->where('forms.id', '=', 2)->get();
+       
+        
+       
       $minerals=Mineral::select('name_of_minerals','id')->get();
     //   $provinces=Province::all();
       $provinces=Province::select('provCode', 'provDesc')->where('provDesc', '=', 'Davao de Oro')->get();
-      $forms = Forms::all();
+      $forms = Forms::all(); 
+      $municipal = Municipal::all();
+      $brgy = Barangay::all();
+      //dd( $forms->barangay);
+      //dd($forms);
     // dd($forms->mineral);
     //   $form2= Forms::with('mineral.mineralSpecifications')->get();
 
     //   echo($form2[0]->mineral->mineralSpecifications[0]->specification_name);
     $form_current_id=$this::getLastIdFromOTP();
+   
+    // $aws=$this::getMunicipal();
+    // $aw=Municipal::select('citymunDesc')->join('forms', 'municipals.citymunCode', 'forms.municipality')->where('forms.id', '=', 'forms.id');
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
-    return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces]);
+    return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces , 'municipal'=>$municipal]);
     //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
       
     }
@@ -147,6 +160,12 @@ class FormController extends Controller
      
      
     }
+
+    // public function getMunicipal($id){
+    //     $muni=Municipal::select('citymunDesc')->join('forms', 'municipals.citymunCode', '=', 'forms.municipality')->where('forms.id', '=', $id)->get();
+
+    //     //SELECT municipals.citymunDesc FROM municipals INNER JOIN forms ON municipals.citymunCode = forms.municipality WHERE forms.id = forms.id;
+    // }
 
     public function destroy($id)
     {

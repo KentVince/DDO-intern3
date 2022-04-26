@@ -51,8 +51,10 @@
                               <div class="col-md-12">
                                   <label for="inputAddress" class="form-label">Province</label>
                                   <select class="form-select provincesList" aria-label="Default select example" name="province"  id="province_id"  required>
-                                      <option selected value="">Select Province</option>
-                                          @foreach($provinces as $each_province)
+                                  
+                                      <option selected value="">Select Province</option> 
+                                     
+                                        @foreach($provinces as $each_province)
                                        <option value="{{$each_province->provCode}}">{{$each_province->provDesc}}</option> 
                                           @endforeach
                                   </select>

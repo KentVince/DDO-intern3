@@ -21,6 +21,7 @@
                           <div class="card-body">
                             <h6 class="modal-title" id="exampleModalLabel"> 
                                 <label for="inputEmail4" class="form-label">Operator
+                                
                             </h6>
                             <div class="form-row">
                                 <div class="col-md-12">
@@ -47,6 +48,8 @@
                             </h6>
                             <div class="form-row">
                                 <div class="col-md-12">
+                                {{-- <h6>{{ $aw[0]->citymunDesc}}</h6>
+                                <h6>{{ $brgys }}</h6> --}}
                                     <label for="inputAddress" class="form-label">Province</label>
                                     <select class="form-select provincesList2" aria-label="Default select example" name="province2"  id="province2"  required>
                                         <option selected value="">Select Province</option>
@@ -57,14 +60,20 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label for="inputAddress" class="form-label">Municipality</label>
+                                    {{-- <select class="form-select municipalList2" aria-label="Default select example" name="municipality2"  id="municipals2" required>
+                                        <option  selected value=""">Municipality</option>
+                                        @foreach($municipal as $each_municipal)
+                                         <option value="{{$each_municipal->citymunCode}}">{{$each_municipal->citymunDesc}}</option> 
+                                            @endforeach
+                                    </select> --}}
                                     <select class="form-select municipalList2" aria-label="Default select example" name="municipality2"  id="municipals2" required>
-                                        <option  value="0" disabled="true" selected="true">Municipality</option>
-                                    </select>
+                                      <option  selected value="">Barangay</option>
+                                  </select>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="inputAddress" class="form-label">Barangay</label>
                                     <select class="form-select barangayList2" aria-label="Default select example" name="barangay2" id="brgy2"  required>
-                                        <option  value="0" disabled="true" selected="true">Barangay</option>
+                                        <option  selected value="">Barangay</option>
                                     </select>
                                 </div>
                             </div>

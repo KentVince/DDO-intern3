@@ -8,6 +8,7 @@ $(document).ready(function () {
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
         var specs_info = $(e.relatedTarget).data("specs-info");
         bookId = Object.values(bookId);
+        console.log(bookId);
         $("#kind_mineral2").val(mineralInfo);
 
         // $("#specs_group_edit").val(specs_info);
@@ -16,6 +17,7 @@ $(document).ready(function () {
             $("select#kind_mineral2").find(":selected").data("mineral-variable")
         );
         $("select#specs_group_edit").val(specs_info).change();
+
         // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
 
@@ -26,9 +28,9 @@ $(document).ready(function () {
             .find('input[name="processing_fee2"]')
             .val(bookId[10]);
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
-        $(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
-        $(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
-        $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]);
+        //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
+        //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
+        //$(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]);
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
         $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[8]);
@@ -49,6 +51,16 @@ $(document).ready(function () {
         $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
         $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
         //alert(bookId);
+        //provinces muni brgy
+        //$(this).find('select[name="province2"]').val(bookId[3]);
+        //$(this).find('select[name="municipality2"]').val(bookId[4]);
+        //$(this).find('select[name="municipality2"]').val(bookId[4]);
+        //$("select#province2").val(bookId[3]);
+        //console.log(bookId[3]);
+        //$("select#municipals2").val(bookId[4]);
+        //alert(typeof bookId[4]);
+        //$("select#brgy2").val(bookId[5]);
+        //console.log(bookId[5]);
     });
 
     $("body").on("keyup", "#tonnage", function () {
@@ -156,7 +168,7 @@ $(document).ready(function () {
     $(document).on("change", ".provincesList", function () {
         // alert("hello");
         var prov_id = $(this).val();
-        console.log(prov_id);
+        //console.log(prov_id);
         var select = $(this).parent();
         //console.log(select);
 
@@ -191,7 +203,7 @@ $(document).ready(function () {
     $(document).on("change", ".municipalList", function () {
         //alert("hello");
         var brgy_id = $(this).val();
-        console.log(brgy_id);
+        //console.log(brgy_id);
         var selects = $(this).parent();
         //console.log(select);
         var brgy = " ";
@@ -219,7 +231,34 @@ $(document).ready(function () {
         });
     });
 
-    // get municipal based on selected province (Edit)
+    // function retrieve(prov_id) {
+    //     var op = " ";
+
+    //     $.ajax({
+    //         type: "get",
+    //         url: "/findMunicipality",
+    //         data: { id: prov_id },
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType: "json",
+    //         success: function (data) {
+    //             console.log(data);
+    //             console.log("success");
+    //             op +=
+    //                 '<option value="0" selected disabled>Select Municipality</option>';
+    //             for (var i = 0; i < data.length; i++) {
+    //                 op +=
+    //                     '<option value="' +
+    //                     data[i].citymunCode +
+    //                     '">' +
+    //                     data[i].citymunDesc +
+    //                     "</option>";
+    //             }
+    //             $("#municipals2").html(" ");
+    //             $("#municipals2").append(op);
+    //         },
+    //     });
+    // }
+    //get municipal based on selected province (Edit)
     $(document).on("change", ".provincesList2", function () {
         // alert("hello");
         var prov_id = $(this).val();
