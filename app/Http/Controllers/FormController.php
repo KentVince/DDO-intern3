@@ -59,7 +59,7 @@ class FormController extends Controller
         //SELECT municipals.citymunDesc FROM municipals INNER JOIN provinces ON municipals.provCode = provinces.provCode;
     }
     public function findBarangay(Request $request){
-        $brgy=Barangay::select('brgyDesc','id')->where('citymunCode',$request->id)->get();
+        $brgy=Barangay::select('brgyDesc','brgyCode')->where('citymunCode',$request->id)->get();
         return response()->json($brgy);
     }
 
@@ -138,7 +138,7 @@ class FormController extends Controller
         "buyer_mail"=>$request['buyer_mail2'], "num_vehicle"=>$request['num_vehicle2'],
         "specification_id"=>$request['specification']
         );
-        
+       
         // $request=array("otp_number"=>$request['otp_number2'],"processing_fee"=>$request['processing_fee2'],
         // "name_permitte"=>$request['name_permitte2'], "processing_or"=>$request['processing_or2'], 
         // "municipality"=>$request['municipality2'], "barangay"=>$request['barangay2'], "excise_tax"=>$request['excise_tax2'],

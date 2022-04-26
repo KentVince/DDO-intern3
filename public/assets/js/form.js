@@ -2,7 +2,9 @@ $(document).ready(function () {
     $("#myTable").DataTable();
 
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
+        
         $("select#specs_group_edit").empty();
+    
         //get data-id attribute of the clicked element
         var bookId = $(e.relatedTarget).data("form-info");
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
@@ -10,18 +12,32 @@ $(document).ready(function () {
         bookId = Object.values(bookId);
         console.log(bookId);
         $("#kind_mineral2").val(mineralInfo);
-
+    
         // $("#specs_group_edit").val(specs_info);
         generateMineralSpecs(
             $("select#kind_mineral2").find(":selected").data("mineral-variable")
         );
         $("select#specs_group_edit").val(specs_info).change();
-
+        
+        $("#province2").val(bookId[3]).trigger('change');
+        // $("#province2").change(function(){
+        //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
+        // });
+      
+       
         // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
-
+        alert("Cuyrrent data"+bookId);
         //populate the textbox
         //console.log(bookId);
+        $("#municipals2").val(bookId[4]).trigger('change');
+        // $("#brgy2").val(bookId[5]).trigger('change');
+        alert("barangay"+bookId[5])
+        
+        // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
+     
+        $("#brgy2").val(bookId[5]).trigger('change');
+        
         $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
         $(e.currentTarget)
             .find('input[name="processing_fee2"]')
@@ -29,7 +45,7 @@ $(document).ready(function () {
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
         //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
         //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
-        //$(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]);
+        // $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
         $(e.currentTarget).find('input[name="tonnage2"]').val(bookId[8]);
@@ -217,11 +233,11 @@ $(document).ready(function () {
                 console.log(data);
                 console.log("success");
                 brgy +=
-                    '<option value="0" selected disabled>Select Brgy</option>';
+                    '<option value="0" disabled>Select Brgy</option>';
                 for (var i = 0; i < data.length; i++) {
                     brgy +=
                         '<option value="' +
-                        data[i].id +
+                        data[i].brgyCode +
                         '">' +
                         data[i].brgyDesc +
                         "</option>";
@@ -263,7 +279,7 @@ $(document).ready(function () {
     $(document).on("change", ".provincesList2", function () {
         // alert("hello");
         var prov_id = $(this).val();
-        console.log(prov_id);
+        alert(prov_id);
         var select = $(this).parent();
         //console.log(select);
 
@@ -308,14 +324,14 @@ $(document).ready(function () {
             data: { id: brgy_id },
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                console.log("barangayss"+data);
                 console.log("success");
                 brgy +=
-                    '<option value="0" selected disabled>Select Brgy</option>';
+                    '<option value="0" disabled>Select Brgy</option>';
                 for (var i = 0; i < data.length; i++) {
                     brgy +=
                         '<option value="' +
-                        data[i].id +
+                        data[i].brgyCode +
                         '">' +
                         data[i].brgyDesc +
                         "</option>";
