@@ -26,7 +26,7 @@
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <label for="inputEmail4" class="form-label">Name of Permittee</label>
-                                    <input type="text" class="form-control" name="name_permitte2" autocomplete="off">
+                                    <input type="text" class="form-control" name="name_permitte2" >
                                 </div>
                                 <div class="col-md-12">
                                     <label for="inputCity" class="form-label">Name of Applicant</label>
@@ -104,11 +104,11 @@
                                 </div>
                                   <div class="col-md-12">
                                       <label for="inputCity" class="form-label">Volume/Tonnage</label>
-                                      <input type="text" class="form-control" id="tonnages" name="tonnage2" required autocomplete="off">
+                                      <input type="text" class="form-control" id="tonnages" name="tonnage2" required >
                                   </div>
                                   <div class="col-md-12">
                                       <label for="inputCity" class="form-label">No. of Vehicle</label>
-                                      <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly="" autocomplete="off" required>
+                                      <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly=""  required>
                                   </div>
                               </div>
                           </div>
@@ -121,11 +121,11 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Estimated Value</label>
-                                    <input type="text" class="form-control" id="estimated_values" name="estimated_value2" autocomplete="off" readonly="" >
+                                    <input type="text" class="form-control" id="estimated_values" name="estimated_value2"  readonly="" >
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Extraction Fee</label>
-                                    <input type="text" class="form-control" id="extraction_fees" name="extraction_fee2" autocomplete="off" readonly="" >
+                                    <input type="text" class="form-control" id="extraction_fees" name="extraction_fee2"  readonly="" >
                                 </div>
                                 <div class="col-md-6">
                                     <label for="inputCity" class="form-label">Excise OR</label>

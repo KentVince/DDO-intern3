@@ -65,7 +65,7 @@
 					    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
 						    <div class="app-card-body">
 							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left" id="form_table">
+							        <table class="table app-table-hover mb-0 text-left" id="myTable">
 										<thead>
 											<tr>
                                                 <th class="cell">OTP Number</th>
@@ -95,7 +95,7 @@
 												@if(isset($item->specifications))
 												<td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}" data-specs-info="{{ $item->specifications->id  ? $item->specifications->id :"blank"}}" data-mineral-info="{{$item->specifications->mineral->id}}" data-target="#ModalEdit2" >View</button></td>
 												@else
-												<td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}" data-specs-info="" data-mineral-info="" data-target="#ModalEdit2" >View</button></td>
+												<td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}"   data-target="#ModalEdit2" >View</button></td>
 												@endif
                                                
                                                 <td>
