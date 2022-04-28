@@ -1,32 +1,30 @@
 $(document).ready(function () {
     $("#form_table").DataTable();
-
-    $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
+    $(".modal#ModalEdit2").on("hidden.bs.modal", function (e) {
         $("#updatelForm").trigger("reset");
+    });
+    $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
         $("select#specs_group_edit").empty();
+        //bookId = formInfo
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
         //get data-id attribute of the clicked element
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
-        alert(typeof mineralInfo);
+        //alert(typeof mineralInfo);
         if (typeof mineralInfo !== "undefined") {
-            // the array is defined and has at least one element
-
+            //the array is defined and has at least one element
             var specs_info = $(e.relatedTarget).data("specs-info");
-
             console.log(bookId);
-            alert("mineral info found" + mineralInfo);
+            //alert("mineral info found"+mineralInfo);
             $("#kind_mineral2").val(mineralInfo);
-
-            // $("#specs_group_edit").val(specs_info);
+            //$("#specs_group_edit").val(specs_info);
             generateMineralSpecs(
                 $("select#kind_mineral2")
                     .find(":selected")
                     .data("mineral-variable")
             );
             $("select#specs_group_edit").val(specs_info).change();
-
             //alert(bookId);
             //provinces muni brgy
             //$(this).find('select[name="province2"]').val(bookId[3]);
@@ -41,7 +39,6 @@ $(document).ready(function () {
             $(e.currentTarget)
                 .find('input[name="estimated_value2"]')
                 .val(bookId[9]);
-
             $(e.currentTarget)
                 .find('input[name="processing_fee2"]')
                 .val(bookId[11]);
@@ -66,39 +63,85 @@ $(document).ready(function () {
             // .find('input[name="processing_fee2"]')
             // .val(bookId[10]);
         } else {
-            alert("mineral not found" + mineralInfo);
+            //alert("mineral not found"+mineralInfo);
             $("#kind_mineral2").val("");
         }
-        $("#province2").val(bookId[3]).trigger("change");
-        // $("#province2").change(function(){
-        //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
-        // });
-        // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
-
-        alert("Cuyrrent data" + bookId);
-        //populate the textbox
-        //console.log(bookId);
-        $("#municipals2").val(bookId[4]).trigger("change");
-        // $("#brgy2").val(bookId[5]).trigger('change');
-        alert("barangay" + bookId[5]);
-
-        // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
-
-        $("#brgy2").val(bookId[5]).trigger("change");
-
+        $("#province2").val(bookId[3]);
+        // dispaly municipal on (VIEW)
+        var op = " ";
+        $.ajax({
+            type: "get",
+            url: "/findMunicipality",
+            data: { id: bookId[3] },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                console.log("success");
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].citymunCode == bookId[4]) {
+                        op +=
+                            '<option selected value="' +
+                            data[i].citymunCode +
+                            '">' +
+                            data[i].citymunDesc +
+                            "</option>";
+                    } else {
+                        op +=
+                            '<option value="' +
+                            data[i].citymunCode +
+                            '">' +
+                            data[i].citymunDesc +
+                            "</option>";
+                    }
+                }
+                $("#municipals2").html(" ");
+                $("#municipals2").append(op);
+            },
+        });
+        // dispaly baranggay on (VIEW)
+        var brgy = " ";
+        $.ajax({
+            type: "get",
+            url: "/findBarangay",
+            data: { id: bookId[4] },
+            dataType: "json",
+            success: function (data) {
+                console.log("barangayss" + data);
+                console.log("success");
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].brgyCode == bookId[5]) {
+                        brgy +=
+                            '<option selected value="' +
+                            data[i].brgyCode +
+                            '">' +
+                            data[i].brgyDesc +
+                            "</option>";
+                    } else {
+                        brgy +=
+                            '<option value="' +
+                            data[i].brgyCode +
+                            '">' +
+                            data[i].brgyDesc +
+                            "</option>";
+                    }
+                }
+                $("#brgy2").html(" ");
+                $("#brgy2").append(brgy);
+            },
+        });
         $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
-
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
         //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
         //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
-        // $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
+        //$(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
-
         $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
         $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
     });
 
+    //auto compute on (ADD)
     $("body").on("keyup", "#tonnage", function () {
         var tonnage = parseFloat($(this).val());
         var num_vehicle;
@@ -114,6 +157,8 @@ $(document).ready(function () {
         var total_extraction_fee = num_vehicle * 6000 * 0.1;
         $("#extraction_fee").val(total_extraction_fee);
     });
+
+    // auto compute on (EDIT)
     $("body").on("keyup", "#tonnages", function () {
         var tonnage = parseFloat($(this).val());
         var num_vehicle;
@@ -129,6 +174,7 @@ $(document).ready(function () {
         var total_extraction_fee = num_vehicle * 6000 * 0.1;
         $("#extraction_fees").val(total_extraction_fee);
     });
+
     //mer code
     function generateMineralSpecs(mineralInfo) {
         for (let i = 0; i < mineralInfo.length; i++) {
@@ -139,7 +185,6 @@ $(document).ready(function () {
                     text: currentSpec[2],
                 })
             );
-
             // $("#specs_group").append(`<li>${currentSpec[2]}</li>`);
             $("select#specs_group_edit").append(
                 $("<option>", {
@@ -151,14 +196,11 @@ $(document).ready(function () {
     }
     $("select#kind_mineral").on("change", function () {
         $("select#specs_group").empty();
-
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
-
         generateMineralSpecs(mineralInfo);
     });
     $("select#kind_mineral2").on("change", function () {
         $("select#specs_group_edit").empty();
-
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
         generateMineralSpecs(mineralInfo);
     });
@@ -170,26 +212,20 @@ $(document).ready(function () {
         // generateMineralSpecs(mineralInfo);
         // $(".modal-body1").html("");
     });
-
     $(".modal#ModalCreate2").on("hidden.bs.modal", function () {
         id = $(this).attr("id");
-
         $(this).find("form").trigger("reset");
         $("select#specs_group").empty();
-
         // $(".modal-body1").html("");
     });
     $(".toggle-alert").click(function () {
         $(".toast").toggle();
     });
-    var timeout = setTimeout($(".toast").toast("show", {}), 5000);
-    clearTimeout(timeout);
-    // $(".toast").toast("show", {
-    //     animation: true,
-    //     autohide: true,
-    //     delay: 100,
-    // });
-
+    $(".toast").toast("show", {
+        animation: true,
+        autohide: true,
+        delay: 500,
+    });
     $(window).scroll(function () {
         $("#form_notif")
             .stop()
@@ -204,14 +240,9 @@ $(document).ready(function () {
 
     // get municipal based on selected province (ADD)
     $(document).on("change", ".provincesList", function () {
-        // alert("hello");
         var prov_id = $(this).val();
-        //console.log(prov_id);
         var select = $(this).parent();
-        //console.log(select);
-
         var op = " ";
-
         $.ajax({
             type: "get",
             url: "/findMunicipality",
@@ -239,11 +270,8 @@ $(document).ready(function () {
 
     // get brgy based on selected municipality (ADD)
     $(document).on("change", ".municipalList", function () {
-        //alert("hello");
         var brgy_id = $(this).val();
-        //console.log(brgy_id);
         var selects = $(this).parent();
-        //console.log(select);
         var brgy = " ";
         $.ajax({
             type: "get",
@@ -268,43 +296,11 @@ $(document).ready(function () {
         });
     });
 
-    // function retrieve(prov_id) {
-    //     var op = " ";
-
-    //     $.ajax({
-    //         type: "get",
-    //         url: "/findMunicipality",
-    //         data: { id: prov_id },
-    //         contentType: "application/json; charset=utf-8",
-    //         dataType: "json",
-    //         success: function (data) {
-    //             console.log(data);
-    //             console.log("success");
-    //             op +=
-    //                 '<option value="0" selected disabled>Select Municipality</option>';
-    //             for (var i = 0; i < data.length; i++) {
-    //                 op +=
-    //                     '<option value="' +
-    //                     data[i].citymunCode +
-    //                     '">' +
-    //                     data[i].citymunDesc +
-    //                     "</option>";
-    //             }
-    //             $("#municipals2").html(" ");
-    //             $("#municipals2").append(op);
-    //         },
-    //     });
-    // }
     //get municipal based on selected province (Edit)
     $(document).on("change", ".provincesList2", function () {
-        // alert("hello");
         var prov_id = $(this).val();
-        alert(prov_id);
         var select = $(this).parent();
-        //console.log(select);
-
         var op = " ";
-
         $.ajax({
             type: "get",
             url: "/findMunicipality",
@@ -314,8 +310,6 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data);
                 console.log("success");
-                op +=
-                    '<option value="0" selected disabled>Select Municipality</option>';
                 for (var i = 0; i < data.length; i++) {
                     op +=
                         '<option value="' +
@@ -332,11 +326,9 @@ $(document).ready(function () {
 
     // get brgy based on selected municipality (Edit)
     $(document).on("change", ".municipalList2", function () {
-        //alert("hello");
         var brgy_id = $(this).val();
         console.log(brgy_id);
         var selects = $(this).parent();
-        //console.log(select);
         var brgy = " ";
         $.ajax({
             type: "get",
@@ -365,7 +357,6 @@ $(document).ready(function () {
 
 function confirmAction(info, status, formId) {
     var td_name = $("#td_name").text();
-
     if (status == "danger") {
         swal({
             title: `Are you sure you want to delete this ${info}?`,
