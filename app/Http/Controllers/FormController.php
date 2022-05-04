@@ -88,7 +88,37 @@ class FormController extends Controller
         return redirect('/form');
 
     }
+    public function addOTPNumber($otp_number){
+        $new_otp_number=intval($otp_number);
+            
+        return ($new_otp_number+1);
+    }
+    public function getCurrentOTP(){
+        $year_today=date("Y");
+        $form = Forms::latest()->first();
+        if($form==null){
+            return "NM-".$year_today."-1";
+        }
+      
+        $otp_number=$form->otp_number;
+        // $year_today=2024;
+        
+        // $year_today=date('Y');
+        $current_otp_explode=explode("-",$otp_number);
+        // print_r($year_today);
+        if($year_today==$current_otp_explode[1]){
+            //save to niya 
+            $generated_otp_number=$this::addOTPNumber($current_otp_explode[2]);
+          
+            // $otp_to_save=intval($current_otp_explode[2])+1;
+            // print_r("SAVE ID"+$otp_to_save);
+        }else{
+            $generated_otp_number=1;
+        }
 
+        return "NM-".$year_today."-".$generated_otp_number;
+        // return $year_today;
+    }
     
     public function edit($id)
     {
@@ -169,8 +199,9 @@ class FormController extends Controller
 
     public function destroy($id)
     {
+        dd($id);
         Forms::destroy($id);
-        return redirect('/form')->with('result_msg', "Delete Successfully.");
+        return redirect('/form')->with('result_msg', "Mer Successfully.$id");
 
     }
 }

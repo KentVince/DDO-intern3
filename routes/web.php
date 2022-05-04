@@ -32,9 +32,11 @@ Auth::routes();
 Route::get('/welcome', function () {
     return view('welcome');
 });
+Route::get('/getCurrentOTP',[App\Http\Controllers\FormController::class, 'getCurrentOTP']);
 Route::get('/', function () {
     return redirect('/form');
 });
+
 Route::get('/findMunicipality',[App\Http\Controllers\FormController::class, 'findMunicipality']);
 Route::get('/findBarangay',[App\Http\Controllers\FormController::class, 'findBarangay']);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

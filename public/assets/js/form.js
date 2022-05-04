@@ -1,15 +1,18 @@
+
 $(document).ready(function () {
     $("#myTable").DataTable();
-
-    $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
+    $(".modal#ModalEdit2").on("hidden.bs.modal", function (e) {
         $('#updatelForm').trigger("reset");
+    })
+    $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
+   
         $("select#specs_group_edit").empty();
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
         //get data-id attribute of the clicked element
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
-        alert(typeof mineralInfo);
+     //   alert(typeof mineralInfo);
         if (typeof mineralInfo !== 'undefined') {
             // the array is defined and has at least one element
         
@@ -18,7 +21,7 @@ $(document).ready(function () {
         var specs_info = $(e.relatedTarget).data("specs-info");
         
         console.log(bookId);
-        alert("mineral info found"+mineralInfo);
+      //  alert("mineral info found"+mineralInfo);
         $("#kind_mineral2").val(mineralInfo);
     
         // $("#specs_group_edit").val(specs_info);
@@ -60,25 +63,96 @@ $(document).ready(function () {
     // .find('input[name="processing_fee2"]')
     // .val(bookId[10]);
     }else{
-        alert("mineral not found"+mineralInfo);
+  //      alert("mineral not found"+mineralInfo);
         $("#kind_mineral2").val("");
     }
-    $("#province2").val(bookId[3]).trigger('change');
+    $("#province2").val(bookId[3]);
+  // GET MUNICIPAL
+  var op = " ";
+
+  $.ajax({
+      type: "get",
+      url: "/findMunicipality",
+      data: { id: bookId[3] },
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (data) {
+          console.log(data);
+          console.log("success");
+        
+          for (var i = 0; i < data.length; i++) {
+              if(data[i].citymunCode==bookId[4]){
+                op +=
+                  '<option selected value="' +
+                  data[i].citymunCode +
+                  '">' +
+                  data[i].citymunDesc +
+                  "</option>";
+          }else{
+            op +=
+            '<option value="' +
+            data[i].citymunCode +
+            '">' +
+            data[i].citymunDesc +
+            "</option>";
+    }
+          }  
+              
+              
+          $("#municipals2").html(" ");
+          $("#municipals2").append(op);
+      },
+  });
+  // get baranggay
+  var brgy = " ";
+  $.ajax({
+      type: "get",
+      url: "/findBarangay",
+      data: { id: bookId[4] },
+      dataType: "json",
+      success: function (data) {
+          console.log("barangayss"+data);
+          console.log("success");
+       
+          for (var i = 0; i < data.length; i++) {
+              if(data[i].brgyCode==bookId[5]){
+                brgy +=
+                '<option selected value="' +
+                data[i].brgyCode +
+                '">' +
+                data[i].brgyDesc +
+                "</option>";
+              }else{
+                brgy +=
+                '<option value="' +
+                data[i].brgyCode +
+                '">' +
+                data[i].brgyDesc +
+                "</option>";
+              }
+             
+          }
+
+          $("#brgy2").html(" ");
+          $("#brgy2").append(brgy);
+      },
+  });
+  //GET MUNICIPAL END
+  //GET BARANGGAY
     // $("#province2").change(function(){
     //     $(e.currentTarget).find('select[name="province2"]').val(bookId[3]);
     // });
     // $(e.currentTarget).find('select[name="kind_mineral2"]').val(mineralInfo);
-   
-    alert("Cuyrrent data"+bookId);
+  
     //populate the textbox
     //console.log(bookId);
-    $("#municipals2").val(bookId[4]).trigger('change');
+    // $("#municipals2").val(bookId[4]).trigger('change');
     // $("#brgy2").val(bookId[5]).trigger('change');
-    alert("barangay"+bookId[5])
+   
     
     // $(e.currentTarget).find('select[name="municipality2"]').val(bookId[4]).trigger('change');
  
-    $("#brgy2").val(bookId[5]).trigger('change');
+    // $("#brgy2").val(bookId[5]).trigger('change');
     
     $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
   
@@ -160,13 +234,26 @@ $(document).ready(function () {
     });
     $("#ModalCreate2").on("show.bs.modal", function (e) {
         $("select#specs_group").empty();
+        $.ajax({
+            url: "/getCurrentOTP",
+            type: 'GET',
+          
+            success: function(res) {
+                console.log(res);
+                $('#current_otp_number').val(res);
+
+            }
+        });
         // $("ul#specs_group").empty();
         // var mineralInfo = $('select#kind_mineral').find(':selected').data('mineral-variable');
         // var mineralInfo = $(e.relatedTarget).data("form-info");
         // generateMineralSpecs(mineralInfo);
         // $(".modal-body1").html("");
     });  
- 
+    // function getCurrentOTP(){
+    
+       
+    //  }
     $(".modal#ModalCreate2").on("hidden.bs.modal", function () {
         id = $(this).attr("id");
 
@@ -296,7 +383,7 @@ $(document).ready(function () {
     $(document).on("change", ".provincesList2", function () {
         // alert("hello");
         var prov_id = $(this).val();
-        alert(prov_id);
+      //  alert(prov_id);
         var select = $(this).parent();
         //console.log(select);
 
@@ -311,8 +398,7 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data);
                 console.log("success");
-                op +=
-                    '<option value="0" selected disabled>Select Municipality</option>';
+              
                 for (var i = 0; i < data.length; i++) {
                     op +=
                         '<option value="' +

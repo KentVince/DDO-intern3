@@ -104,7 +104,7 @@
                                                         {{ csrf_field() }}
                                                         <button type="submit" class="btn btn-danger btn-sm" title="Delete Form" onclick="return confirm(&quot;Confirm delete?&quot;)">Delete</button>
                                                     </form> --}}
-													<form method="POST" id="delete_form" class="ignore-css" action="/form/{{ $item->id }}">
+													<form method="POST" id="delete_form" class="ignore-css" action="{{ url('/form' . '/' . $item->id) }}">
 														@csrf
 														@method('delete') 
 													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('form record','danger','delete_form')">Delete</button>
