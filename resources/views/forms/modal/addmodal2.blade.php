@@ -6,9 +6,10 @@
         <div class="modal-header">
           <h6>
             <div class="form-group row">
-              <label  class="col-sm-6 col-form-label" >OTP Number:</label>
-              <div class="col-sm-6">
-              <input type="text" readonly class="form-control-plaintext" name="otp_number"  value="NM-{{ now()->year }}-{{$form_current_id}}">
+            <label  class="col-sm-6 col-form-label" >OTP Number:</label>
+            <div class="col-sm-6">
+              <input type="text" readonly class="form-control-plaintext" id="current_otp_number" name="otp_number">
+                {{-- <input type="text" readonly class="form-control-plaintext" id="current_otp_number" name="otp_number"  value="NM-{{ now()->year }}-{{$form_current_id}}"> --}}
               </div>
             </div>
           </h6>

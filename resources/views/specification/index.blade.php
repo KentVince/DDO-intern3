@@ -169,7 +169,7 @@
 													<form method="POST" id="delete_specs" class="ignore-css" action="/specification/{{ $each_mineral->id }}">
 														@csrf
 														@method('delete')
-													<button class="btn-sm app-btn-danger" type="button" onclick="confirmAction('specification record','danger','delete_specs')">Delete</button>
+													<button class="btn-sm app-btn-danger" type="button" onclick="confirmAction('specification record','danger','delete_specs',{{ $each_mineral->id }})">Delete</button>
 												</form>
 											</td>
 											</tr>

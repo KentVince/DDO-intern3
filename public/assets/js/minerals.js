@@ -52,7 +52,7 @@ $(".modal#updateModal").on("show.bs.modal", function (e) {
     $(e.currentTarget).find('input[name="name_of_minerals2"]').val(bookId[1]);
 });
 
-function confirmAction(info, status, formId) {
+function confirmAction(info, status, formId,formValue) {
     var td_name = $("#td_name").text();
 
     if (status == "danger") {
@@ -79,6 +79,7 @@ function confirmAction(info, status, formId) {
             },
         }).then((value) => {
             if (value == true) {
+                $(`#${formId}`).attr('action','/minerals/'+formValue);
                 $(`#${formId}`).submit();
             }
         });

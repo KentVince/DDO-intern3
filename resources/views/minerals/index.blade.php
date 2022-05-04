@@ -146,7 +146,7 @@
 													<form method="POST" id="delete_mineral" class="ignore-css" action="/minerals/{{ $each_mineral->id }}">
 														@csrf
 														@method('delete') 
-													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('mineral record','danger','delete_mineral')">Delete</button>
+													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('mineral record','danger','delete_mineral',{{ $each_mineral->id }})">Delete</button>
 												</form>
 											</td>
 											</tr>

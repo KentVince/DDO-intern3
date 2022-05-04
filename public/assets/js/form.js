@@ -1,17 +1,10 @@
 $(document).ready(function () {
-    $("#submit_form").submit(function (e) {
-        e.preventDefault();
-    });
-    if ($("span.invalid-feedback ").text() != "") {
-        $("#createform_modal_btn").trigger("click");
-    }
-    $("#form_table").DataTable();
+    $("#myTable").DataTable();
     $(".modal#ModalEdit2").on("hidden.bs.modal", function (e) {
         $("#updatelForm").trigger("reset");
     });
     $(".modal#ModalEdit2").on("show.bs.modal", function (e) {
         $("select#specs_group_edit").empty();
-        //bookId = formInfo
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
@@ -20,6 +13,7 @@ $(document).ready(function () {
 
         if (typeof mineralInfo !== "undefined") {
             var specs_info = $(e.relatedTarget).data("specs-info");
+
             console.log(bookId);
 
             $("#kind_mineral2").val(mineralInfo);
@@ -30,9 +24,11 @@ $(document).ready(function () {
                     .data("mineral-variable")
             );
             $("select#specs_group_edit").val(specs_info).change();
+
             $(e.currentTarget)
                 .find('input[name="estimated_value2"]')
                 .val(bookId[9]);
+
             $(e.currentTarget)
                 .find('input[name="processing_fee2"]')
                 .val(bookId[11]);
@@ -53,13 +49,17 @@ $(document).ready(function () {
             $(e.currentTarget)
                 .find('input[name="num_vehicle2"]')
                 .val(bookId[10]);
+            // $(e.currentTarget)
+            // .find('input[name="processing_fee2"]')
+            // .val(bookId[10]);
         } else {
+            //      alert("mineral not found"+mineralInfo);
             $("#kind_mineral2").val("");
         }
         $("#province2").val(bookId[3]);
-
-        // dispaly municipal on (VIEW)
+        // GET MUNICIPAL
         var op = " ";
+
         $.ajax({
             type: "get",
             url: "/findMunicipality",
@@ -67,8 +67,6 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                console.log("success");
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].citymunCode == bookId[4]) {
                         op +=
@@ -86,6 +84,7 @@ $(document).ready(function () {
                             "</option>";
                     }
                 }
+
                 $("#municipals2").html(" ");
                 $("#municipals2").append(op);
                 $("#municipals2 option").each(function () {
@@ -93,8 +92,7 @@ $(document).ready(function () {
                 });
             },
         });
-
-        // dispaly baranggay on (VIEW)
+        // get baranggay
         var brgy = " ";
         $.ajax({
             type: "get",
@@ -102,8 +100,6 @@ $(document).ready(function () {
             data: { id: bookId[4] },
             dataType: "json",
             success: function (data) {
-                console.log("barangayss" + data);
-                console.log("success");
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].brgyCode == bookId[5]) {
                         brgy +=
@@ -121,20 +117,26 @@ $(document).ready(function () {
                             "</option>";
                     }
                 }
+
                 $("#brgy2").html(" ");
                 $("#brgy2").append(brgy);
             },
         });
+
         $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
+
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
+        //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
+        //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
+        // $(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
+
         $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
         $(e.currentTarget).find('input[name="buyer_mail2"]').val(bookId[18]);
     });
 
-    //auto compute on (ADD)
-    $(document).on("keyup", "#tonnage", function () {
+    $("body").on("keyup", "#tonnage", function () {
         var tonnage = parseFloat($(this).val());
         var num_vehicle;
         if (tonnage <= 20) {
@@ -149,8 +151,6 @@ $(document).ready(function () {
         var total_extraction_fee = num_vehicle * 6000 * 0.1;
         $("#extraction_fee").val(total_extraction_fee);
     });
-
-    // auto compute on (EDIT)
     $("body").on("keyup", "#tonnages", function () {
         var tonnage = parseFloat($(this).val());
         var num_vehicle;
@@ -166,7 +166,6 @@ $(document).ready(function () {
         var total_extraction_fee = num_vehicle * 6000 * 0.1;
         $("#extraction_fees").val(total_extraction_fee);
     });
-
     //mer code
     function generateMineralSpecs(mineralInfo) {
         for (let i = 0; i < mineralInfo.length; i++) {
@@ -177,7 +176,7 @@ $(document).ready(function () {
                     text: currentSpec[2],
                 })
             );
-            // $("#specs_group").append(`<li>${currentSpec[2]}</li>`);
+
             $("select#specs_group_edit").append(
                 $("<option>", {
                     value: currentSpec[0],
@@ -188,30 +187,47 @@ $(document).ready(function () {
     }
     $("select#kind_mineral").on("change", function () {
         $("select#specs_group").empty();
+
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
+
         generateMineralSpecs(mineralInfo);
     });
     $("select#kind_mineral2").on("change", function () {
         $("select#specs_group_edit").empty();
+
         var mineralInfo = $(this).find(":selected").data("mineral-variable");
         generateMineralSpecs(mineralInfo);
     });
     $("#ModalCreate2").on("show.bs.modal", function (e) {
         $("select#specs_group").empty();
+        $.ajax({
+            url: "/getCurrentOTP",
+            type: "GET",
+
+            success: function (res) {
+                console.log(res);
+                $("#current_otp_number").val(res);
+            },
+        });
     });
+
     $(".modal#ModalCreate2").on("hidden.bs.modal", function () {
         id = $(this).attr("id");
+
         $(this).find("form").trigger("reset");
         $("select#specs_group").empty();
     });
     $(".toggle-alert").click(function () {
         $(".toast").toggle();
     });
-    $(".toast").toast("show", {
-        animation: true,
-        autohide: true,
-        delay: 500,
-    });
+    var timeout = setTimeout($(".toast").toast("show", {}), 5000);
+    clearTimeout(timeout);
+    // $(".toast").toast("show", {
+    //     animation: true,
+    //     autohide: true,
+    //     delay: 100,
+    // });
+
     $(window).scroll(function () {
         $("#form_notif")
             .stop()
@@ -227,8 +243,11 @@ $(document).ready(function () {
     // get municipal based on selected province (ADD)
     $(document).on("change", ".provincesList", function () {
         var prov_id = $(this).val();
+
         var select = $(this).parent();
+
         var op = " ";
+
         $.ajax({
             type: "get",
             url: "/findMunicipality",
@@ -236,8 +255,6 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                console.log("success");
                 op +=
                     '<option value="0" selected disabled>Select Municipality</option>';
                 for (var i = 0; i < data.length; i++) {
@@ -257,7 +274,9 @@ $(document).ready(function () {
     // get brgy based on selected municipality (ADD)
     $(document).on("change", ".municipalList", function () {
         var brgy_id = $(this).val();
+
         var selects = $(this).parent();
+
         var brgy = " ";
         $.ajax({
             type: "get",
@@ -265,8 +284,6 @@ $(document).ready(function () {
             data: { id: brgy_id },
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                console.log("success");
                 brgy += '<option value="0" disabled>Select Brgy</option>';
                 for (var i = 0; i < data.length; i++) {
                     brgy +=
@@ -285,8 +302,11 @@ $(document).ready(function () {
     //get municipal based on selected province (Edit)
     $(document).on("change", ".provincesList2", function () {
         var prov_id = $(this).val();
+
         var select = $(this).parent();
+
         var op = " ";
+
         $.ajax({
             type: "get",
             url: "/findMunicipality",
@@ -294,8 +314,6 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                console.log(data);
-                console.log("success");
                 for (var i = 0; i < data.length; i++) {
                     op +=
                         '<option value="' +
@@ -313,8 +331,9 @@ $(document).ready(function () {
     // get brgy based on selected municipality (Edit)
     $(document).on("change", ".municipalList2", function () {
         var brgy_id = $(this).val();
-        console.log(brgy_id);
+
         var selects = $(this).parent();
+
         var brgy = " ";
         $.ajax({
             type: "get",
@@ -322,8 +341,6 @@ $(document).ready(function () {
             data: { id: brgy_id },
             dataType: "json",
             success: function (data) {
-                console.log("barangayss" + data);
-                console.log("success");
                 brgy += '<option value="0" disabled>Select Brgy</option>';
                 for (var i = 0; i < data.length; i++) {
                     brgy +=
@@ -339,71 +356,41 @@ $(document).ready(function () {
             },
         });
     });
-
-    $(".delete_btn").click(function (e) {
-        e.preventDefault();
-        var delete_id = $(this).closest("tr").find(".delete_id").val();
-
-        swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
-                var data = {
-                    _token: $("input[name=_token]").val(),
-                    id: delete_id,
-                };
-                $.ajax({
-                    type: "DELETE",
-                    url: "/form-id-delete/" + delete_id,
-                    data: data,
-                    success: function (response) {
-                        swal(response.status, {
-                            icon: "success",
-                        }).then((result) => {
-                            location.reload();
-                        });
-                    },
-                });
-            }
-        });
-    });
 });
 
-// function confirmAction(info, status, formId) {
-//     var td_name = $("#td_name").text();
-//     if (status == "danger") {
-//         swal({
-//             title: `Are you sure you want to delete this ${info}?`,
-//             text: "Once deleted, you will not be able to recover this imaginary file!",
-//             icon: "warning",
-//             dangerMode: true,
-//             buttons: {
-//                 cancel: {
-//                     text: "I changed my mind.",
-//                     value: false,
-//                     visible: true,
-//                     className: "",
-//                     closeModal: true,
-//                 },
-//                 confirm: {
-//                     text: "Yes, I'm sure.",
-//                     value: true,
-//                     visible: true,
-//                     className: "",
-//                     closeModal: true,
-//                 },
-//             },
-//         }).then((value) => {
-//             if (value == true) {
-//                 $(`#${formId}`).submit();
-//             }
-//         });
-//     }
-// }
+function confirmAction(info, status, formId, formValue) {
+    var td_name = $("#td_name").text();
+
+    if (status == "danger") {
+        swal({
+            title: `Are you sure you want to delete this ${info}?`,
+            text: "Once deleted, its connected specifications will also be deleted.",
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+                cancel: {
+                    text: "I changed my mind.",
+                    value: false,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "Yes, I'm sure.",
+                    value: true,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
+        }).then((value) => {
+            if (value == true) {
+                $(`#${formId}`).attr("action", "/form/" + formValue);
+                $(`#${formId}`).submit();
+            }
+        });
+    }
+}
 
 //upper case all details in (Add)
 $(window).on("keyup", function () {

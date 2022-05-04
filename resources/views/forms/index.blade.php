@@ -78,14 +78,14 @@
 												@if(isset($item->specifications))
 												<td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}" data-specs-info="{{ $item->specifications->id  ? $item->specifications->id :"blank"}}" data-mineral-info="{{$item->specifications->mineral->id}}" data-target="#ModalEdit2" >View</button></td>
 												@else
-												 <td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}"   data-target="#ModalEdit2" >View</button></td> --}}
+												<td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}"   data-target="#ModalEdit2" >View</button></td>
 												@endif
                                                 <td class="cell">
-													<form method="POST" id="delete_form" class="ignore-css" action="{{ url('/form' . '/' . $item->id) }}">
-														{{ method_field('DELETE') }}
-														{{ csrf_field() }}
-														<button class="btn-sm app-btn-danger delete_btn" id="delete_btn" type="button" onclick="confirmAction('form record','danger','delete_form')">Delete</button>
-													</form>
+													<form method="POST" id="delete_form" class="ignore-css" action="/form/{{ $item->id }}">
+														@csrf
+														@method('delete') 
+													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('form record','danger','delete_form',{{ $item->id }})">Delete</button>
+												</form>
                                                 </td>
 											</tr>
 											@empty
