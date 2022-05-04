@@ -7,7 +7,7 @@
                 <div class="form-group row">
                 <label  class="col-sm-6 col-form-label" >OTP Number:</label>
                 <div class="col-sm-6">
-                    <input type="text" readonly class="form-control-plaintext" name="otp_number2" autocomplete="off" >
+                    <input type="text" readonly class="form-control-plaintext" name="otp_number2"  >
                   </div>
                 </div>
                 </h6>
@@ -23,15 +23,15 @@
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <strong>Name of Permittee:</strong>
-                                    <input type="text" class="form-control" name="name_permitte2" >
+                                    <input type="text" class="form-control" name="name_permitte2" id="name_permitte2" required>
                                 </div>
                                 <div class="col-md-12">
                                     <strong>Name of Applicant:</strong>
-                                    <input type="text" class="form-control" id="name_applicant" name="name_applicant2" >
+                                    <input type="text" class="form-control" name="name_applicant2" id="name_applicant2" required>
                                 </div>
                                 <div class="col-md-12">
                                     <strong for="inputCity" class="form-label">Mailing Address:</strong>
-                                    <input type="text" class="form-control" id="applicant_mail" name="applicant_mail2" >
+                                    <input type="text" class="form-control" name="applicant_mail2" id="applicant_mail2" required>
                                 </div>
                             </div>
                           </div>
@@ -88,11 +88,11 @@
                                 </div>
                                   <div class="col-md-12">
                                       <strong>Volume/Tonnage:</strong>
-                                      <input type="text" class="form-control" id="tonnages" name="tonnage2" required >
+                                      <input type="number" class="form-control" id="tonnages" name="tonnage2" required >
                                   </div>
                                   <div class="col-md-12">
                                       <strong>No. of Vehicle:</strong>
-                                      <input type="text" class="form-control" id="num_vehicles" name="num_vehicle2" readonly=""  required>
+                                      <input type="number" class="form-control" id="num_vehicles" name="num_vehicle2" readonly=""  required>
                                   </div>
                               </div>
                           </div>
@@ -105,32 +105,32 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                   <strong>Estimated Value:</strong>
-                                  <input type="text" class="form-control" id="estimated_values" name="estimated_value2"  readonly="" >
+                                  <input type="number" class="form-control" id="estimated_values" name="estimated_value2"  readonly="" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Extraction Fee</strong>
-                                    <input type="text" class="form-control" id="extraction_fees" name="extraction_fee2"  readonly="" >
+                                    <input type="number" class="form-control" id="extraction_fees" name="extraction_fee2"  readonly="" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Excise OR</strong>
-                                    <input type="text" class="form-control" id="excise_or" name="excise_or2" >
+                                    <input type="number" class="form-control" id="excise_or" name="excise_or2" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Processing Fee</strong>
-                                    <input type="text" class="form-control" id="processing_fee" name="processing_fee2" >
+                                    <input type="number" class="form-control" id="processing_fee" name="processing_fee2" required>
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <strong>Processing OR</strong>
-                                    <input type="text" class="form-control" id="processing_or" name="processing_or2" >
+                                    <input type="number" class="form-control" id="processing_or" name="processing_or2" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Excise Tax</strong>
-                                    <input type="text" class="form-control" id="excise_tax" name="excise_tax2" >
+                                    <input type="number" class="form-control" id="excise_tax" name="excise_tax2" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Extraction OR</strong>
-                                    <input type="text" class="form-control" id="extraction_or" name="extraction_or2" >
+                                    <input type="number" class="form-control" id="extraction_or" name="extraction_or2" required>
                                 </div>
                             </div>
                           </div>
@@ -141,13 +141,13 @@
                         <div class="card bg-light">
                           <div class="card-body">
                             <strong>Buyer</strong>
-                              <div class="col-md-6">
+                              <div class="col-md-12">
                                 <strong>Cosigned To</strong>
-                                <input type="text" class="form-control" id="buyer" name="buyer2" >
+                                <input type="text" class="form-control" id="buyer2" name="buyer2" required>
                               </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <strong>Mailing Address</strong>
-                                <input type="text" class="form-control" id="buyer_mail" name="buyer_mail2" >
+                                <input type="text" class="form-control" id="buyer_mail2" name="buyer_mail2"required >
                             </div>
                           </div>
                         </div>

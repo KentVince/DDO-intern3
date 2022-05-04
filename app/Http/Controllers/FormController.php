@@ -19,44 +19,20 @@ class FormController extends Controller
     }
     public function index()
     {
-        
-        // $muni=Municipal::select('citymunDesc')->join('forms', 'municipals.citymunCode', '=', 'forms.municipality')->where('forms.id', '=', 2)->get();
-        // $brgys=Barangay::select('brgyDesc')->join('forms', 'barangays.id', '=', 'forms.barangay')->where('forms.id', '=', 2)->get();
-       
-        
-       
-      $minerals=Mineral::select('name_of_minerals','id')->has('mineralSpecifications')->get();
-    //   $provinces=Province::all();
-      $provinces=Province::select('provCode', 'provDesc')->where('provDesc', '=', 'Davao de Oro')->get();
-      $forms = Forms::all(); 
-      $municipal = Municipal::all();
-      $brgy = Barangay::all();
-      //dd( $forms->barangay);
-      //dd($forms);
-    // dd($forms->mineral);
-    //   $form2= Forms::with('mineral.mineralSpecifications')->get();
-
-    //   echo($form2[0]->mineral->mineralSpecifications[0]->specification_name);
+    $minerals=Mineral::select('name_of_minerals','id')->has('mineralSpecifications')->get();
+    $provinces=Province::select('provCode', 'provDesc')->where('provDesc', '=', 'Davao de Oro')->get();
+    $forms = Forms::all(); 
+    $municipal = Municipal::all();
+    $brgy = Barangay::all();
     $form_current_id=$this::getLastIdFromOTP();
-   
-    // $aws=$this::getMunicipal();
-    // $aw=Municipal::select('citymunDesc')->join('forms', 'municipals.citymunCode', 'forms.municipality')->where('forms.id', '=', 'forms.id');
-    //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
     return view('forms.index',['forms'=>$forms,'minerals'=>$minerals,'form_current_id'=>$form_current_id, 'provinces'=>$provinces , 'municipal'=>$municipal]);
-    //   return view ('forms.index')->with('forms', $forms, 'minerals'=>$minerals);
-      
+
     }
 
     public function findMunicipality(Request $request){
         $municipals=Municipal::select('citymunDesc','citymunCode')->where('provCode',$request->id)->get();
         return response()->json($municipals);
-    //    $p=DB::table('municipals')
-    //    ->select('citymunDesc','citymunCode')
-    //    ->join('provinces','municipals.provCode','=','provinces.provCode')
-    //    ->where('provinces.provCode',$request->id)
-    //    ->get();
-        
-        //SELECT municipals.citymunDesc FROM municipals INNER JOIN provinces ON municipals.provCode = provinces.provCode;
+  
     }
     public function findBarangay(Request $request){
         $brgy=Barangay::select('brgyDesc','brgyCode')->where('citymunCode',$request->id)->get();
@@ -71,9 +47,13 @@ class FormController extends Controller
 
     public function store(Request $request)
     {
-        
+        $request->validate([
+            'name_permitte'=>'required','name_applicant'=>'required','applicant_mail'=>'required','province'=>'required','municipality'=>'required',
+            'barangay'=>'required','mineral_id'=>'required','specification_id'=>'required','tonnage'=>'required | numeric','extraction_or'=>'required | numeric',
+            'processing_fee'=>'required | numeric','processing_or'=>'required | numeric','excise_tax'=>'required | numeric','excise_or'=>'required | numeric',
+            'buyer'=>'required','buyer_mail'=>'required',
+        ]);
         unset($request['mineral_id']);
-        
         $input = $request->all();
         Forms::create($input);
         return redirect('/form')->with('result_msg', "You have successfully added application form record.");
@@ -151,26 +131,14 @@ class FormController extends Controller
         $form = Forms::find($id);  
         // $input = $request->all();
         $form->update($request1);
-       
-          
-            return redirect('/form')->with('result_msg', "Updateds Successfully.");
-   
-        // return redirect('/form')->with('result_msg', "Updateds Successfully.");
-
-     
-     
+        return redirect('/form')->with('result_msg', "Updateds Successfully.");
     }
-
-    // public function getMunicipal($id){
-    //     $muni=Municipal::select('citymunDesc')->join('forms', 'municipals.citymunCode', '=', 'forms.municipality')->where('forms.id', '=', $id)->get();
-
-    //     //SELECT municipals.citymunDesc FROM municipals INNER JOIN forms ON municipals.citymunCode = forms.municipality WHERE forms.id = forms.id;
-    // }
 
     public function destroy($id)
     {
         Forms::destroy($id);
-        return redirect('/form')->with('result_msg', "Delete Successfully.");
+        return response()->json(['status'=>'Delete Successfully']);
+        //return redirect('/form')->with('result_msg', "Delete Successfully.");
 
     }
 }

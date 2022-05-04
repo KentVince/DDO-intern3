@@ -30,7 +30,7 @@
 							        <div>Hello, {{ Auth::user()->name ?? "user!" }}.&nbsp;This is where you can manage applicant's record</div>
 							    </div><!--//col-->
 							    <div class="col-12 col-lg-3">
-								    <button class="btn app-btn-primary" id="createminerals_modal_btn" data-toggle="modal" data-target="#ModalCreate2"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								    <button class="btn app-btn-primary" id="create_modal_btn" data-toggle="modal" data-target="#ModalCreate2"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
   <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
   <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
@@ -58,7 +58,7 @@
                                                 <th class="cell">Name of Applicant</th>
                                                 <th class="cell">Buyer</th>
                                                 <th class="cell">Total Tonnage</th>
-                                                <th class="cell">Date of Filling</th>
+                                                <th class="cell">Created At</th>
                                                 <th class="cell">Updated At</th>
                                                 <th class="cell" data-sortable="false">View</th>
                                                 <th class="cell" data-sortable="false">Delete</th>
@@ -67,6 +67,7 @@
                                         <tbody>
 											@forelse($forms as $item)
 											<tr>
+												<input type="hidden" class="delete_id" value="{{ $item->id }}">
                                                 <td>{{ $item->otp_number }}</td>
                                                 <td>{{ $item->name_permitte }}</td>
                                                 <td>{{ $item->name_applicant }}</td>
@@ -77,14 +78,14 @@
 												@if(isset($item->specifications))
 												<td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}" data-specs-info="{{ $item->specifications->id  ? $item->specifications->id :"blank"}}" data-mineral-info="{{$item->specifications->mineral->id}}" data-target="#ModalEdit2" >View</button></td>
 												@else
-												{{-- <td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}"   data-target="#ModalEdit2" >View</button></td> --}}
+												 <td class="cell"><button class="btn-sm app-btn-secondary" id="viewbtn"  data-toggle="modal" data-form-info="{{$item}}"   data-target="#ModalEdit2" >View</button></td> --}}
 												@endif
                                                 <td class="cell">
-												<form method="POST" id="delete_form" class="ignore-css" action="/form/{{ $item->id }}">
-													@csrf
-													@method('delete') 
-													<button class="btn-sm app-btn-danger" id="delete_btn" type="button" onclick="confirmAction('form record','danger','delete_form')">Delete</button>
-												</form>
+													<form method="POST" id="delete_form" class="ignore-css" action="{{ url('/form' . '/' . $item->id) }}">
+														{{ method_field('DELETE') }}
+														{{ csrf_field() }}
+														<button class="btn-sm app-btn-danger delete_btn" id="delete_btn" type="button" onclick="confirmAction('form record','danger','delete_form')">Delete</button>
+													</form>
                                                 </td>
 											</tr>
 											@empty

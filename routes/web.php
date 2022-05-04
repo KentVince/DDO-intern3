@@ -31,12 +31,14 @@ Route::middleware(['auth'])->controller(HomeController::class)->group(function (
 Auth::routes();
 Route::get('/welcome', function () {
     return view('welcome');
-});
+}); 
 Route::get('/', function () {
     return redirect('/form');
 });
 Route::get('/findMunicipality',[App\Http\Controllers\FormController::class, 'findMunicipality']);
 Route::get('/findBarangay',[App\Http\Controllers\FormController::class, 'findBarangay']);
+Route::delete('/form-id-delete/{id}',[App\Http\Controllers\FormController::class, 'destroy']);
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/apps', [App\Http\Controllers\HomeController::class, 'apps'])->name('apps');
 // Route::get('/account', [App\Http\Controllers\HomeController::class, 'account'])->name('account');

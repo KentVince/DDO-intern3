@@ -19,7 +19,7 @@
 				</div>
 				<div class="mb-3">
 					<label for="name_of_minerals" class="form-label">Mineral Title</label>
-					<input type="text" placeholder="Input Mineral Name" class="form-control @error('name_of_minerals') is-invalid @enderror"  id="name_of_minerals" name="name_of_minerals" required>
+					<input type="text" placeholder="Input Mineral Name" class="form-control @error('name_of_minerals') is-invalid @enderror"  id="name_of_minerals" name="name_of_minerals" >
 					@error('name_of_minerals')
 					<span class="invalid-feedback" role="alert">
 						<strong id ="name_of_minerals_err">{{ $message }}</strong>

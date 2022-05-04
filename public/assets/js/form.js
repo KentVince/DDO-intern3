@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    $("#submit_form").submit(function (e) {
+        e.preventDefault();
+    });
+    if ($("span.invalid-feedback ").text() != "") {
+        $("#createform_modal_btn").trigger("click");
+    }
     $("#form_table").DataTable();
     $(".modal#ModalEdit2").on("hidden.bs.modal", function (e) {
         $("#updatelForm").trigger("reset");
@@ -9,33 +15,21 @@ $(document).ready(function () {
         var bookId = $(e.relatedTarget).data("form-info");
         bookId = Object.values(bookId);
         $("form#updatelForm").attr("action", `/form/${bookId[0]}`);
-        //get data-id attribute of the clicked element
+
         var mineralInfo = $(e.relatedTarget).data("mineral-info");
-        //alert(typeof mineralInfo);
+
         if (typeof mineralInfo !== "undefined") {
-            //the array is defined and has at least one element
             var specs_info = $(e.relatedTarget).data("specs-info");
             console.log(bookId);
-            //alert("mineral info found"+mineralInfo);
+
             $("#kind_mineral2").val(mineralInfo);
-            //$("#specs_group_edit").val(specs_info);
+
             generateMineralSpecs(
                 $("select#kind_mineral2")
                     .find(":selected")
                     .data("mineral-variable")
             );
             $("select#specs_group_edit").val(specs_info).change();
-            //alert(bookId);
-            //provinces muni brgy
-            //$(this).find('select[name="province2"]').val(bookId[3]);
-            //$(this).find('select[name="municipality2"]').val(bookId[4]);
-            //$(this).find('select[name="municipality2"]').val(bookId[4]);
-            //$("select#province2").val(bookId[3]);
-            //console.log(bookId[3]);
-            //$("select#municipals2").val(bookId[4]);
-            //alert(typeof bookId[4]);
-            //$("select#brgy2").val(bookId[5]);
-            //console.log(bookId[5]);
             $(e.currentTarget)
                 .find('input[name="estimated_value2"]')
                 .val(bookId[9]);
@@ -59,14 +53,11 @@ $(document).ready(function () {
             $(e.currentTarget)
                 .find('input[name="num_vehicle2"]')
                 .val(bookId[10]);
-            // $(e.currentTarget)
-            // .find('input[name="processing_fee2"]')
-            // .val(bookId[10]);
         } else {
-            //alert("mineral not found"+mineralInfo);
             $("#kind_mineral2").val("");
         }
         $("#province2").val(bookId[3]);
+
         // dispaly municipal on (VIEW)
         var op = " ";
         $.ajax({
@@ -97,8 +88,12 @@ $(document).ready(function () {
                 }
                 $("#municipals2").html(" ");
                 $("#municipals2").append(op);
+                $("#municipals2 option").each(function () {
+                    $(this).text($(this).text().toUpperCase());
+                });
             },
         });
+
         // dispaly baranggay on (VIEW)
         var brgy = " ";
         $.ajax({
@@ -132,9 +127,6 @@ $(document).ready(function () {
         });
         $(e.currentTarget).find('input[name="otp_number2"]').val(bookId[1]);
         $(e.currentTarget).find('input[name="name_permitte2"]').val(bookId[2]);
-        //$(e.currentTarget).find('input[name="province2"]').val(bookId[3]);
-        //$(e.currentTarget).find('input[name="municipality2"]').val(bookId[4]);
-        //$(e.currentTarget).find('input[name="barangay2"]').val(bookId[5]).trigger('change');
         $(e.currentTarget).find('input[name="name_applicant2"]').val(bookId[6]);
         $(e.currentTarget).find('input[name="applicant_mail2"]').val(bookId[7]);
         $(e.currentTarget).find('input[name="buyer2"]').val(bookId[17]);
@@ -142,7 +134,7 @@ $(document).ready(function () {
     });
 
     //auto compute on (ADD)
-    $("body").on("keyup", "#tonnage", function () {
+    $(document).on("keyup", "#tonnage", function () {
         var tonnage = parseFloat($(this).val());
         var num_vehicle;
         if (tonnage <= 20) {
@@ -206,17 +198,11 @@ $(document).ready(function () {
     });
     $("#ModalCreate2").on("show.bs.modal", function (e) {
         $("select#specs_group").empty();
-        // $("ul#specs_group").empty();
-        // var mineralInfo = $('select#kind_mineral').find(':selected').data('mineral-variable');
-        // var mineralInfo = $(e.relatedTarget).data("form-info");
-        // generateMineralSpecs(mineralInfo);
-        // $(".modal-body1").html("");
     });
     $(".modal#ModalCreate2").on("hidden.bs.modal", function () {
         id = $(this).attr("id");
         $(this).find("form").trigger("reset");
         $("select#specs_group").empty();
-        // $(".modal-body1").html("");
     });
     $(".toggle-alert").click(function () {
         $(".toast").toggle();
@@ -353,36 +339,156 @@ $(document).ready(function () {
             },
         });
     });
-});
 
-function confirmAction(info, status, formId) {
-    var td_name = $("#td_name").text();
-    if (status == "danger") {
+    $(".delete_btn").click(function (e) {
+        e.preventDefault();
+        var delete_id = $(this).closest("tr").find(".delete_id").val();
+
         swal({
-            title: `Are you sure you want to delete this ${info}?`,
-            text: "Once deleted, you will not be able to recover this imaginary file!",
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this record!",
             icon: "warning",
+            buttons: true,
             dangerMode: true,
-            buttons: {
-                cancel: {
-                    text: "I changed my mind.",
-                    value: false,
-                    visible: true,
-                    className: "",
-                    closeModal: true,
-                },
-                confirm: {
-                    text: "Yes, I'm sure.",
-                    value: true,
-                    visible: true,
-                    className: "",
-                    closeModal: true,
-                },
-            },
-        }).then((value) => {
-            if (value == true) {
-                $(`#${formId}`).submit();
+        }).then((willDelete) => {
+            if (willDelete) {
+                var data = {
+                    _token: $("input[name=_token]").val(),
+                    id: delete_id,
+                };
+                $.ajax({
+                    type: "DELETE",
+                    url: "/form-id-delete/" + delete_id,
+                    data: data,
+                    success: function (response) {
+                        swal(response.status, {
+                            icon: "success",
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    },
+                });
             }
         });
-    }
-}
+    });
+});
+
+// function confirmAction(info, status, formId) {
+//     var td_name = $("#td_name").text();
+//     if (status == "danger") {
+//         swal({
+//             title: `Are you sure you want to delete this ${info}?`,
+//             text: "Once deleted, you will not be able to recover this imaginary file!",
+//             icon: "warning",
+//             dangerMode: true,
+//             buttons: {
+//                 cancel: {
+//                     text: "I changed my mind.",
+//                     value: false,
+//                     visible: true,
+//                     className: "",
+//                     closeModal: true,
+//                 },
+//                 confirm: {
+//                     text: "Yes, I'm sure.",
+//                     value: true,
+//                     visible: true,
+//                     className: "",
+//                     closeModal: true,
+//                 },
+//             },
+//         }).then((value) => {
+//             if (value == true) {
+//                 $(`#${formId}`).submit();
+//             }
+//         });
+//     }
+// }
+
+//upper case all details in (Add)
+$(window).on("keyup", function () {
+    var name_permitte = $("#name_permitte").val();
+    var uppercase_name_permitte = name_permitte.toUpperCase();
+    $("#name_permitte").val(uppercase_name_permitte);
+
+    var name_applicant = $("#name_applicant").val();
+    var uppercase_name_applicant = name_applicant.toUpperCase();
+    $("#name_applicant").val(uppercase_name_applicant);
+
+    var applicant_mail = $("#applicant_mail").val();
+    var uppercase_applicant_mail = applicant_mail.toUpperCase();
+    $("#applicant_mail").val(uppercase_applicant_mail);
+
+    var buyer = $("#buyer").val();
+    var uppercase_buyer = buyer.toUpperCase();
+    $("#buyer").val(uppercase_buyer);
+
+    var buyer_mail = $("#buyer_mail").val();
+    var uppercase_buyer_mail = buyer_mail.toUpperCase();
+    $("#buyer_mail").val(uppercase_buyer_mail);
+});
+
+$(window).on("change", function () {
+    $("#kind_mineral option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+
+    $("#specs_group option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+});
+
+$(window).on("change", function () {
+    $("#province_id option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+    $("#municipals option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+    $("#brgy option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+});
+
+//upper case all input in (Edit)
+
+$(window).on("keyup", function () {
+    var name_permitte2 = $("#name_permitte2").val();
+    var uppercase_name_permitte2 = name_permitte2.toUpperCase();
+    $("#name_permitte2").val(uppercase_name_permitte2);
+
+    var name_applicant2 = $("#name_applicant2").val();
+    var uppercase_name_applicant2 = name_applicant2.toUpperCase();
+    $("#name_applicant2").val(uppercase_name_applicant2);
+
+    var applicant_mail2 = $("#applicant_mail2").val();
+    var uppercase_applicant_mail2 = applicant_mail2.toUpperCase();
+    $("#applicant_mail2").val(uppercase_applicant_mail2);
+
+    var buyer2 = $("#buyer2").val();
+    var uppercase_buyer2 = buyer2.toUpperCase();
+    $("#buyer2").val(uppercase_buyer2);
+
+    var buyer_mail2 = $("#buyer_mail2").val();
+    var uppercase_buyer_mail2 = buyer_mail2.toUpperCase();
+    $("#buyer_mail2").val(uppercase_buyer_mail2);
+});
+
+$(window).on("click", function () {
+    $("#kind_mineral2 option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+
+    $("#specs_group_edit option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+});
+
+$(window).on("click", function () {
+    $("#province2 option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+    $("#brgy2 option").each(function () {
+        $(this).text($(this).text().toUpperCase());
+    });
+});
