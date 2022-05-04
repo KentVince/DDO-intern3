@@ -199,9 +199,9 @@ class FormController extends Controller
 
     public function destroy($id)
     {
-        dd($id);
+      
         Forms::destroy($id);
-        return redirect('/form')->with('result_msg', "Mer Successfully.$id");
+        return redirect('/form')->with('result_msg', "Deleted Form Record Successfully.");
 
     }
 }

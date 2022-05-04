@@ -447,7 +447,7 @@ $(document).ready(function () {
     });
 });
 
-function confirmAction(info, status, formId) {
+function confirmAction(info, status, formId,formValue) {
     var td_name = $("#td_name").text();
 
     if (status == "danger") {
@@ -474,6 +474,7 @@ function confirmAction(info, status, formId) {
             },
         }).then((value) => {
             if (value == true) {
+                $(`#${formId}`).attr('action','/form/'+formValue);
                 $(`#${formId}`).submit();
             }
         });
