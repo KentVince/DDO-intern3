@@ -50,7 +50,7 @@
 					    <div class="app-card app-card-orders-table shadow-sm mb-5 p-3">
 						    <div class="app-card-body">
 							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left" id="form_table">
+							        <table class="table app-table-hover mb-0 text-left" id="myTable">
 										<thead>
 											<tr>
                                                 <th class="cell">OTP Number</th>

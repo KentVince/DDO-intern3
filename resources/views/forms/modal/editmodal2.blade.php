@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Excise OR</strong>
-                                    <input type="number" class="form-control" id="excise_or" name="excise_or2" required>
+                                    <input type="text" class="form-control" id="excise_or" name="excise_or2" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Processing Fee</strong>
@@ -122,7 +122,7 @@
                                 
                                 <div class="col-md-6">
                                     <strong>Processing OR</strong>
-                                    <input type="number" class="form-control" id="processing_or" name="processing_or2" required>
+                                    <input type="text" class="form-control" id="processing_or" name="processing_or2" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Excise Tax</strong>
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Extraction OR</strong>
-                                    <input type="number" class="form-control" id="extraction_or" name="extraction_or2" required>
+                                    <input type="text" class="form-control" id="extraction_or" name="extraction_or2" required>
                                 </div>
                             </div>
                           </div>

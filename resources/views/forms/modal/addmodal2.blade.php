@@ -115,23 +115,23 @@
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Extraction OR:</strong>
-                                    <input type="number" class="form-control"  name="extraction_or" required>   
+                                    <input type="text" class="form-control" id="extraction_or"  name="extraction_or" required>   
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Processing Fee:</strong>
-                                    <input type="number" class="form-control"  name="processing_fee" required>
+                                    <input type="number" class="form-control" id="processing_fee" name="processing_fee" required>
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Processing OR:</strong>
-                                    <input type="number" class="form-control"  name="processing_or" required>    
+                                    <input type="text" class="form-control" id="processing_or" name="processing_or" required>    
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Excise Tax:</strong>
-                                    <input type="number" class="form-control"  name="excise_tax" required>    
+                                    <input type="number" class="form-control" id="excise_tax"  name="excise_tax" required>    
                                 </div>
                                 <div class="col-md-6">
                                     <strong>Excise OR:</strong>
-                                    <input type="number" class="form-control"  name="excise_or"required >
+                                    <input type="text" class="form-control" id="excise_or"  name="excise_or"required >
                                 </div>
                             </div>
                           </div>

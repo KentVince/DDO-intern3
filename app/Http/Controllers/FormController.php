@@ -49,8 +49,8 @@ class FormController extends Controller
     {
         $request->validate([
             'name_permitte'=>'required','name_applicant'=>'required','applicant_mail'=>'required','province'=>'required','municipality'=>'required',
-            'barangay'=>'required','mineral_id'=>'required','specification_id'=>'required','tonnage'=>'required | numeric','extraction_or'=>'required | numeric',
-            'processing_fee'=>'required | numeric','processing_or'=>'required | numeric','excise_tax'=>'required | numeric','excise_or'=>'required | numeric',
+            'barangay'=>'required','mineral_id'=>'required','specification_id'=>'required','tonnage'=>'required | numeric','extraction_or'=>'required',
+            'processing_fee'=>'required | numeric','processing_or'=>'required','excise_tax'=>'required | numeric','excise_or'=>'required',
             'buyer'=>'required','buyer_mail'=>'required',
         ]);
         unset($request['mineral_id']);
